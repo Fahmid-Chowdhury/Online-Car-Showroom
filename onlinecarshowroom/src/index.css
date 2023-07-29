@@ -6,7 +6,17 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  --bg: #000000;
+  --clr-1: #00c2ff;
+  --clr-2: #33ff8c;
+  --clr-3: #ffc640;
+  --clr-4: #e54cff;
+
+  --blur: 1rem;
+  --fs: clamp(3rem, 8vw, 7rem);
+  --ls: clamp(-1.75px, -0.25vw, -3.5px);
 }
+
 body{
   font-family: 'poppins', sans-serif;
 }
@@ -82,3 +92,25 @@ body{
   background-size: cover;
   background-position: center;
 }
+
+.text-container{
+  padding: ;
+}
+@keyframes backgroundpan {
+  from {
+    background-position: 0% center;
+  }
+  to {
+    background-position: -200% center;
+  }
+}
+.magic {
+  background-image: linear-gradient(to right, #8a06d6, #06ccd6, #8a06d6);
+  background-clip: text;
+  color: transparent;
+  background-size: 200%;
+  animation: backgroundpan 10s linear infinite;
+}
+
+/* magic */
+
