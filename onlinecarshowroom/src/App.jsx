@@ -18,6 +18,8 @@ function App() {
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route exact path="/car" element={<CarPage />} />
+            <Route exact path="/" element={<CarPage />} />
+            <Route exact path="/" element={<CarPage />} />
             
           </Routes>
         </Router>
