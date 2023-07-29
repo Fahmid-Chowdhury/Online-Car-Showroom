@@ -10,6 +10,9 @@
 body{
   font-family: 'poppins', sans-serif;
 }
+.sidebar-background{
+  background: linear-gradient(rgb(23, 23, 26) 30%, rgb(35, 35, 54) 100%);
+}
 .sidebar-navigation{
   margin: 0 10px;
 }
@@ -73,4 +76,9 @@ body{
   border-radius: 10px;
   font-size: 12px;
   text-align: center;
+}
+.home-container{
+  background-image: url("./assets/backgroundimage.jpg");
+  background-size: cover;
+  background-position: center;
 }

@@ -7,7 +7,7 @@ export default function Navbar() {
 
 return (
 <>
-  <div className='w-[300px] bg-gray-900 text-white relative'>
+  <div className='w-[300px] sidebar-background text-white relative'>
     <div className='text-center logo-container'>
       <span>ONLINE CAR</span>
       <span>SHOWROOM</span>

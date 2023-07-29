@@ -5,8 +5,10 @@ export default function HomePage() {
 
     return (
         <>
-            
-            
+        <div className="flex-1 home-container">
+            <div className="image-container">
+            </div>
+        </div>
         </>
     );
 }
