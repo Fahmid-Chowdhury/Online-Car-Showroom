@@ -7,14 +7,7 @@ export default function HomePage() {
         <>
         <div className="flex-1 home-container">
             <div className="text-container">
-            <h1 class="title">Find your dream car
-                <div class="aurora">
-                    <div class="aurora__item"></div>
-                    <div class="aurora__item"></div>
-                    <div class="aurora__item"></div>
-                    <div class="aurora__item"></div>
-                </div>
-            </h1>
+                <h1>Online Car Showroom</h1>
             </div>
         </div>
         </>

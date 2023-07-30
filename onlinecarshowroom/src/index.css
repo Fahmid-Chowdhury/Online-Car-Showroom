@@ -2,6 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 :root{
   padding: 0;
   margin: 0;
@@ -93,9 +94,7 @@ body{
   background-position: center;
 }
 
-.text-container{
-  padding: ;
-}
+
 @keyframes backgroundpan {
   from {
     background-position: 0% center;
