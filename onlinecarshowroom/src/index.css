@@ -13,6 +13,7 @@
   --clr-3: #ffc640;
   --clr-4: #e54cff;
 
+
   --blur: 1rem;
   --fs: clamp(3rem, 8vw, 7rem);
   --ls: clamp(-1.75px, -0.25vw, -3.5px);
@@ -20,9 +21,14 @@
 
 body{
   font-family: 'poppins', sans-serif;
+  background-color: rgb(24, 22, 32);
 }
 .sidebar-background{
+  /* margin:10px 0 10px 10px; */
+  margin:10px;
+  border-radius:10px;
   background: linear-gradient(rgb(23, 23, 26) 30%, rgb(35, 35, 54) 100%);
+  box-shadow: black 0px 0px 10px 0px;
 }
 .sidebar-navigation{
   margin: 0 10px;
@@ -92,8 +98,29 @@ body{
   background-image: url("./assets/backgroundimage.jpg");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  box-shadow: rgb(0, 0, 0) 0px 0px 10px 0px;
+  margin: 10px;
 }
-
+.text-container-title{
+  padding: 0 40px ;
+  color: whitesmoke;
+  font-size: 65px;
+  font-weight: 600;
+  line-height: 60px;
+  letter-spacing: -2px;
+  margin: 100px 0;
+}
+.text-container-subtitle{
+  padding: 0 40px ;
+  color: whitesmoke;
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 60px;
+  letter-spacing: -2px;
+  margin: 100px 0;
+}
 
 @keyframes backgroundpan {
   from {
@@ -104,12 +131,12 @@ body{
   }
 }
 .magic {
-  background-image: linear-gradient(to right, #8a06d6, #06ccd6, #8a06d6);
+  background-image: linear-gradient(to right, var(--clr-1), var(--clr-2), var(--clr-3), var(--clr-1));
   background-clip: text;
   color: transparent;
   background-size: 200%;
   animation: backgroundpan 10s linear infinite;
-}
+} 
 
-/* magic */
+
 
