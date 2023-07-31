@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -21,7 +21,7 @@
 
 body{
   font-family: 'poppins', sans-serif;
-  background-color: rgb(24, 22, 32);
+  background-color: rgb(36, 33, 48);
 }
 .sidebar-background{
   /* margin:10px 0 10px 10px; */
@@ -102,24 +102,70 @@ body{
   border-radius: 10px;
   box-shadow: rgb(0, 0, 0) 0px 0px 10px 0px;
   margin: 10px;
+  overflow: hidden;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-500px);
+  }
+  50% {
+    transform: translateX(0px);
+    
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+@keyframes slideOut {
+  0% {
+    transform: translateY(-500px);
+  }
+  50% {
+    transform: translateY(-500px);
+    
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 .text-container-title{
-  padding: 0 40px ;
+  animation: left-slide 2s linear infinite;
   color: whitesmoke;
+  margin:40px;
+  padding: 40px 20px;
+  animation: slideIn 1s ease-in-out;
+}
+.text-container-title .subtitle-container{
+  overflow: hidden;
+}
+.text-container-title .subtitle-container h1{
+  animation:slideOut 1s ease-in-out;
+}
+.text-container-title .button-container{
+  overflow: hidden;
+}
+
+.text-container-title .button-container button{
+  animation:slideOut 1.3s ease-in-out;
+
+  
+}  
+
+
+.text-container-title h1{
   font-size: 65px;
   font-weight: 600;
   line-height: 60px;
   letter-spacing: -2px;
-  margin: 100px 0;
+
 }
-.text-container-subtitle{
-  padding: 0 40px ;
-  color: whitesmoke;
-  font-size: 25px;
-  font-weight: 600;
-  line-height: 60px;
-  letter-spacing: -2px;
-  margin: 100px 0;
+.text-container-title p{
+  padding: 20px 0;
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  animation:slideOut 1s ease-in-out;
 }
 
 @keyframes backgroundpan {
@@ -137,6 +183,16 @@ body{
   background-size: 200%;
   animation: backgroundpan 10s linear infinite;
 } 
+
+.text-container-button{
+  font-size: 16px;
+  letter-spacing: -0.5px;
+  padding: 8px 38px ;
+  color: whitesmoke;
+  margin: 40px 0;
+  border-radius: 16px;
+  background-image: linear-gradient(103.91deg, #9B51E0 21.01%, rgba(48, 130, 237, 0.959) 100%);
+}
 
 
 
