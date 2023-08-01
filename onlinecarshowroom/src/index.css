@@ -25,10 +25,10 @@ body{
 }
 .sidebar-background{
   /* margin:10px 0 10px 10px; */
-  margin:10px;
-  border-radius:10px;
+  /* margin:10px; */
+  /* border-radius:10px; */
   background: linear-gradient(rgb(23, 23, 26) 30%, rgb(35, 35, 54) 100%);
-  box-shadow: black 0px 0px 10px 0px;
+  /* box-shadow: black 0px 0px 10px 0px; */
 }
 .sidebar-navigation{
   margin: 0 10px;
@@ -57,7 +57,7 @@ body{
   height: 2px;
   background-color: rgba(173, 173, 173, 0.644);
   margin: 5px 0;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   
 }
 
@@ -107,9 +107,9 @@ body{
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 10px;
-  box-shadow: rgb(0, 0, 0) 0px 0px 10px 0px;
-  margin: 10px;
+  /* border-radius: 10px; */
+  /* box-shadow: rgb(0, 0, 0) 0px 0px 10px 0px; */
+  /* margin: 10px; */
   overflow: hidden;
 }
 
