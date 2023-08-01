@@ -52,6 +52,14 @@ body{
 .logo-container span:first-child{
   word-spacing: 15px;
 }
+.bar{
+  width: 200px;
+  height: 2px;
+  background-color: rgba(173, 173, 173, 0.644);
+  margin: 5px 0;
+  border-radius: 5px;
+  
+}
 
 .nav-item-container{
   display: flex;

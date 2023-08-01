@@ -13,7 +13,9 @@ return (
       <span>ONLINE CAR</span>
       <span>SHOWROOM</span>
     </div>
-  
+    <div className='flex justify-center'>
+      <div className="bar"></div>
+    </div>
     <nav>
       <div className='flex flex-col justify-between sidebar-navigation'>
         <SidebarNavItem icon={<HomeIcon />} text='Home' link='/' />
