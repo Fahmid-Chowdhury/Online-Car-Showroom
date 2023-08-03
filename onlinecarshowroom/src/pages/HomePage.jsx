@@ -1,21 +1,32 @@
-import React, {useState, useEffect} from 'react';
-import backgroundCarImage from '../assets/background-car-image.png';
-import { Link } from 'react-router-dom';
+import "./homepage.css";
+import { Link } from "react-router-dom";
 
-export default function HomePage() {
 
-    return (
+function HomeSection(){
+    return(
         <>
-        <div className="relative flex flex-col flex-1 home-container">
-            <div className=" text-container-title">  
-                <div><h1><span className='magic'>Welcome<br></br> to Online<br></br>Car Showroom</span></h1></div>
-                <div className='subtitle-container'><p>Find your dream car from a wide selection of vehicles.</p></div>
-                <div className='button-container'><Link to='/cars'>
-                    <button className='text-container-button'>Collections</button>
-                </Link></div>
+        <div className="home-container home">
+            <div className="hero-text">
+                <h5>Your Ultimate Car Destination</h5>
+                <h1>Rent or Buy<br></br> Your Dream <br></br>Car Today</h1>
+                <p>At our car showroom, we take pride in offering a captivating automotive <br></br>experience like no other. Whether you're seeking the thrill of a lifetime <br></br>or the perfect companion for everyday adventures.</p>
+                <div className="btn-group">
+                    <Link to="/cars" className="btn">Buy Car</Link>
+                    <Link to="/rent" className="btn">Rent Car</Link>
+                </div>
             </div>
-            
         </div>
         </>
     );
 }
+
+export default function HomePage (){
+    return(
+        <>
+        
+        <HomeSection />
+        
+        </>
+    );
+}
+

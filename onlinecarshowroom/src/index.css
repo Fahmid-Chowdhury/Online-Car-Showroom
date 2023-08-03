@@ -3,204 +3,30 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root{
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  scroll-behavior: smooth;
+
   --bg: #000000;
-  --clr-1: #00c2ff;
-  --clr-2: #33ff8c;
-  --clr-3: #ffc640;
-  --clr-4: #e54cff;
+  --txt-col: whitesmoke;
+  --primary-col: #7543ff;
 
-
-  --blur: 1rem;
-  --fs: clamp(3rem, 8vw, 7rem);
-  --ls: clamp(-1.75px, -0.25vw, -3.5px);
+  --primary-header: 6rem;
+  --secondary-header: 3rem;
+  --text-size: 1rem;
 }
 
 body{
   font-family: 'poppins', sans-serif;
-  background-color: rgb(36, 33, 48);
+  background-color: var(--bg);
+  color: var(--txt-col);
 }
-.sidebar-background{
-  /* margin:10px 0 10px 10px; */
-  /* margin:10px; */
-  /* border-radius:10px; */
-  background: linear-gradient(rgb(23, 23, 26) 30%, rgb(35, 35, 54) 100%);
-  /* box-shadow: black 0px 0px 10px 0px; */
-}
-.sidebar-navigation{
-  margin: 0 10px;
-}
-.logo-container{
-  margin: 30px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  line-height: 10px;
-  background: linear-gradient(to right, rgb(191, 70, 247) 0%, rgb(69, 208, 250) 100%);
-  background-clip: text;
-}
-.logo-container span{
-  white-space: nowrap;
-  font-size: 32px;
-  color: transparent;
-  margin: 10px 0;
-  font-weight: 700;
-}
-.logo-container span:first-child{
-  word-spacing: 15px;
-}
-.bar{
-  width: 200px;
-  height: 2px;
-  background-color: rgba(173, 173, 173, 0.644);
-  margin: 5px 0;
-  /* border-radius: 5px; */
-  
-}
-
-.nav-item-container{
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  padding: 15px;
-  color: rgb(173, 173, 173);
-  border-radius: 10px;
-  font-size: 20px;
-  
-}
-
-.nav-item-icon{
-  font-size: 20px;
-  margin-right: 10px;
-}
-.nav-item-icon svg{
-  width: 25px;
-  height: 25px;
-}
-.nav-item-container:hover{
-  background-color: rgb(54, 52, 65);
-  color: rgb(255, 255, 255);
-}
-.nav-item-container:active{
-  background-color: rgb(54, 52, 65);
-  color: rgb(255, 255, 255);
-}
-
-.nav-item-container:hover .nav-item-icon svg{
-  fill: aquamarine;
-}
-.sidebar-footer{
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 15px;
-  color: rgb(173, 173, 173);
-  border-radius: 10px;
-  font-size: 12px;
-  text-align: center;
-}
-.home-container{
-  background-image: url("./assets/backgroundimage.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  /* border-radius: 10px; */
-  /* box-shadow: rgb(0, 0, 0) 0px 0px 10px 0px; */
-  /* margin: 10px; */
-  overflow: hidden;
-}
-
-@keyframes slideIn {
-  0% {
-    transform: translateX(-500px);
-  }
-  50% {
-    transform: translateX(0px);
-    
-  }
-  100% {
-    transform: translateX(0px);
-  }
-}
-@keyframes slideOut {
-  0% {
-    transform: translateY(-500px);
-  }
-  50% {
-    transform: translateY(-500px);
-    
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
-.text-container-title{
-  animation: left-slide 2s linear infinite;
-  color: whitesmoke;
-  margin:40px;
-  padding: 40px 20px;
-  animation: slideIn 1s ease-in-out;
-}
-.text-container-title .subtitle-container{
-  overflow: hidden;
-}
-.text-container-title .subtitle-container h1{
-  animation:slideOut 1s ease-in-out;
-}
-.text-container-title .button-container{
-  overflow: hidden;
-}
-
-.text-container-title .button-container button{
-  animation:slideOut 1.3s ease-in-out;
-
-  
-}  
-
-
-.text-container-title h1{
-  font-size: 65px;
-  font-weight: 600;
-  line-height: 60px;
-  letter-spacing: -2px;
-
-}
-.text-container-title p{
-  padding: 20px 0;
-  font-size: 18px;
-  font-weight: 300;
-  letter-spacing: 0.5px;
-  animation:slideOut 1s ease-in-out;
-}
-
-@keyframes backgroundpan {
-  from {
-    background-position: 0% center;
-  }
-  to {
-    background-position: -200% center;
-  }
-}
-.magic {
-  background-image: linear-gradient(to right, var(--clr-1), var(--clr-2), var(--clr-3), var(--clr-1));
-  background-clip: text;
-  color: transparent;
-  background-size: 200%;
-  animation: backgroundpan 10s linear infinite;
-} 
-
-.text-container-button{
-  font-size: 16px;
-  letter-spacing: -0.5px;
-  padding: 8px 38px ;
-  color: whitesmoke;
-  margin: 40px 0;
-  border-radius: 16px;
-  background-image: linear-gradient(103.91deg, #9B51E0 21.01%, rgba(48, 130, 237, 0.959) 100%);
-}
-
 
 

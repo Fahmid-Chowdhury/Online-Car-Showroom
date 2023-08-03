@@ -1,17 +1,14 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import CarPage from './pages/CarPage';
-import Navbar from './components/Navbar'
 import './App.css'
 
 
 function App() {
-  
-
   return (
     <>
-        <div className="relative flex min-h-screen">
-          
+        <div className="flex flex-col root-container">
           
         <Router>
           <Navbar />
