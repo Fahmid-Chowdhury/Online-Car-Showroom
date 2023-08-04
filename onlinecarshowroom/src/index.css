@@ -14,18 +14,21 @@
   outline: none;
   scroll-behavior: smooth;
 
-  --bg: #000000;
   --txt-col: whitesmoke;
-  --primary-col: #7543ff;
-
+  --primary-col: #00ffff;
+  --border-col:rgba(97, 115, 119, 0.411);
+  --bg-container: rgba(0, 0, 0, 0.5);
   --primary-header: 6rem;
   --secondary-header: 3rem;
   --text-size: 1rem;
+
+  --shadow: 0 0 10px 1px rgba(0, 0, 0, 0.411);
+  --gradient:linear-gradient(#141e30, #243b55);
 }
 
 body{
   font-family: 'poppins', sans-serif;
-  background-color: var(--bg);
+  background: var(--gradient);
   color: var(--txt-col);
 }
 

@@ -5,11 +5,11 @@ import CarPage from './pages/CarPage';
 import './App.css'
 
 
+
 function App() {
   return (
     <>
-        <div className="flex flex-col root-container">
-          
+        <div className="relative flex flex-col root-container">
         <Router>
           <Navbar />
           <Routes>

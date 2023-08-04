@@ -1,13 +1,13 @@
 
 /* Home section  */
 .home-container{
-    padding: 70px 17% 60px;
+    margin: 70px 17% 60px;
 }
 .home{
     position:relative;
     height: 100%;
-    width:100%;
-    background-image:linear-gradient(to left, rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url(../assets/backgroundimage.jpg);
+    margin: 0 17%;
+    /* background-image:linear-gradient(to left, rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url(../assets/backgroundimage.jpg); */
     background-size: cover;
     background-position: center bottom;
     display: flex;

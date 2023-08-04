@@ -1,23 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './carPage.css';
-import MapCar from '../components/MapCar';
-import ToolBar from '../components/toolbar';
+import PriceRange from '../components/priceRange.jsx';
 
-function Selector({type, data}){
-  return(
-    <>
-    <div className="toolbar-item-selector">
-        <label htmlFor={type}>{type}:</label>
-            <select id={type}>
-              <option value="">All</option>
-              <option value="lt30">Less than $30,000</option>
-              <option value="30to50">$30,000 - $50,000</option>
-              <option value="gt50">More than $50,000</option>
-            </select>
-      </div>
-    </>
-  )
-}
+
 export default function CarPage() {
   // const [data, setData] = useState(null);
 
@@ -35,8 +20,20 @@ export default function CarPage() {
 
   return (
     <>
-    <div className="relative flex flex-col flex-1 carpage-container">
-      <ToolBar />
+    <div className="relative flex carpage-container">
+      <div className="toolbar-container">
+          <PriceRange/>
+        
+      </div>
+      <div className=" display-container">
+        
+        <div className=" display-item-container">
+          
+        </div>
+        
+      </div>
+      
+      
     <div>
       
     </div>
