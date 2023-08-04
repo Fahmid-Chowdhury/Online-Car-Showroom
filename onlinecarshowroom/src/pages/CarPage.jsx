@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './carPage.css';
 import PriceRange from '../components/priceRange.jsx';
-
+import ExtendedList from '../components/extendedList';
 
 export default function CarPage() {
   // const [data, setData] = useState(null);
@@ -17,12 +17,13 @@ export default function CarPage() {
   //       console.error('Error fetching car data:', error);
   //     });
   // }, []); // Empty dependency array ensures the effect runs only once when the component mounts
-
+  const carData = ["Toyota", "BMW", "Mclaren","Porche"]
   return (
     <>
     <div className="relative flex carpage-container">
       <div className="toolbar-container">
           <PriceRange/>
+          <ExtendedList data = {carData} title = "Brand" />
         
       </div>
       <div className=" display-container">

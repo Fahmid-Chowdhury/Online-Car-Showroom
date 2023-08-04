@@ -1,21 +1,21 @@
 .heading{
-    
-    margin: 0 17%;
+    padding: 10px 17%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     transition:all 0.5s ease;
     transition: all 0.5s ease;
-    border-bottom: 1px solid var(--border-col);
-    padding: 10px 0;
+    /* border-bottom: 1px solid var(--border-col); */
+    box-shadow: var(--shadow);
+    background-color:var(--bg-container);
 
 
     
 }
 .heading-home{
-    padding: 50px 0;
+    box-shadow: none;
     border: none;
-    margin: 0 17%;
+    padding: 50px 17% 50px;
     background: transparent;
     z-index: 1000;
 }
