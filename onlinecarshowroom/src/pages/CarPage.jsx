@@ -18,12 +18,15 @@ export default function CarPage() {
   //     });
   // }, []); // Empty dependency array ensures the effect runs only once when the component mounts
   const carData = ["Toyota", "BMW", "Mclaren","Porche"]
+  const sortData = ["Price: Low to High", "Price: High to Low","Stock","Modified"]
   return (
     <>
     <div className="relative flex carpage-container">
       <div className="toolbar-container">
           <PriceRange/>
+          <ExtendedList data = {sortData} title = "Sort" />
           <ExtendedList data = {carData} title = "Brand" />
+          <ExtendedList data = {carData} title = "Type" />
         
       </div>
       <div className=" display-container">
