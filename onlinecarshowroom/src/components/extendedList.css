@@ -3,9 +3,9 @@
     background-color:var(--bg-container);
     border-radius: 5px;
     box-shadow: var(--shadow);
-    margin-top: 5px;
     overflow: hidden;
     transition: height 0.5s ease;
+    margin-bottom: 5px;
 }
 
 .extendedList-title{
