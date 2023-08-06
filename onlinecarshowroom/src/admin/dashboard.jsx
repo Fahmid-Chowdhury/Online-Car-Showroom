@@ -25,14 +25,7 @@ export default function DashboardPage() {
 
   return (
     <div className="dashboard-container">
-      {userData && (
-        <>
-          <h2>Dashboard</h2>
-          <p>Welcome, {userData.name}</p>
-          <p>Role: {userData.role}</p>
-          {/* Display additional user data here */}
-        </>
-      )}
+      
     </div>
   );
 }
