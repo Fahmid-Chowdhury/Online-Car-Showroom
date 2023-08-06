@@ -10,7 +10,7 @@
     flex-direction: column;
 }
 .register-container {
-    max-width: 500px;
+    max-width:500px;
     margin: 0 auto;
     padding: 20px;
     background-color: var(--bg-container);
@@ -28,7 +28,7 @@
   
 .form-group {
     margin-bottom: 15px;
-    padding: 0 20px;
+    padding: 0 50px;
 }
   
 .form-group label {
