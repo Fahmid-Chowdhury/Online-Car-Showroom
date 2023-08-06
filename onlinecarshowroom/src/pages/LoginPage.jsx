@@ -1,4 +1,5 @@
 import "./register.css";
+import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 export default function LoginPage() {
     const [email, setEmail] = useState('');
@@ -47,7 +48,9 @@ export default function LoginPage() {
               />
             </div>
             <div className="sign-up-link">
-                <span>Don't have an account? <a href="/signup">Sign up</a> here!</span>
+            <span>
+            Don't have an account? <Link to="/signup">Sign up</Link> here!
+          </span>
             </div>
             <div className="register-button">
               <button type="submit">Sign In</button>
