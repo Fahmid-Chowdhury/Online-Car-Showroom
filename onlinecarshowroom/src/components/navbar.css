@@ -60,6 +60,34 @@
     color: var(--primary-col);
     transform: translateY(-5px);
 }
+.right-float .user-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.right-float .user-container .user-name{
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+ .loggedin-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+.loggedin-container span{
+    color: var(--text-color);
+    margin: 0 5px;
+    transition: all 0.5s ease;
+}
+.loggedin-container span:hover{
+    color: var(--primary-col);
+    cursor: pointer;
+}
+
 
 .menu-bar svg{
     height: 30px;

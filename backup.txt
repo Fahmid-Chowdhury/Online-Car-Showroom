@@ -1,0 +1,25 @@
+<div className="right-float">
+          {userName ? (
+            <div className="user-account" onClick={() =>setShowMiniBar  (!showMiniBar)}>
+              <span>Welcome, {userName}</span>
+            </div>
+            
+          ) : (
+            <>
+              <NavLink route="/login" text="Login" />
+              <NavLink route="/signup" text="Sign Up" />
+            </>
+          )}
+          {showMiniBar && (
+            <div className="mini-bar">
+              {/* Add links to routes based on the user's role */}
+              {userRole === 'admin' && <Link to="/dashboard"><span>Dashboard</span></Link>}
+              <Link to="/user"><span>Account</span></Link>
+              <span className="sign-out-button" onClick={() => handleSignOut(navigate)}>Sign Out
+              </span>
+            </div>
+          )}
+        <div className="menu-bar">
+          <BarIcon />
+        </div>
+      </div>

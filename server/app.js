@@ -59,7 +59,7 @@ app.post('/api/login', (req, res) => {
   }
 
   // Generate JWT token
-  const token = jwt.sign({ userId: user.id, role: user.role }, secretKey, { expiresIn: '1h' });
+  const token = jwt.sign({ userId: user.id, role: user.role,name:user.name }, secretKey, { expiresIn: '1h' });
 
   res.status(200).json({ message: 'Authentication successful', token });
 });

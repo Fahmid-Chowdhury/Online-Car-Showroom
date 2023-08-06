@@ -1,6 +1,8 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation,useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import jwt_decode from 'jwt-decode'
 import './navbar.css';
+
 
 function BarIcon(){
   return(
@@ -18,12 +20,32 @@ function NavLink({route, text}) {
       </Link></li>
   );
 }
+const handleSignOut = (fnc) => {
+  // Remove the JWT token from local storage
+  localStorage.removeItem('token');
+
+  // Redirect the user to the login page
+  fnc('/login');
+};
 export default function Navbar(){
-  const location = useLocation().pathname;
+  const navigate = useNavigate(); // Use history for navigation
+  const location = useLocation();
   const [isHomePage, setIsHomePage] = useState(false);
+  const [userName, setUserName] = useState('');
+  const [showMiniBar, setShowMiniBar] = useState(false);
+  const [userRole, setUserRole] = useState('');
 
   useEffect(() => {
-    setIsHomePage(location === '/');
+    setIsHomePage(location.pathname === '/');
+    
+    // Fetch user's name from localStorage (assuming you store the token as 'token')
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Decode the token to get user data
+      const decodedToken = jwt_decode(token);
+      setUserName(decodedToken.name);
+      setUserRole(decodedToken.role);
+    }
   }, [location]);
   return(
     <>
@@ -39,13 +61,30 @@ export default function Navbar(){
               <NavLink route="/about" text="About Us" />
           </div>
           <div className="right-float">
-              <NavLink route="/login" text="Login" />
-              <NavLink route="/signup" text="Sign Up" />
-              <div className="menu-bar">
-                  <BarIcon />
-              </div>
+            {userName ? (
+              <>
+              <div className="user-container">
+                <div className="user-name">
+                  <span>Welcome, {userName}</span>
+                </div>
+                <div className="loggedin-container">
+                  {userRole === 'admin' && <Link to="/dashboard"><span>Dashboard</span></Link> }
+                  <Link to="/profile"><span>Profile</span></Link>
+                  <span className="signout" onClick={() => handleSignOut(navigate)}>Sign Out</span>
+                </div>
+                </div>
+              </>
+            ):(
+              <>
+                <NavLink route="/login" text="Login" />
+                <NavLink route="/signup" text="Sign Up" />
+              </>
+            )}
           </div>
+          
       </div>
     </>
   );
 }
+
+// 

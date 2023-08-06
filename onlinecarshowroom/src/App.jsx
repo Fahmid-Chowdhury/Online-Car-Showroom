@@ -5,6 +5,7 @@ import CarPage from './pages/CarPage';
 import RentPage from './pages/RentPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import DashboardPage from './admin/dashboard';
 import './App.css'
 
 
@@ -21,6 +22,7 @@ function App() {
             <Route exact path='/rent' element={<RentPage />} />
             <Route exact path='/login' element={<LoginPage />} />
             <Route exact path='/signup' element={<SignupPage />} />
+            <Route exact path='/dashboard' element={<DashboardPage />} />
           </Routes>
         </Router>
           
