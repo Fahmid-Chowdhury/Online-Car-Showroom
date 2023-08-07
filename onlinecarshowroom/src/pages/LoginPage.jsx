@@ -20,11 +20,11 @@ export default function LoginPage() {
         event.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5000/api/login', {
+            const response = await axios.post('http://localhost:5000/user/login', {
                 email,
                 password,
             });
-
+            console.log(response.status)
             if (response.status === 200) {
                 const token = response.data.token;
 
