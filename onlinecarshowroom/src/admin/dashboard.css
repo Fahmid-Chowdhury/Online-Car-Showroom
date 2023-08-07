@@ -1,0 +1,28 @@
+.dashboard-container {
+    color: white;
+    overflow: hidden;
+    padding: 0 17%;
+    position:relative;
+    height: 100%;
+    width:100%;
+    transition: all 0.5s ease;
+    margin-top: 15px;
+    border: 1px solid var(--border-col);
+    display: flex;
+}
+.dashboard-toolbar{
+    width: 250px;
+    border: 1px solid var(--border-col);
+    height: 100%;
+}
+.dashboard-title{
+    display: flex;
+    width: 100%;
+    background-color: var(--bg-container);
+    
+    font-size: 25px;
+    font-weight: 700;
+    padding: 20px 0;
+    text-align: center;
+    
+}
