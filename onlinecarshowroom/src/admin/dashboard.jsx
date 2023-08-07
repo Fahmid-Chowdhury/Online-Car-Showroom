@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
+import './dashboard.css';
 
 export default function DashboardPage() {
   const navigate = useNavigate(); // Use history for navigation
@@ -25,6 +26,12 @@ export default function DashboardPage() {
 
   return (
     <div className="dashboard-container">
+      <div className="dashboard-toolbar">
+        
+      </div>
+      <div className="dashboard-title">
+        <h1>Dashboard</h1>
+      </div>
       
     </div>
   );
