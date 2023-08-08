@@ -194,7 +194,7 @@ function signUp(req, res) {
                             req.body.phone,
                             'user'
                         ];
-                        const sqlQuery = 'INSERT INTO users (name, email, password, phone) VALUES (?, ?, ?, ?)';
+                        const sqlQuery = 'INSERT INTO users (name, email, password, phone, role) VALUES (?, ?, ?, ?, ?)';
                         connection.query(sqlQuery, users, (queryErr, results) => {
                             connection.release();
                             if(queryErr) {
