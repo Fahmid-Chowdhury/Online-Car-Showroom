@@ -5,17 +5,17 @@ const Validator = require('fastest-validator')
 
 function signUp(req, res) {
     const credentials = {
-        name: req.body.name,
-        email: req.body.email,
+        name    : req.body.name,
+        email   : req.body.email,
         password: req.body.password,
-        phone: req.body.phone,
-        role: 'user'
+        phone   : req.body.phone,
+        role    : 'user'
     };
     const schema = {
-        name: {type: 'string', optional: false, max: "100", min: "1"},
-        email: {type: 'string', optional: false, max: "100", min: "6"},
+        name    : {type: 'string', optional: false, max: "100", min: "1"},
+        email   : {type: 'string', optional: false, max: "100", min: "6"},
         password: {type: 'string', optional: false, min: "6"},
-        phone: {type: 'string', optional: false}
+        phone   : {type: 'string', optional: false}
     };
     const v = new Validator();
     const validationResponse = v.validate(credentials, schema);
