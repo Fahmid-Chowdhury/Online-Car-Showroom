@@ -49,7 +49,7 @@ app.get('/api/dashboard', verifyToken, (req, res) => {
   res.status(200).json({ message: 'Welcome to the dashboard', user });
 });
 
-app.post('/api/login', (req, res) => {
+app.post('/user/login', (req, res) => {
   const { email, password } = req.body;
 
   const user = users.find((user) => user.email === email && user.password === password);

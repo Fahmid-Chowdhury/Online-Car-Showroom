@@ -11,9 +11,11 @@
     display: flex;
 }
 .dashboard-toolbar{
-    width: 250px;
+    width: 200px;
     border: 1px solid var(--border-col);
     height: 100%;
+    flex-shrink: 0;
+    
 }
 .dashboard-title{
     display: flex;

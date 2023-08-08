@@ -46,6 +46,10 @@ export default function Navbar(){
       setUserName(decodedToken.name);
       setUserRole(decodedToken.role);
     }
+    else{
+      setUserName('');
+      setUserRole('');
+    }
   }, [location]);
   return(
     <>
