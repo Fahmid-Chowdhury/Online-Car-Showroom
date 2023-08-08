@@ -26,11 +26,12 @@ export default function SignupPage() {
               // Replace '/dashboard' with the appropriate route
               setisSuccessfull(true)
           } else {
-              console.log('Authentication failed');
+              console.log('Authentication faooooiled');
           }
       } catch (error) {
+          console.log(error.response)
           if (error.response) {
-              console.log('Authentication failed:', error.response.data.error);
+              console.log('Authentication fa000000iled:', error.response.data);
           } else if (error.request) {
               console.log('Request made, but no response received:', error.request);
           } else {

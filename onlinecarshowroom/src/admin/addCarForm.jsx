@@ -18,15 +18,16 @@ export default function AddCarForm({ onClose, onAddCar }) {
   const [price, setPrice] = useState('');
   const [color, setColor] = useState('');
   const [year, setYear] = useState('');
-  const [capacity, setCapacity] = useState('');
+  const [capacity, setCapacity] = useState(0);
   const [image, setImage] = useState(null);
   const [isValid, setisValid] = useState(false);
+  const status = 'new'
   const token = localStorage.getItem('token');
   
   // ... other form fields
   const config = {
     headers: {
-      Authorization: `${token}`, // Add the token to the Authorization header
+      Authorization: `bearer ${token}`, // Add the token to the Authorization header
     },
   };
   const handleAddCar = async (event) => {
@@ -35,15 +36,22 @@ export default function AddCarForm({ onClose, onAddCar }) {
     formData.append('brand', brand);
     formData.append('model', model);
     formData.append('type', type);
-    formData.append('price', price);
+    // formData.append('price', price);
     formData.append('color', color);
     formData.append('year', year);
     formData.append('capacity', capacity);
-    formData.append('image', image);
+    // formData.append('image', image);
   
     try {
-        const response = await axios.post('http://localhost:5000/admin/addcar',
-        formData, 
+        const response = await axios.post('http://localhost:5000/admin/addcar', {
+            brand,
+            model,
+            type,
+            color,
+            year,
+            capacity,
+            status
+        },
         config);
   
         if (response.status === 200) {
@@ -119,7 +127,7 @@ export default function AddCarForm({ onClose, onAddCar }) {
                     </div>
                     <div className="form-input">
                         <label>Capacity</label>
-                        <input type="text" value={capacity} onChange={e => setCapacity(e.target.value)}placeholder='Capacity' required/>
+                        <input type="number" value={capacity} onChange={e => setCapacity(e.target.value)}placeholder='Capacity' required/>
                     </div>
                     <div className="form-input">
                         <label>Image</label>
