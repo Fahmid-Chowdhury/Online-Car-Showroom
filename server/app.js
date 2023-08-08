@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const cors = require('cors');
 const jwt = require('jsonwebtoken'); // Import JWT
+const multer = require('multer');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -17,6 +18,17 @@ const users = [
   { id: 3, name: 'James', email: 'james@email.com', password: 'userpass', role: 'user' },
 ];
 
+// Configure multer to save uploaded images to a specific directory
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '/image');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname); // You can customize the filename if needed
+  }
+});
+
+const upload = multer({ storage: storage });
 const secretKey = 'helloWorld'; // Set your secret key
 
 const pool = mysql.createPool({
@@ -30,6 +42,7 @@ const pool = mysql.createPool({
 function verifyToken(req, res, next) {
   const token = req.headers.authorization;
 
+
   if (!token) {
     return res.status(401).json({ error: 'Unauthorized: No token provided' });
   }
@@ -39,6 +52,25 @@ function verifyToken(req, res, next) {
       return res.status(401).json({ error: 'Unauthorized: Invalid token' });
     }
 
+    req.userId = decoded.userId;
+    next();
+  });
+}
+function verifyAdminToken(req, res, next) {
+  const token = req.headers.authorization;
+  console.log(token);
+
+  if (!token) {
+    return res.status(401).json({ error: 'Unauthorized: No token provided' });
+  }
+
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ error: 'Unauthorized: Invalid token' });
+    }
+    if (decoded.role != 'admin') {
+      return res.status(401).json({ error: 'Unauthorized: Invalid token' });
+    }
     req.userId = decoded.userId;
     next();
   });
@@ -62,6 +94,12 @@ app.post('/user/login', (req, res) => {
   const token = jwt.sign({ userId: user.id, role: user.role,name:user.name }, secretKey, { expiresIn: '1h' });
 
   res.status(200).json({ message: 'Authentication successful', token });
+});
+app.post('/admin/addcar', verifyAdminToken,upload.single('image'), (req, res) => {
+  const {brand,model,type,price,color,year,capacity} = req.body;
+  console.log(req.body);
+  console.log(req.file);
+  res.status(200).json({ message: 'Car added successfully' });
 });
 
 app.get('/api/cars', (req, res) => {

@@ -31,5 +31,20 @@ body{
   background: var(--gradient);
   color: var(--txt-col);
 }
+::-webkit-scrollbar {
+  width:5px;
+  border-radius: 5px;
+
+  
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary-col);
+  border-radius: 5px; 
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-container); 
+}
+
+
 
 
