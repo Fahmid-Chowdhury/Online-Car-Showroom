@@ -1,0 +1,122 @@
+.form-container{
+    margin-top: 5px;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-container);
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+
+    
+    
+}
+.form-container .form-title{
+    display: flex;
+    justify-content: center;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--primary-col);
+    padding: 10px;
+    align-items: center;
+}
+.form-input-container{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin: 10px;
+    justify-content: center;
+}
+
+.form-input-container .form-input{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+}
+.form-input-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.form-input-container .form-input label{
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--primary-col);
+}
+.form-input input{
+    padding: 10px;
+    border: 1px solid var(--border-col);
+    border-radius: 5px;
+    outline: none;
+    background-color:transparent;
+}
+.form-input input:focus{
+    border: 1px solid var(--primary-col);
+}
+.form-input input::placeholder{
+    color: var(--border-col);
+
+}
+.form-button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+.form-button-container button{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    background-color: var(--primary-col);
+    margin: 20px;
+}
+
+.form-response-valid{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.response-container{
+    background-color: var(--bg-container);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 50px;
+}
+.response-container svg{
+    width: 50px;
+    height: 50px;
+    color: var(--primary-col);
+}
+.response-container h1{
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-col);
+    margin: 10px;
+}
+.response-container button{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: var(--primary-col);
+    margin-top: 20px;
+}

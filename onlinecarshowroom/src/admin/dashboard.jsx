@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import './dashboard.css';
+import AddCarForm from './addCarForm';
 
 const initialState = {
   newCar: false,
@@ -23,7 +24,7 @@ function AddIcon(){
 </>
   )
 }
-const carModel = ["All","Toyota", "BMW"];
+const carModel = ["All","Toyota", "BMW","Merceedes"];
 function ToolbarItem(props) {
   return (
     <div className="toolbar-item" onClick={props.onClick}>
@@ -43,7 +44,7 @@ function SortItem({data,title}) {
     </div>
   );
 }
-function InfoTitle({ title, brand}) {
+function InfoTitle({ title, brand, showForm}) {
   return (
     <div className="dashboard-title">
       <div className="title">
@@ -51,8 +52,8 @@ function InfoTitle({ title, brand}) {
       </div>
       <div className="title-links">
         
-          <button className="addrecord-button"> <AddIcon/>Add record</button>
-        
+          <button className="addrecord-button" onClick = {showForm}> <AddIcon/>Add record</button>
+          
         <SortItem data = {brand} title="Brand"/>
         <SortItem data = {brand} title="Type"/>
         
@@ -62,11 +63,20 @@ function InfoTitle({ title, brand}) {
 }
 
 function DashboardInfoContainer({title,data}){
+  const [showForm, setShowForm] = useState(false);
+  const handleShowForm = () => {
+    setShowForm(true);
+  };
+  const handleCloseForm = () => {
+    setShowForm(false);
+  };
   return(
     <div className="dashboard-display-container">
-        <InfoTitle brand = {data} title={title}/>
+        <InfoTitle brand = {data} title={title} showForm={handleShowForm}/>
         <div className="dashboard-display">
-          
+        {showForm && (
+        <AddCarForm onClose={handleCloseForm} onAddCar={handleCloseForm} />
+      )}
         </div>
     </div>
   )
@@ -77,6 +87,8 @@ export default function DashboardPage() {
   const navigate = useNavigate(); // Use history for navigation
   const [state, setState] = useState(initialState);
   const [userData, setUserData] = useState(null);
+  
+  
   
   const handleStateChange = (key) => {
     const newState = { ...initialState, [key]: true };

@@ -1,3 +1,12 @@
+.dashboard-display-container{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    font-weight: 700;
+    margin-left: 15px;
+    overflow: auto;
+    
+}
 .dashboard-container {
     color: white;
     overflow: hidden;
@@ -15,6 +24,7 @@
     flex-shrink: 0;
     background-color: var(--bg-container);
     border-radius: 5px;
+    overflow: auto;
 }
 
 .dashboard-toolbar-title{
@@ -25,14 +35,7 @@
     text-align: center;
     border-bottom: 1px solid var(--border-col);
 }
-.dashboard-display-container{
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    font-weight: 700;
-    margin-left: 15px;
-    
-}
+
 .dashboard-toolbar .toolbar-title{
     font-size: 12px;
     font-weight: 500;
