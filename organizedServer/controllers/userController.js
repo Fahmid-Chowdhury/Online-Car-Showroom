@@ -13,7 +13,7 @@ function signUp(req, res) {
     };
     const schema = {
         name    : {type: 'string', optional: false, max: "100", min: "1"},
-        email   : {type: 'string', optional: false, max: "100", min: "7"},
+        email   : {type: 'string', optional: false, max: "100", min: "6"},
         password: {type: 'string', optional: false, min: "6"},
         phone   : {type: 'string', optional: false}
     };
