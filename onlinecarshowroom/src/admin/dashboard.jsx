@@ -7,6 +7,9 @@ import './dashboard.css';
 export default function DashboardPage() {
   const navigate = useNavigate(); // Use history for navigation
   const [userData, setUserData] = useState(null);
+  const[request,setRequest]=useState(false);
+  const[newCar,setNewCar]=useState(false);
+  const[rentCar,setRentCar]=useState(false);
 
   useEffect(() => {
     // Fetch user's name from localStorage (assuming you store the token as 'token')
@@ -27,10 +30,40 @@ export default function DashboardPage() {
   return (
     <div className="dashboard-container">
       <div className="dashboard-toolbar">
-        
+        <div className="dashboard-toolbar-title">
+          <h1>ADMIN PANEL</h1>
+          
+        </div>
+        <div className="toolbar-title">
+          <p>Car info</p>
+        </div>
+        <div className="toolbar-item">
+          <p>New cars</p>
+        </div>
+        <div className="toolbar-item">
+          <p>Used cars</p>
+        </div>
+        <div className="toolbar-item">
+          <p>Rental cars</p>
+        </div>
+        <div className="toolbar-title">
+          <p>User request</p>
+        </div>
+        <div className="toolbar-item">
+          <p>Buy request</p>
+        </div>
+        <div className="toolbar-item">
+          <p>Sell request</p>
+        </div>
+        <div className="toolbar-item">
+          <p>Rent request</p>
+        </div>
+        <div className="toolbar-item">
+          <p>Test drive</p>
+        </div>
       </div>
-      <div className="dashboard-title">
-        <h1>Dashboard</h1>
+      <div className="dashboard-display-container">
+        <div className="dashboard-title"><h1>Dashboard</h1></div>
       </div>
       
     </div>

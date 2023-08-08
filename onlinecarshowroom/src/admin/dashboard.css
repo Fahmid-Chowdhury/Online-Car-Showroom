@@ -6,25 +6,57 @@
     height: 100%;
     width:100%;
     transition: all 0.5s ease;
-    margin-top: 15px;
-    border: 1px solid var(--border-col);
+    margin: 15px 0;
     display: flex;
 }
 .dashboard-toolbar{
     width: 200px;
-    border: 1px solid var(--border-col);
     height: 100%;
     flex-shrink: 0;
-    
+    background-color: var(--bg-container);
+    border-radius: 5px;
 }
-.dashboard-title{
+
+.dashboard-toolbar-title{
+    font-size: 20px;
+    font-weight: 700;
+    padding: 10px;
+    color: var(--primary-col);
+    text-align: center;
+    border-bottom: 1px solid var(--border-col);
+}
+.dashboard-display-container{
     display: flex;
     width: 100%;
-    background-color: var(--bg-container);
+    flex-direction: column;
+    font-weight: 700;
+    margin-left: 15px;
     
+}
+.dashboard-toolbar .toolbar-title{
+    font-size: 12px;
+    font-weight: 500;
+    padding: 10px;
+    color:var(--primary-col);
+}
+.dashboard-toolbar .toolbar-item{
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 25px;
+    padding-bottom: 15px;
+    color: rgb(174, 174, 174);
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+.dashboard-toolbar .toolbar-item:hover{
+    color: whitesmoke;
+}
+.dashboard-title{
+    background-color: var(--bg-container);
+    color: var(--primary-col);
     font-size: 25px;
     font-weight: 700;
-    padding: 20px 0;
     text-align: center;
-    
+    padding: 5px;
+    border-radius: 5px;
 }
