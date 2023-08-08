@@ -32,7 +32,6 @@ export default function Navbar(){
   const location = useLocation();
   const [isHomePage, setIsHomePage] = useState(false);
   const [userName, setUserName] = useState('');
-  const [showMiniBar, setShowMiniBar] = useState(false);
   const [userRole, setUserRole] = useState('');
 
   useEffect(() => {
