@@ -17,7 +17,23 @@
     border-radius: 5px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
   }
-  
+  .register-success-container{
+    display: flex;
+    justify-content: center;
+  }
+  .register-success{
+    background-color: var(--bg-container);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding:50px 30px;
+    border-radius: 5px;
+  }
+  .register-success h3{
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--primary-col);
+  }
 .register-container h2 {
     color: var(--primary-col);
     font-size: 32px;

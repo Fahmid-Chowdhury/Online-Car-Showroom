@@ -43,6 +43,7 @@ export default function Navbar(){
       // Decode the token to get user data
       const decodedToken = jwt_decode(token);
       setUserName(decodedToken.name);
+      console.log(decodedToken.email)
       setUserRole(decodedToken.role);
     }
     else{
@@ -59,7 +60,7 @@ export default function Navbar(){
           <div className="navbar">
               <NavLink route="/" text="Home" />
               <NavLink route="/cars" text="Buy car" />
-              <NavLink route="/rent" text="Rent car" />
+              {/* <NavLink route="/rent" text="Rent car" /> */}
               <NavLink route="/services" text="Services" />
               <NavLink route="/about" text="About Us" />
           </div>
