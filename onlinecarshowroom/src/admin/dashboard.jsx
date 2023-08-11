@@ -9,7 +9,7 @@ const initialState = {
   newCar: false,
   usedCar: false,
   rentCar: false,
-  buyRequest: false,
+  enquery: false,
   sellRequest: false,
   rentRequest: false,
   testDrive: false,
@@ -124,14 +124,11 @@ export default function DashboardPage() {
         <div className="toolbar-title">
           <p>Car info</p>
         </div>
-        <ToolbarItem title="Car models" onClick={() => handleStateChange('carModel')} />
         <ToolbarItem title="New cars" onClick={() => handleStateChange('newCar')} />
-        <ToolbarItem title="Used cars" onClick={() => handleStateChange('usedCar')} />
-        <ToolbarItem title="Rental cars" onClick={() => handleStateChange('rentCar')} />
         <div className="toolbar-title">
           <p>User request</p>
         </div>
-        <ToolbarItem title="Buy request" onClick={() => handleStateChange('buyRequest')} />
+        <ToolbarItem title="Enquery" onClick={() => handleStateChange('enquery')} />
         <ToolbarItem title="Sell request" onClick={() => handleStateChange('sellRequest')} />
         <ToolbarItem title="Rent request" onClick={() => handleStateChange('rentRequest')} />
         <ToolbarItem title="Test drive" onClick={() => handleStateChange('testDrive')} />
@@ -140,10 +137,8 @@ export default function DashboardPage() {
       
       
         {state.newCar && <DashboardInfoContainer title="New Cars" data={carModel}/>}
-        {state.usedCar && <DashboardInfoContainer title="Used Cars" data={carModel}/> }
-        {state.rentCar && <DashboardInfoContainer title="Rental Cars" data={carModel}/> }
-        {state.carModel && <DashboardInfoContainer title="Car Models" data={carModel}/> }
-        {state.buyRequest && <h1>Buy request</h1>}
+        
+        {state.enquery && <h1>Enquery</h1>}
         {state.sellRequest && <h1>Sell request</h1>}
         {state.rentRequest && <h1>Rent request</h1>}
         {state.testDrive && <h1>Test drive</h1>}

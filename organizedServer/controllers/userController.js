@@ -135,7 +135,7 @@ const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'online_car_showroom',
+    database: 'carshowroom',
   });
 
 function signUp(req, res) {
@@ -170,7 +170,7 @@ function signUp(req, res) {
             });
         }
 
-        const sqlQuery = 'SELECT * FROM users WHERE email = ?';
+        const sqlQuery = 'SELECT * FROM user WHERE email = ?';
         connection.query(sqlQuery, credentials.email, (queryErr, results) => {
             if(queryErr) {
                 res.status(400).json({
@@ -192,9 +192,10 @@ function signUp(req, res) {
                             req.body.email,
                             hash,
                             req.body.phone,
+                            req.body.address,
                             'user'
                         ];
-                        const sqlQuery = 'INSERT INTO users (name, email, password, phone, role) VALUES (?, ?, ?, ?, ?)';
+                        const sqlQuery = 'INSERT INTO user (user_name, email, password, phone, address, role) VALUES (?, ?, ?, ?, ?,?)';
                         connection.query(sqlQuery, users, (queryErr, results) => {
                             connection.release();
                             if(queryErr) {
@@ -246,7 +247,7 @@ function login(req, res){
             });
         }
 
-        const sqlQuery = 'SELECT * FROM users WHERE email = ?';
+        const sqlQuery = 'SELECT * FROM user WHERE email = ?';
         connection.query(sqlQuery, req.body.email, (queryErr, results) => {
             connection.release();
             if(queryErr) {
@@ -263,7 +264,7 @@ function login(req, res){
             }else {
                 const user = results[0];
                 const email = user.email;
-                const name = user.name;
+                const name = user.user_name;
                 const role = user.role;
                 const passwordHash = user.password;
                 bcryptjs.compare(req.body.password, passwordHash, function(err, result){

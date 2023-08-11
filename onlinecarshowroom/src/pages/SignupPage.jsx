@@ -8,6 +8,7 @@ export default function SignupPage() {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
+    const [address, setAddress] = useState('');
     const [isSuccessfull, setisSuccessfull] = useState(false);
 
     const handleSubmit = async (event) => {
@@ -18,7 +19,8 @@ export default function SignupPage() {
               email,
               password,
               phone,
-              name
+              name,
+              address
           });
     
           if (response.status === 200) {
@@ -57,11 +59,15 @@ export default function SignupPage() {
     const handlePasswordChange = (event) => {
       setPassword(event.target.value);
     };
+
+    const handleAddressChange = (e) =>{
+      setAddress(e.target.value);
+    }
   
     return (
         <div className="register-root-container">
         {isSuccessfull ? (
-          <div><h3>Account created successfully</h3></div>
+          <div className='register-success-container'><div className="register-success"><h3>Account created<br></br>Successfully</h3></div></div>
         ):(
           <div className="register-container">
           <h2>Sign Up</h2>
@@ -83,6 +89,16 @@ export default function SignupPage() {
                   id="phone"
                   value={phone}
                   onChange={handlePhoneChange}
+                  required
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="address">Address</label>
+                <input
+                  type="text"
+                  id="address"
+                  value={address}
+                  onChange={handleAddressChange}
                   required
                 />
             </div>

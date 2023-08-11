@@ -97,6 +97,16 @@ app.post('/user/login', (req, res) => {
 });
 app.post('/admin/addcar', verifyAdminToken,upload.single('image'), (req, res) => {
   const {brand,model,type,price,color,year,capacity} = req.body;
+  connection.query('INSERT INTO CAR (brand,model,type,price,color,year,capacity,image) VALUES (?,?,?,?,?,?,?,?)', [brand,model,type,price,color,year,capacity,req.file.originalname], (err, rows) => {
+    connection.release();
+
+    if (!err) {
+      res.send(rows);
+    } else {
+      console.log(err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
   console.log(req.body);
   console.log(req.file);
   res.status(200).json({ message: 'Car added successfully' });
