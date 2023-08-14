@@ -6,20 +6,20 @@ function addCar(req, res) {
         brand   : req.body.brand,
         model   : req.body.model,
         year    : req.body.year,
-        capacity: req.body.capacity,
+        capacity: parseInt(req.body.capacity),
         color   : req.body.color,
         type    : req.body.type,
         status  : req.body.status,
     };
 
     const schema = {
-        brand   : {type: 'string', optional: false, max: "100"},
-        model   : {type: 'string', optional: false, max: "100"},
-        year    : {type: 'string', optional: false, max: "9999"},
-        capacity: {type: 'number', optional: false, max: "100"},
-        color   : {type: 'string', optional: false, max: "100"},
-        type    : {type: 'string', optional: false, max: "100"},
-        status  : {type: 'string', optional: false},
+        brand   : {type: 'string', optional: false},
+        model   : {type: 'string', optional: false},
+        year    : {type: 'string', optional: false},
+        capacity: {type: 'number', optional: false},
+        color   : {type: 'string', optional: false},
+        type    : {type: 'string', optional: false},
+        status  : {type: 'string', optional: false}
     };
 
     const v = new Validator();
@@ -33,7 +33,7 @@ function addCar(req, res) {
     };
 
     models.car.create(car).then(result => {
-        res.status(201).json({
+        res.status(200).json({
             message: "Car added successfully",
             post: result
         });
