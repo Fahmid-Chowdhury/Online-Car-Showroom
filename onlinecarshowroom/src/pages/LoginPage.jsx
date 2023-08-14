@@ -7,6 +7,7 @@ export default function LoginPage() {
     const navigate = useNavigate(); // Use history for navigation
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState(''); // Add this line
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -38,13 +39,8 @@ export default function LoginPage() {
                 console.log('Authentication failed');
             }
         } catch (error) {
-            if (error.response) {
-                console.log('Authentication failed:', error.response.data.error);
-            } else if (error.request) {
-                console.log('Request made, but no response received:', error.request);
-            } else {
-                console.log('Error occurred:', error.message);
-            }
+            console.error(error.response.data);
+            setError(error.response.data.message);
         }
 
         // Reset the form
@@ -81,6 +77,9 @@ export default function LoginPage() {
                         <span>
                             Don't have an account? <Link to="/signup">Sign up</Link> here!
                         </span>
+                    </div>
+                    <div className="error-message">
+                        <span>{error}</span>
                     </div>
                     <div className="register-button">
                         <button type="submit">Sign In</button>

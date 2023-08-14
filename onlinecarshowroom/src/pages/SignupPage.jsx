@@ -10,6 +10,7 @@ export default function SignupPage() {
     const [phone, setPhone] = useState('');
     const [address, setAddress] = useState('');
     const [isSuccessfull, setisSuccessfull] = useState(false);
+    const [error, setError] = useState(''); 
 
     const handleSubmit = async (event) => {
       event.preventDefault();
@@ -31,14 +32,8 @@ export default function SignupPage() {
               console.log('Authentication faooooiled');
           }
       } catch (error) {
-          console.log(error.response)
-          if (error.response) {
-              console.log('Authentication fa000000iled:', error.response.data);
-          } else if (error.request) {
-              console.log('Request made, but no response received:', error.request);
-          } else {
-              console.log('Error occurred:', error.message);
-          }
+          console.error(error.response.data);
+          setError(error.response.data.message);
       }
     
       // Reset the form
@@ -124,6 +119,9 @@ export default function SignupPage() {
             </div>
             <div className="sign-up-link">
                 <span>Already have an account? <a href="/login">Sign in</a> here!</span>
+            </div>
+            <div className="error-message">
+              <span>{error}</span>
             </div>
             <div className="register-button">
               <button type="submit">Sign In</button>

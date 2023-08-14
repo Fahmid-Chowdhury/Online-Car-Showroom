@@ -93,3 +93,12 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+.error-message{
+    color: red;
+    font-size: 12px;
+    font-weight: 300;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+}
