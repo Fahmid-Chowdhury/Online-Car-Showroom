@@ -59,13 +59,13 @@ function addCar(req, res) {
         connection.query(sqlQuery, car, (queryErr, results) => {
             if(queryErr) {
                 res.status(400).json({
-                    message: "Something went wrong",
+                    message: "Something went wrong, please try again",
                     error: queryErr
                 });
             };
             if(results.length != 0){
                 res.status(409).json({
-                    message: "The car already exists",
+                    message: "This car already exists",
                     results: results
                 });
 
@@ -85,7 +85,7 @@ function addCar(req, res) {
                     connection.release();
                     if(queryErr) {
                         res.status(400).json({
-                            message: "Something went wrong",
+                            message: "Something went wrong, please try again",
                             error: queryErr
                         });
                     };

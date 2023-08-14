@@ -21,6 +21,7 @@ export default function AddCarForm({ onClose, onAddCar }) {
   const [transmission, setTransmission] = useState('');
   const [fuel, setFuel] = useState('');
   const [description, setDescription] = useState('');
+  const [error, setError] = useState(''); // error handling
   const [isValid, setisValid] = useState(false);
   const token = localStorage.getItem('token');
   
@@ -129,6 +130,9 @@ export default function AddCarForm({ onClose, onAddCar }) {
                     <div className="form-input">
                         <label>Description</label>
                         <textarea maxLength={6000} type="text" value={description} onChange={e => setDescription(e.target.value)} placeholder='Description'required/>
+                    </div>
+                    <div className="error-message">
+                        <span>{error}</span>
                     </div>
                     
                     
