@@ -68,7 +68,6 @@ export default function AddCarForm({ onClose, onAddCar }) {
     setPrice('');
     setEngine('');
     setTransmission('');
-    SVGComponentTransferFunctionElement('');
     setDescription('');
     
     
