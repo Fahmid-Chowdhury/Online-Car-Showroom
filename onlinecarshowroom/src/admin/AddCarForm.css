@@ -64,6 +64,17 @@
     color: var(--border-col);
 
 }
+.form-input textarea{
+    padding: 10px;
+    border: 1px solid var(--border-col);
+    border-radius: 5px;
+    outline: none;
+    background-color:transparent;
+}
+.form-input textarea::placeholder{
+    color: var(--border-col);
+
+}
 .form-button-container{
     display: flex;
     justify-content: center;

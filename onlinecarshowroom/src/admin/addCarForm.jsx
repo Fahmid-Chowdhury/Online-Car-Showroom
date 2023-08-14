@@ -15,13 +15,13 @@ export default function AddCarForm({ onClose, onAddCar }) {
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
   const [type, setType] = useState('');
-  const [price, setPrice] = useState('');
-  const [color, setColor] = useState('');
   const [year, setYear] = useState('');
-  const [capacity, setCapacity] = useState(0);
-  const [image, setImage] = useState(null);
+  const [price, setPrice] = useState('');
+  const [engine, setEngine] = useState('');
+  const [transmission, setTransmission] = useState('');
+  const [fuel, setFuel] = useState('');
+  const [description, setDescription] = useState('');
   const [isValid, setisValid] = useState(false);
-  const status = 'new'
   const token = localStorage.getItem('token');
   
   // ... other form fields
@@ -33,24 +33,19 @@ export default function AddCarForm({ onClose, onAddCar }) {
   const handleAddCar = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append('brand', brand);
-    formData.append('model', model);
-    formData.append('type', type);
-    // formData.append('price', price);
-    formData.append('color', color);
-    formData.append('year', year);
-    formData.append('capacity', capacity);
+    // formData.append('brand', brand);
     // formData.append('image', image);
   
     try {
         const response = await axios.post('http://localhost:5000/admin/addcar', {
-            brand,
-            model,
-            type,
-            color,
-            year,
-            capacity,
-            status
+            brand: brand,
+            model: model,
+            year: year,
+            price: price,
+            engine: engine,
+            transmission: transmission,
+            fuel: fuel,
+            description: description,
         },
         config);
   
@@ -73,12 +68,14 @@ export default function AddCarForm({ onClose, onAddCar }) {
     // Reset the form
     setBrand('');
     setModel('');
-    setType('');
-    setPrice('');
-    setColor('');
     setYear('');
-    setCapacity('');
-    setImage(null);
+    setPrice('');
+    setEngine('');
+    setTransmission('');
+    SVGComponentTransferFunctionElement('');
+    setDescription('');
+    
+    
     
   };
     
@@ -110,28 +107,28 @@ export default function AddCarForm({ onClose, onAddCar }) {
                         <input type="text" value={model} onChange={e => setModel(e.target.value)} placeholder='Model' required/>
                     </div></div>
                     <div className="form-input">
-                        <label>Type</label>
-                        <input type="text" value={type} onChange={e => setType(e.target.value)} placeholder='Type'required/>
+                        <label>Year</label>
+                        <input type="text" value={year} onChange={e => setYear(e.target.value)}placeholder='20XX' required/>
                     </div>
                     <div className="form-input">
                         <label>Price</label>
                         <input type="text" value={price} onChange={e => setPrice(e.target.value)}placeholder='Price' required/>
                     </div>
                     <div className="form-input">
-                        <label>Color</label>
-                        <input type="text" value={color} onChange={e => setColor(e.target.value)}placeholder='color' required/>
+                        <label>Engine</label>
+                        <input type="text" value={engine} onChange={e => setEngine(e.target.value)} placeholder='Type'required/>
                     </div>
                     <div className="form-input">
-                        <label>Year</label>
-                        <input type="text" value={year} onChange={e => setYear(e.target.value)}placeholder='20XX' required/>
+                        <label>Transmission</label>
+                        <input type="text" value={transmission} onChange={e => setTransmission(e.target.value)} placeholder='Type'required/>
                     </div>
                     <div className="form-input">
-                        <label>Capacity</label>
-                        <input type="number" value={capacity} onChange={e => setCapacity(e.target.value)}placeholder='Capacity' required/>
+                        <label>Fuel</label>
+                        <input type="text" value={fuel} onChange={e => setFuel(e.target.value)} placeholder='Type'required/>
                     </div>
                     <div className="form-input">
-                        <label>Image</label>
-                        <input type="file" accept='image/*' onChange={e => setImage(e.target.files[0])}placeholder='Image' required/>
+                        <label>Description</label>
+                        <textarea maxLength={6000} type="text" value={description} onChange={e => setDescription(e.target.value)} placeholder='Description'required/>
                     </div>
                     
                     
