@@ -144,6 +144,7 @@ function login(req, res){
                 bcryptjs.compare(req.body.password, passwordHash, function(err, result){
                     if(result){
                         const token = jwt.sign({
+                            user_id: user_id,
                             email: email,
                             name: name,
                             role: role
@@ -156,13 +157,15 @@ function login(req, res){
                     }else {
                         res.status(401).json({
                             message: 'Invalid credentials, please try again'
-                        })
-                    }
-                })
+                        });
+                    };
+                });
             };
         });
     });
-}
+};
+
+
 
 module.exports = {
     signUp: signUp,
