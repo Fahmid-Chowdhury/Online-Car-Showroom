@@ -57,13 +57,8 @@ export default function AddCarForm({ onClose, onAddCar }) {
             console.log('Authentication failed');
         }
     } catch (error) {
-        if (error.response) {
-            console.log('Authentication failed:', error.response.data.error);
-        } else if (error.request) {
-            console.log('Request made, but no response received:', error.request);
-        } else {
-            console.log('Error occurred:', error.message);
-        }
+        setError(error.response.data.message);
+
     }
   
     // Reset the form

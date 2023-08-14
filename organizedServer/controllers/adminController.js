@@ -24,7 +24,7 @@ function addCar(req, res) {
     const schema = {
         brand       : {type: 'string', optional: false},
         model       : {type: 'string', optional: false},
-        year        : {type: 'string', optional: false, max: "9999"},
+        year        : {type: 'string', optional: false, max: "4"},
         price       : {type: 'string', optional: false},
         engine      : {type: 'string', optional: false},
         transmission: {type: 'string', optional: false},
