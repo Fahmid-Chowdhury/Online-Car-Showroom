@@ -185,13 +185,13 @@ function allcars(req, res){
         };
         if(results.length == 0){
             res.status(409).json({
-                message: 'No cars found',
+                message: 'No cars available',
                 results: results
             })
         }else {
             res.status(200).json({
                 message: 'Cars found',
-                data: results
+                results: results
             })
         };
     });

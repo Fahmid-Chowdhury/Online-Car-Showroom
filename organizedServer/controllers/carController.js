@@ -70,7 +70,7 @@ function allcars(req, res) {
             years: ["All"],
             cars: []
         };
-
+        console.log(response)
         connection.query(sqlQueryBrands, (brandsQueryErr, brandsResults) => {
             if (brandsQueryErr) {
                 connection.release();
@@ -81,6 +81,7 @@ function allcars(req, res) {
             }
 
             response.brands = response.brands.concat(brandsResults.map(brand => brand.brand));
+            console.log(response)
 
             connection.query(sqlQueryYears, (yearsQueryErr, yearsResults) => {
                 if (yearsQueryErr) {
@@ -92,6 +93,7 @@ function allcars(req, res) {
                 }
 
                 response.years = response.years.concat(yearsResults.map(year => year.year));
+                console.log(response)
 
                 connection.query(sqlQueryAllCars, (carsQueryErr, carsResults) => {
                     connection.release();
@@ -104,6 +106,7 @@ function allcars(req, res) {
                     }
 
                     response.cars = carsResults;
+                    console.log(response)
 
                     return res.status(200).json({
                         message: 'Car data retrieved successfully',
@@ -118,7 +121,7 @@ function allcars(req, res) {
 // admin controllers
 
 
-function removeCar(req, res) {
+function deleteCar(req, res) {
     const car_id = req.body.car_id;
     pool.getConnection((err, connection) => {
         if(err) {
@@ -154,13 +157,8 @@ function removeCar(req, res) {
 };
 
 
-
-
-
-
 module.exports = {
-    
     allCars: allcars,
-    deleteCar: removeCar,
+    deleteCar: deleteCar,
     listCars: listcars
 }
