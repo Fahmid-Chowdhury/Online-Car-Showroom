@@ -103,7 +103,7 @@ function addCar(req, res) {
                 });
 
             }else {
-                const sqlQuery = 'INSERT INTO car (brand, model, year, price, engine, transmission, fuel, description,images) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)';
+                const sqlQuery = 'INSERT INTO car (brand, model, year, price, engine, transmission, fuel, description, images) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
                 const new_car = [
                     req.body.brand,
                     req.body.model,
