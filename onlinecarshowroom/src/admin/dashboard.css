@@ -68,41 +68,7 @@
     padding: 10px;
     border-bottom: 1px solid var(--border-col);
 }
-.dashboard-title .title-links{
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-right: 15px;
-}
-.dashboard-title .title-links label{
-    font-size: 14px;
-    font-weight: 500;
-    padding: 0 10px;
-    color: var(--primary-col);
-    cursor: pointer;
-    transition: all 0.5s ease;
-}
-.dashboard-title .title-links select{
-    font-size: 14px;
-    font-weight: 500;
-    padding: 0 10px;
-    color: var(--primary-col);
-    cursor: pointer;
-    transition: all 0.5s ease;
-    border: none;
-    background-color: rgba(35, 35, 36, 0.758);
-    
-}
-.dashboard-title .title-links option{
-    font-size: 14px;
-    font-weight: 500;
-    padding: 0 10px;
-    color: var(--primary-col);
-    cursor: pointer;
-    transition: all 0.5s ease;
-    border: none;
-    background-color: transparent;
-}
+
 .addrecord-button{
     display: flex;
     align-items: center;

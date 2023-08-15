@@ -22,8 +22,8 @@ export default function LoginPage() {
 
         try {
             const response = await axios.post('http://localhost:5000/user/login', {
-                email,
-                password,
+                email: email.trim(),
+                password: password,
             });
             console.log(response.status)
             if (response.status === 200) {

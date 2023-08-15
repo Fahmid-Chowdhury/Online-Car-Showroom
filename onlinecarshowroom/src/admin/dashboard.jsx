@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import './dashboard.css';
 import AddCarForm from './addCarForm';
+import AllCarView from './allCarView';
 
 const initialState = {
-  newCar: false,
-  usedCar: false,
-  rentCar: false,
+  allCar: false,
+  addCar: false,
   enquery: false,
   sellRequest: false,
   rentRequest: false,
@@ -32,56 +32,20 @@ function ToolbarItem(props) {
     </div>
   );
 }
-function SortItem({data,title}) {
+
+
+
+
+function ShowCars({data}){
   return (
-    <div className="title-link">
-      <label>{title}:</label>
-        <select>
-        {data.map((item) => (
-          <option value={item}>{item}</option>
-        ))}
-        </select>
+    <>
+    <div className="display-car-container">
+      
+      
     </div>
+    </>
   );
 }
-function InfoTitle({ title, brand, showForm}) {
-  return (
-    <div className="dashboard-title">
-      <div className="title">
-        <h1>{title}</h1>
-      </div>
-      <div className="title-links">
-        
-          <button className="addrecord-button" onClick = {showForm}> <AddIcon/>Add record</button>
-          
-        <SortItem data = {brand} title="Brand"/>
-        <SortItem data = {brand} title="Type"/>
-        
-      </div>
-    </div>
-  );
-}
-
-function DashboardInfoContainer({title,data}){
-  const [showForm, setShowForm] = useState(false);
-  const handleShowForm = () => {
-    setShowForm(true);
-  };
-  const handleCloseForm = () => {
-    setShowForm(false);
-  };
-  return(
-    <div className="dashboard-display-container">
-        <InfoTitle brand = {data} title={title} showForm={handleShowForm}/>
-        <div className="dashboard-display">
-        {showForm && (
-        <AddCarForm onClose={handleCloseForm} onAddCar={handleCloseForm} />
-      )}
-        </div>
-    </div>
-  )
-}
-
 
 export default function DashboardPage() {
   const navigate = useNavigate(); // Use history for navigation
@@ -97,7 +61,7 @@ export default function DashboardPage() {
   
   
   useEffect(() => {
-    handleStateChange('newCar');
+    handleStateChange('allCar');
 
     // Fetch user's name from localStorage (assuming you store the token as 'token')
     const token = localStorage.getItem('token');
@@ -124,7 +88,8 @@ export default function DashboardPage() {
         <div className="toolbar-title">
           <p>Car info</p>
         </div>
-        <ToolbarItem title="New cars" onClick={() => handleStateChange('newCar')} />
+        <ToolbarItem title="All cars" onClick={() => handleStateChange('allCar')} />
+        <ToolbarItem title="Add car" onClick={() => handleStateChange('addCar')} />
         <div className="toolbar-title">
           <p>User request</p>
         </div>
@@ -133,10 +98,9 @@ export default function DashboardPage() {
         <ToolbarItem title="Rent request" onClick={() => handleStateChange('rentRequest')} />
         <ToolbarItem title="Test drive" onClick={() => handleStateChange('testDrive')} />
       </div>
-
       
-      
-        {state.newCar && <DashboardInfoContainer title="New Cars" data={carModel}/>}
+        {state.allCar && <AllCarView brand = {carModel}/>}
+        {state.addCar && <AddCarForm/>}
         
         {state.enquery && <h1>Enquery</h1>}
         {state.sellRequest && <h1>Sell request</h1>}

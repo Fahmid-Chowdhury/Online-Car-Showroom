@@ -19,9 +19,9 @@ export default function SignupPage() {
           const response = await axios.post('http://localhost:5000/user/signup', {
               email,
               password,
-              phone,
-              name,
-              address
+              phone: phone.trim(),
+              name: name.trim(),
+              address: address.trim(),
           });
     
           if (response.status === 200) {
@@ -124,7 +124,7 @@ export default function SignupPage() {
               <span>{error}</span>
             </div>
             <div className="register-button">
-              <button type="submit">Sign In</button>
+              <button type="submit">Sign Up</button>
             </div>
           </form>
         </div>

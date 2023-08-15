@@ -76,13 +76,14 @@ export default function AddCarForm({ onClose, onAddCar }) {
     
 
   return (
+    <div className="dashboard-display-container">
     <div className="form-root-container">
         {isValid ? (
           <div className='form-response-valid'>
             <div className="response-container">
                 <TickIcon/>
                 <h1>Car Added Successfully</h1>
-                <button className="form-button" onClick={onAddCar}>Close</button>
+                <button className="form-button" onClick={()=>{setisValid(false)}}>Add another</button>
             </div>
           </div>
         ):(
@@ -133,11 +134,11 @@ export default function AddCarForm({ onClose, onAddCar }) {
                 </div>
                 <div className="form-button-container">
                     <button className="form-button"  type='submit'>Add Car</button>
-                    <button className="form-button" onClick={onClose}>Cancel</button>
                 </div>
             </form>
             </>
         )}
+      </div>
       </div>
   );
 }
