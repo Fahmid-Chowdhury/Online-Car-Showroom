@@ -122,7 +122,9 @@ function allcars(req, res) {
 
 
 function deleteCar(req, res) {
+    console.log(req.body)
     const car_id = req.body.car_id;
+    console.log(car_id)
     pool.getConnection((err, connection) => {
         if(err) {
             res.status(500).json({
@@ -133,6 +135,7 @@ function deleteCar(req, res) {
         const sqlQuery = 'DELETE FROM car WHERE car_id = ?';
         connection.query(sqlQuery, car_id, (queryErr, results) => {
             connection.release();
+            console.log(results,results.affectedRows)
             if(queryErr) {
                 res.status(400).json({
                     message: "Something went wrong. Please try again",

@@ -1,5 +1,6 @@
 const Validator = require('fastest-validator');
 const mysql = require('mysql');
+const fs = require('fs');
 
 const pool = mysql.createPool({
     connectionLimit: 10,
@@ -36,6 +37,14 @@ function addCar(req, res) {
     const validationResponse = v.validate(car_info, schema);
 
     if(validationResponse != true) {
+        fs.unlink(`./uploads/${req.body.image}`, (err) => {
+            if(err) {
+                res.status(500).json({
+                    message: "Something went wrong, please try again",
+                    error: err
+                });
+            };
+        });
         return res.status(400).json({
             message: 'Validation failed',
             error: validationResponse
@@ -44,6 +53,14 @@ function addCar(req, res) {
 
     pool.getConnection((err, connection) => {
         if(err) {
+            fs.unlink(`./uploads/${req.body.image}`, (err) => {
+                if(err) {
+                    res.status(500).json({
+                        message: "Something went wrong, please try again",
+                        error: err
+                    });
+                };
+            });
             res.status(500).json({
                 message: "Error getting database connection",
                 error: err
@@ -58,19 +75,35 @@ function addCar(req, res) {
         ]
         connection.query(sqlQuery, car, (queryErr, results) => {
             if(queryErr) {
+                fs.unlink(`./uploads/${req.body.image}`, (err) => {
+                    if(err) {
+                        res.status(500).json({
+                            message: "Something went wrong, please try again",
+                            error: err
+                        });
+                    };
+                });
                 res.status(400).json({
                     message: "Something went wrong, please try again",
                     error: queryErr
                 });
             };
             if(results.length != 0){
+                fs.unlink(`./uploads/${req.body.image}`, (err) => {
+                    if(err) {
+                        res.status(500).json({
+                            message: "Something went wrong, please try again",
+                            error: err
+                        });
+                    };
+                });
                 res.status(409).json({
                     message: "This car already exists",
                     results: results
                 });
 
             }else {
-                const sqlQuery = 'INSERT INTO car (brand, model, year, price, engine, transmission, fuel, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+                const sqlQuery = 'INSERT INTO car (brand, model, year, price, engine, transmission, fuel, description,images) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)';
                 const new_car = [
                     req.body.brand,
                     req.body.model,
@@ -79,11 +112,20 @@ function addCar(req, res) {
                     req.body.engine,
                     req.body.transmission,
                     req.body.fuel,
-                    req.body.description
+                    req.body.description,
+                    req.body.image
                 ]
                 connection.query(sqlQuery, new_car, (queryErr, results) => {
                     connection.release();
                     if(queryErr) {
+                        fs.unlink(`./uploads/${req.body.image}`, (err) => {
+                            if(err) {
+                                res.status(500).json({
+                                    message: "Something went wrong, please try again",
+                                    error: err
+                                });
+                            };
+                        });
                         res.status(400).json({
                             message: "Something went wrong, please try again",
                             error: queryErr

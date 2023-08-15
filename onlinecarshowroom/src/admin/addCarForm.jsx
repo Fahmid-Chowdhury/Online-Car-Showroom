@@ -20,6 +20,7 @@ export default function AddCarForm({ onClose, onAddCar }) {
   const [transmission, setTransmission] = useState('');
   const [fuel, setFuel] = useState('');
   const [description, setDescription] = useState('');
+  const [image, setImage] = useState(null); 
   const [error, setError] = useState(''); // error handling
   const [isValid, setisValid] = useState(false);
   const token = localStorage.getItem('token');
@@ -32,6 +33,12 @@ export default function AddCarForm({ onClose, onAddCar }) {
   const handleAddCar = async (event) => {
     event.preventDefault();
     try {
+        const formData = new FormData();
+        formData.append('image', image);
+        const responseImage = await axios.post('http://localhost:5000/images/uploads', formData, config);
+        if (responseImage.status === 201){
+            
+        const image = responseImage.data.url;
         const response = await axios.post('http://localhost:5000/admin/addcar', {
             brand: brand,
             model: model,
@@ -41,6 +48,7 @@ export default function AddCarForm({ onClose, onAddCar }) {
             transmission: transmission,
             fuel: fuel,
             description: description,
+            image: image
         },
         config);
   
@@ -49,7 +57,7 @@ export default function AddCarForm({ onClose, onAddCar }) {
             setisValid(true)
         } else {
             console.log('Authentication failed');
-        }
+        }}
     } catch (error) {
         setError(error.response.data.message);
 
@@ -116,6 +124,10 @@ export default function AddCarForm({ onClose, onAddCar }) {
                     <div className="form-input">
                         <label>Description</label>
                         <textarea maxLength={6000} type="text" value={description} onChange={e => setDescription(e.target.value)} placeholder='Description'required/>
+                    </div>
+                    <div className="form-input">
+                        <label>Image</label>
+                        <input type="file" onChange={e => setImage(e.target.files[0])} required/>
                     </div>
                     <div className="error-message">
                         <span>{error}</span>

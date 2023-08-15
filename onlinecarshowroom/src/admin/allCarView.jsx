@@ -28,9 +28,30 @@ function DeleteIcon() {
     );
 };
 function DeleteCar({car_id}){
+    const token = localStorage.getItem('token');
+  
+    const config = {
+        headers: {
+            Authorization: `bearer ${token}`, // Add the token to the Authorization header
+        },
+    };
+    
+    const deleteCar = async () => {
+        try {
+            const response = await axios.post(`http://localhost:5000/admin/deletecar`, {car_id}, config);
+            if (response.status === 200) {
+                alert('Car deleted successfully');
+                window.location.reload();
+            }
+        } catch (error) {
+            console.error('Error deleting car:', error);
+        }
+    };
+    
+    
     return (
         <div className="delete-car">
-            <button><DeleteIcon /></button>
+            <button onClick={deleteCar} ><DeleteIcon /></button>
         </div>
     );
 }

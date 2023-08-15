@@ -1,5 +1,5 @@
 const express = require('express');
-const imageController = require('../controllers/image.Controller');
+const imageController = require('../controllers/imageController');
 const imageUploader = require('../middleware/image-uploader');
 const checkAuthMiddleware = require('../middleware/check-authentication');
 
