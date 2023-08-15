@@ -43,7 +43,6 @@ export default function Navbar(){
       // Decode the token to get user data
       const decodedToken = jwt_decode(token);
       setUserName(decodedToken.name);
-      console.log(decodedToken.email)
       setUserRole(decodedToken.role);
     }
     else{

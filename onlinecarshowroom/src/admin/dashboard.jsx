@@ -85,7 +85,7 @@ export default function DashboardPage() {
         <ToolbarItem title="Test drive" onClick={() => handleStateChange('testDrive')} />
       </div>
       
-        {state.allCar && <AllCarView brand = {carModel}/>}
+        {state.allCar && <AllCarView />}
         {state.addCar && <AddCarForm/>}
         
         {state.enquery && <h1>Enquery</h1>}
