@@ -137,6 +137,7 @@ function login(req, res){
                 })
             }else {
                 const user = results[0];
+                const user_id = user.user_id;
                 const email = user.email;
                 const name = user.user_name;
                 const role = user.role;
