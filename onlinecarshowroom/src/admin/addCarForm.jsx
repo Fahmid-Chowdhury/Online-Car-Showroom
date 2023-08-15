@@ -14,7 +14,6 @@ function TickIcon(){
 export default function AddCarForm({ onClose, onAddCar }) {
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
-  const [type, setType] = useState('');
   const [year, setYear] = useState('');
   const [price, setPrice] = useState('');
   const [engine, setEngine] = useState('');
@@ -25,7 +24,6 @@ export default function AddCarForm({ onClose, onAddCar }) {
   const [isValid, setisValid] = useState(false);
   const token = localStorage.getItem('token');
   
-  // ... other form fields
   const config = {
     headers: {
       Authorization: `bearer ${token}`, // Add the token to the Authorization header
@@ -33,10 +31,6 @@ export default function AddCarForm({ onClose, onAddCar }) {
   };
   const handleAddCar = async (event) => {
     event.preventDefault();
-    const formData = new FormData();
-    // formData.append('brand', brand);
-    // formData.append('image', image);
-  
     try {
         const response = await axios.post('http://localhost:5000/admin/addcar', {
             brand: brand,
@@ -60,18 +54,15 @@ export default function AddCarForm({ onClose, onAddCar }) {
         setError(error.response.data.message);
 
     }
-  
     // Reset the form
     setBrand('');
     setModel('');
     setYear('');
     setPrice('');
     setEngine('');
+    setFuel('');
     setTransmission('');
     setDescription('');
-    
-    
-    
   };
     
 

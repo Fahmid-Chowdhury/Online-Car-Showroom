@@ -166,9 +166,40 @@ function login(req, res){
     });
 };
 
-
+function allcars(req, res){
+    pool.getConnection((err, connection) => {
+        if(err) {
+            res.status(500).json({
+                message: "Error getting database connection",
+                error: err
+            });
+        }
+    const sqlQuery = 'SELECT * FROM car';
+    connection.query(sqlQuery, (queryErr, results) => {
+        connection.release();
+        if(queryErr) {
+            res.status(400).json({
+                message: "Something went wrong. Please try again",
+                error: queryErr
+            });
+        };
+        if(results.length == 0){
+            res.status(409).json({
+                message: 'No cars found',
+                results: results
+            })
+        }else {
+            res.status(200).json({
+                message: 'Cars found',
+                data: results
+            })
+        };
+    });
+});
+};
 
 module.exports = {
     signUp: signUp,
-    login: login
+    login: login,
+    allCars: allcars
 }

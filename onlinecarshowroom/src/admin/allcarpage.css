@@ -34,3 +34,43 @@
     border: none;
     background-color: transparent;
 }
+.admin-car-header{
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 1fr 2fr 2fr;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    background-color: var(--bg-container);
+    margin:5px 0;
+    border-radius: 5px 5px 0 0 ;
+
+}
+.admin-car-header-item{
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0 10px;
+    color: var(--primary-col);
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+.admin-car-row{
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 1fr 2fr 2fr;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    background-color: var(--bg-container);
+    margin:5px 0;
+}
+.admin-car-card:last-child .admin-car-row{
+    border-radius: 0 0 5px 5px;
+}
+.admin-car-row-item{
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 10px;
+    color: var(--text-col);
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+

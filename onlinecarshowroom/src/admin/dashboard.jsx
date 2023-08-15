@@ -33,20 +33,6 @@ function ToolbarItem(props) {
   );
 }
 
-
-
-
-function ShowCars({data}){
-  return (
-    <>
-    <div className="display-car-container">
-      
-      
-    </div>
-    </>
-  );
-}
-
 export default function DashboardPage() {
   const navigate = useNavigate(); // Use history for navigation
   const [state, setState] = useState(initialState);
