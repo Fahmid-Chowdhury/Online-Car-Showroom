@@ -48,14 +48,15 @@
 }
 .display-item-container{
     display:grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-gap: 10px;
     transition: all 0.5s ease;
     margin-left: 15px;
+    overflow: auto;
 
 }
 .display-item{
-    height: 250px;
+    height: 300px;
     background-color: var(--bg-container);
     border-radius: 5px;
     overflow: hidden;
@@ -64,7 +65,7 @@
 }
 .display-item .car-image-container{
     width: 100%;
-    height: 150px;
+    height: 200px;
     overflow: hidden;
     background-color: black;
 }
@@ -74,5 +75,27 @@
     margin: 10px;
     color: var(--primary-col);
 }
-    
+.display-page-count{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left:15px;
+    font-size: 12px;
+    padding: 5px 0;
+    font-weight: 500;
+}
+.display-page-count .item-left{
+    color: var(--primary-col);
+}
+.display-page-count button{
+    font-size: 16px;
+    background-color: var(--primary-col);
+    border: none;
+    outline: none;
+    color: white;
+    cursor: pointer;
+    padding: 2px 15px;
+    margin-left: 10px;
+    border-radius: 5px;
+}
 

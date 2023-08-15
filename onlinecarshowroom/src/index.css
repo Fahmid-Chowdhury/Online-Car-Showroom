@@ -15,7 +15,7 @@
   scroll-behavior: smooth;
 
   --txt-col: whitesmoke;
-  --primary-col: #00b3ff;
+  --primary-col: #ff007b;
   --border-col:rgba(97, 115, 119, 0.411);
   --bg-container: rgba(0, 0, 0, 0.5);
   --primary-header: 6rem;
@@ -23,7 +23,7 @@
   --text-size: 1rem;
 
   --shadow: 0 0 10px 1px rgba(0, 0, 0, 0);
-  --gradient:linear-gradient(#141e30, #243b55);
+  --gradient:linear-gradient(#0e1820, #341d48);
 }
 
 body{

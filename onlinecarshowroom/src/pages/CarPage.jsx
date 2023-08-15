@@ -4,21 +4,32 @@ import './carPage.css';
 import PriceRange from '../components/priceRange.jsx';
 import ExtendedList from '../components/extendedList';
 
+
+  
+
 export default function CarPage() {
   const sortData = ["Price: Low to High", "Price: High to Low", "Stock", "Modified"];
-  const itemsPerPage = 10; // Number of items to display per page
 
   const pageSize = 12;
   const [carData, setCarData] = useState([]);
-  const [displayData,setDisplayData] = useState([]);
   const [displayedItems, setDisplayedItems] = useState(pageSize);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [carTotal,setCarTotal] = useState(0);
 
+  const handleForward = () => {
+    if (page < Math.ceil(carTotal/pageSize)){
+      setPage(prevPage => prevPage + 1);
+    }
+  };
+  const handleBackward = () => {
+    if (page > 1){
+      setPage(prevPage => prevPage - 1);
+    }
+  };
+  
   useEffect(() => {
     fetchCarData();
-    setDisplayData(prevData=> prevData.concat(carData));
   }, [page]);
 
   const fetchCarData = async () => {
@@ -47,13 +58,6 @@ export default function CarPage() {
           <ExtendedList data = {sortData} title = "Type" />
       </div>
       <div className=" display-container">
-        {/* <div className=" search-container">
-        <div>
-          <input type="text" placeholder="Search.." name="search" />
-        </div>
-        </div> */}
-        
-        
         <div className=" display-item-container">
         {isLoading ? (
               <div className="loading">Loading...</div>
@@ -70,14 +74,20 @@ export default function CarPage() {
                 </div>
               ))
             )}
-            { displayedItems < carTotal && (
-              <button className="load-more-button" onClick={handleLoadMore}>
-                Load More
-              </button>
-              
-            )}
+        </div>
+        <div className="display-page-count">
+          {
+            <>
+            <div className="item-left">
+              <p>Page {page} of {Math.ceil(carTotal/pageSize)}</p>
+            </div>
+            <div className="item-middle">
+              <button className="page-button" onClick={handleBackward}>{"<"}</button>
+              <button className="page-button" onClick={handleForward}>{">"}</button>
+            </div>
             
-          
+            </>
+          }
         </div>
         
       </div>
