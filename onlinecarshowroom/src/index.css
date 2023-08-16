@@ -32,7 +32,7 @@ body{
   color: var(--txt-col);
 }
 ::-webkit-scrollbar {
-  width:5px;
+  width:2px;
   border-radius: 5px;
 
   
