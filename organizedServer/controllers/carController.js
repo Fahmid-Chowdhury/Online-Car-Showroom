@@ -70,7 +70,6 @@ function allcars(req, res) {
             years: ["All"],
             cars: []
         };
-        console.log(response)
         connection.query(sqlQueryBrands, (brandsQueryErr, brandsResults) => {
             if (brandsQueryErr) {
                 connection.release();
@@ -81,7 +80,6 @@ function allcars(req, res) {
             }
 
             response.brands = response.brands.concat(brandsResults.map(brand => brand.brand));
-            console.log(response)
 
             connection.query(sqlQueryYears, (yearsQueryErr, yearsResults) => {
                 if (yearsQueryErr) {
@@ -93,7 +91,6 @@ function allcars(req, res) {
                 }
 
                 response.years = response.years.concat(yearsResults.map(year => year.year));
-                console.log(response)
 
                 connection.query(sqlQueryAllCars, (carsQueryErr, carsResults) => {
                     connection.release();
@@ -106,7 +103,6 @@ function allcars(req, res) {
                     }
 
                     response.cars = carsResults;
-                    console.log(response)
 
                     return res.status(200).json({
                         message: 'Car data retrieved successfully',
@@ -119,45 +115,76 @@ function allcars(req, res) {
 }
 
 // admin controllers
-
-
-function deleteCar(req, res) {
-    console.log(req.body)
-    const car_id = req.body.car_id;
-    console.log(car_id)
+function allreviews(req, res) {
+    const carId = req.query.car_id;
     pool.getConnection((err, connection) => {
-        if(err) {
-            res.status(500).json({
+        if (err) {
+            return res.status(500).json({
                 message: "Error getting database connection",
                 error: err
             });
-        };
-        const sqlQuery = 'DELETE FROM car WHERE car_id = ?';
-        connection.query(sqlQuery, car_id, (queryErr, results) => {
+        }
+        const sqlQuery = 'your query here';
+        connection.query(sqlQuery, carId, (queryErr, results) => {
             connection.release();
-            console.log(results,results.affectedRows)
-            if(queryErr) {
-                res.status(400).json({
-                    message: "Something went wrong. Please try again",
+            if (queryErr) {
+                return res.status(400).json({
+                    message: "Error fetching reviews",
                     error: queryErr
                 });
-            };
-
-            if(results.affectedRows == 0){
-                res.status(409).json({
-                    message: 'No car found',
-                    results: results
-                })
-
-            }else {
-                res.status(200).json({
-                    message: 'Car deleted successfully',
-                    results: results
-                })
-            };
+            }
+            return res.status(200).json({
+                message: 'Reviews retrieved successfully',
+                data: results
+            }); 
         });
     });
-};
+}
+
+
+function deleteCar(req, res) {
+    const carId = req.body.car_id;
+
+    pool.getConnection((err, connection) => {
+        if (err) {
+            return res.status(500).json({
+                message: "Error getting database connection",
+                error: err
+            });
+        }
+
+        const deleteQuery = 'DELETE FROM car WHERE car_id = ?';
+        connection.query(deleteQuery, carId, (queryErr, results) => {
+            connection.release();
+
+            if (queryErr) {
+                console.log(queryErr);
+                if (queryErr.code === 'ER_ROW_IS_REFERENCED_2') {
+                    console.log('here');
+                    return res.status(409).json({
+                        message: "Cannot delete car. It is referenced by other records.",
+                    });
+                } else {
+                    return res.status(400).json({
+                        message: "Error deleting carrrrr",
+                        error: queryErr
+                    });
+                }
+            }
+
+            if (results.affectedRows === 0) {
+                return res.status(404).json({
+                    message: 'No car found for deletion',
+                });
+            }
+
+            return res.status(200).json({
+                message: 'Car deleted successfully',
+            });
+        });
+    });
+}
+
 
 
 module.exports = {

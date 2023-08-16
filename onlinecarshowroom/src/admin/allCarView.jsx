@@ -37,16 +37,24 @@ function DeleteCar({car_id}){
     };
     
     const deleteCar = async () => {
+    
         try {
-            const response = await axios.post(`http://localhost:5000/admin/deletecar`, {car_id}, config);
+            const response = await axios.delete('http://localhost:5000/admin/deletecar', {
+                data: { car_id: car_id },
+                ...config
+            });
+    
             if (response.status === 200) {
                 alert('Car deleted successfully');
                 window.location.reload();
-            }
+            
+            } 
         } catch (error) {
-            console.error('Error deleting car:', error);
+            alert('Error deleting car');
+            console.log(response)
         }
     };
+    
     
     
     return (
