@@ -4,6 +4,17 @@ import './carPage.css';
 import PriceRange from '../components/priceRange.jsx';
 import ExtendedList from '../components/extendedList';
 
+function CrossIcon() {
+  return (
+    <>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+</svg>
+
+    </>
+  )
+}
+
 function IndividualReview({name, rating, comment}){
   return (
     <div className="review-user">
@@ -80,7 +91,7 @@ function CarExtended({carId}){
     <div className="car-extended-container">
       <div className="car-extended-row">
         <div className="car-extended-image">
-          <img src={`http://localhost:5000/images/getimage/${carData.images}`} alt="image" /> 
+          <img src={`http://localhost:5000/images/image/${carData.images}`} alt="image" /> 
         </div>
         <div className="car-extended-info">
           <div className="car-extended-title">
@@ -176,7 +187,7 @@ export default function CarPage() {
       {selectedCarId && 
           <div className="selected-car-container">
             <div className="close">
-              <button onClick={()=>{setSelectedCarId(null)}}>Close</button>
+              <button onClick={()=>{setSelectedCarId(null)}}><CrossIcon/></button>
             </div>
             <CarExtended carId={selectedCarId}/>
             
@@ -200,7 +211,7 @@ export default function CarPage() {
                 // </div>\
                 <div className="bg-white border border-gray-200 rounded-lg shadow cursor-pointer max-w-g dark:bg-gray-800 dark:border-gray-700" onClick={()=>{setSelectedCarId( car.car_id)}}>
                     <div className=" h-60">
-                      <img className ="car-card-img" src={`http://localhost:5000/images/getimage/${car.images}`} alt="image" />
+                      <img className ="car-card-img" src={`http://localhost:5000/images/image/${car.images}`} alt="image" />
                     </div>
                     <div className="p-5">
                         <h5 className = "mb-2 text-xl font-bold text-gray-700 dark:text-gray-200">{car.brand+" "+car.model}</h5>

@@ -99,23 +99,18 @@
     transition: all 0.5s ease;
 }
 .selected-car-container .close button{
-    background-color: var(--primary-col);
     border: none;
     outline: none;
-    color: white;
+    color: var(--primary-col);
     cursor: pointer;
     font-size: 12px;
     padding: 5px 10px;
     font-weight: 500;
     border-radius: 5px;
     float: right;
-    margin: 20px;
+    margin: 10px;
 }
-.selected-car-container .close{
-    border-bottom: 1px solid var(--primary-col);
-    
 
-}
 .car-extended-container{
     display: flex;
     flex-direction: column;
