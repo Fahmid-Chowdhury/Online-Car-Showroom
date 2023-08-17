@@ -80,8 +80,8 @@ function CarExtended({carId}){
     <div className="car-extended-container">
       <div className="car-extended-row">
         <div className="car-extended-image">
-          image
-          </div>
+          <img src={`http://localhost:5000/images/getimage/${carData.images}`} alt="image" /> 
+        </div>
         <div className="car-extended-info">
           <div className="car-extended-title">
           <h3>{carData.brand}</h3>
@@ -188,14 +188,28 @@ export default function CarPage() {
               <div className="loading">Loading...</div>
             ) : (
               carData.map((car, index) => (
-                <div key={index} className="display-item" onClick={()=>{setSelectedCarId( car.car_id); console.log(selectedCarId)}}>
-                  <div className="car-image-container">
+                // <div key={index} className="display-item" onClick={()=>{setSelectedCarId( car.car_id); console.log(selectedCarId)}}>
+                //   <div className="car-image-container">
+                //   <img src={`http://localhost:5000/images/getimage/${car.images}`} alt="image" /> 
+                //   </div>
+                //   <div className="display-item-title">
+                //     <h3>{car.brand+" "+car.model}</h3>
                     
-                  </div>
-                  <div className="display-item-title">
-                    <h3>{car.brand+" "+car.model}</h3>
-                  </div>
+                //   </div>
                   
+                // </div>\
+                <div className="bg-white border border-gray-200 rounded-lg shadow cursor-pointer max-w-g dark:bg-gray-800 dark:border-gray-700" onClick={()=>{setSelectedCarId( car.car_id)}}>
+                    <div className=" h-60">
+                      <img className ="car-card-img" src={`http://localhost:5000/images/getimage/${car.images}`} alt="image" />
+                    </div>
+                    <div className="p-5">
+                        <h5 className = "mb-2 text-xl font-bold text-gray-700 dark:text-gray-200">{car.brand+" "+car.model}</h5>
+                        <p className="mb-3 text-sm text-gray-900 dark:text-gray-100">{car.year}</p>
+                        <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                            
+                            <p className="text-sm ">Price: {car.price}</p>
+                            </div>
+                    </div>
                 </div>
               ))
             )}

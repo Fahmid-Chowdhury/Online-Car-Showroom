@@ -1,3 +1,5 @@
+const path = require('path');
+
 function upload(req, res){
     if(req.file.filename){
         res.status(201).json({
@@ -10,7 +12,12 @@ function upload(req, res){
         });
     };
 };
+function getimage(req, res){
+    const image = req.params.filename;
+    res.sendFile(path.join(__dirname, '../uploads/' + image));
+}
 
 module.exports = {
-    upload: upload
+    upload: upload,
+    getImage: getimage
 }

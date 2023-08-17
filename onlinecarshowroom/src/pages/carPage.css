@@ -53,31 +53,12 @@
 .display-item-container{
     display:grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
+    grid-gap: 20px;
     transition: all 0.5s ease;
     overflow: auto;
 
 }
-.display-item{
-    height: 300px;
-    background-color: var(--bg-container);
-    border-radius: 5px;
-    overflow: hidden;
-    transition: all 0.5s ease;
-    cursor: pointer;
-}
-.display-item .car-image-container{
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
-    background-color: black;
-}
-.display-item-title{
-    font-size: 14px;
-    font-weight: 500;
-    margin: 10px;
-    color: var(--primary-col);
-}
+
 .display-page-count{
     display: flex;
     justify-content: space-between;
@@ -86,6 +67,11 @@
     font-size: 12px;
     padding: 5px 0;
     font-weight: 500;
+}
+.car-card-img{
+    object-fit: cover;
+    height: 100%;
+    border-radius: 5px;
 }
 .display-page-count .item-left{
     color: var(--primary-col);
@@ -148,9 +134,13 @@
 }
 .car-extended-image{
     width: 100%;
-    height: 400px;
     overflow: hidden;
     background-color: black;
+}
+.car-extended-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 .car-extended-info{
     display: flex;
