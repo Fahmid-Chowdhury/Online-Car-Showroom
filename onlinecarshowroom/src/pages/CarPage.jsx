@@ -4,7 +4,7 @@ import './carPage.css';
 import PriceRange from '../components/priceRange.jsx';
 import ExtendedList from '../components/extendedList';
 
-function IndividualReview(){
+function IndividualReview({name, rating, comment}){
   return (
     <div className="review-user">
       <div className="review-user-image">
@@ -12,37 +12,71 @@ function IndividualReview(){
       </div>
       <div className="review-comment-container">
           <div className="review-user-name">
-            <h3>John Doe</h3>
+            <h3>{name}</h3>
           </div>
           <div className="review-user-rating">
-            <p>Rated: 5</p>
+            <p>Rated: {rating}</p>
           </div>
           <div className="review-user-comment">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</p>
+            <p>{comment}</p>
           </div>
           <div className="review-border"></div>
       </div>
     </div>
   );
 }
-function ReviewBox(){
+function ReviewBox({comments}){
+  console.log("comments: ",comments);
   return (
     <div className="review-box">
       <div className="test">
         <h3>Reviews</h3>
       </div>
-        <IndividualReview/>
-        <IndividualReview/>
-        <IndividualReview/>
-        <IndividualReview/>
-      
+        {comments.length === 0 && <p>No reviews yet</p>}
+        {comments.map((comment) => (
+          <IndividualReview name = {comment.user_name} rating = {comment.rating} comment = {comment.message}/>
+        ))}
+        
       
     </div>
   )
 }
   
 function CarExtended({carId}){
+  const [carComment, setCarComment] = useState([]);
+  const [carData, setCarData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  useEffect(() => {
+    fetchCarComment();
+    fetchCar();
+  }, [carId]);
+  
+  const fetchCar = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/user/getcar?carId=${carId}`);
+      setCarData(response.data.carData);
+      setIsLoading(false);
+
+    } catch (error) {
+      console.error('Error fetching car data:', error);
+      setIsLoading(false);
+    }
+  };
+  const fetchCarComment = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/user/comments?carId=${carId}`); 
+      setCarComment(response.data.comment);
+    }
+    catch (error) {
+      console.error('Error fetching comments', error);
+    }
+  }
   return (
+    <>
+    {isLoading ? (
+      <div className="loading">Loading...</div>
+    ) : (
     <div className="car-extended-container">
       <div className="car-extended-row">
         <div className="car-extended-image">
@@ -50,24 +84,47 @@ function CarExtended({carId}){
           </div>
         <div className="car-extended-info">
           <div className="car-extended-title">
-          <h3>Lamborghini</h3>
-          <h4>Huracan Performante</h4>
+          <h3>{carData.brand}</h3>
+          <h4>{carData.model}</h4>
+          </div>
+          <div className="car-extended-year">
+            <p>{carData.year}</p>
           </div>
           <div className="car-extended-description">
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque hic deleniti, a nemo excepturi sequi, molestias maxime veniam cupiditate suscipit explicabo sint corporis atque dicta tempora rerum aspernatur delectus laudantium?
-            Quas porro fugiat laudantium ut, rerum sint eum qui, consectetur quidem ratione dolorem pariatur minus? Dicta incidunt alias repudiandae officiis possimus sunt cum magni delectus, nobis, porro quis eius ad.
-            At cupiditate maiores corporis molestias labore, libero recusandae velit earum? Cumque quod nisi repudiandae delectus possimus obcaecati repellat ipsum quasi. Nisi cupiditate ex consequatur reprehenderit minima odio velit natus assumenda.
-            </p>
+            <p>{carData.description}</p>
           </div>
-          <div className="car-extended-price">
-            <h3>$650000</h3>
+          <div className="car-extended-specs">
+            <p className = "title">Specs</p>
+            <div className="car-extended-spec-grid">
+              <div className="car-extended-spec-item">
+                <p className='title'>Engine</p>
+                <p>{carData.engine}</p>
+              </div>
+              <div className="car-extended-spec-item">
+                <p className='title'>Transmission</p>
+                <p>{carData.transmission}</p>
+              </div>
+              <div className="car-extended-spec-item">
+                <p className='title'>Fuel</p>
+                <p>{carData.fuel}</p>
+              </div>
+              <div className="car-extended-spec-item">
+                <p className='title'>Price</p>
+                <p>{carData.price}</p>
+              </div>
+            </div>
           </div>
+          
         </div>
       </div>
-      <ReviewBox/>
+      <ReviewBox comments = {carComment}/>
     </div>
   )
+  }
+  </>
+  );
 }
+
 export default function CarPage() {
   const sortData = ["Price: Low to High", "Price: High to Low", "Stock", "Modified"];
 

@@ -1,5 +1,6 @@
 const Validator = require('fastest-validator');
 const mysql = require('mysql');
+const { get } = require('../routes/user');
 
 const pool = mysql.createPool({
     connectionLimit: 10,
@@ -185,10 +186,64 @@ function deleteCar(req, res) {
     });
 }
 
+function allreviews(req, res) {
+    const carId = req.query.carId;
+    console.log("carId", carId);
+    pool.getConnection((err, connection) => {
+        if (err) {
+            return res.status(500).json({
+                message: "Error getting database connection",
+                error: err
+            });
+        }
+        const sqlQuery = 'select u.user_name, r.review_id, r.review_date, r.message, r.rating from user u, review r where u.user_id = r.user_id and r.car_id = ?;';
+        connection.query(sqlQuery, carId, (queryErr, results) => {
+            connection.release();
+            if (queryErr) {
+                return res.status(400).json({
+                    message: "Error fetching reviews",
+                    error: queryErr
+                });
+            }
+            return res.status(200).json({
+                message: 'Reviews retrieved successfully',
+                comment: results
+            }); 
+        });
+    });
+
+}
+function getcar(req, res) {
+    const carId = req.query.carId;
+    pool.getConnection((err, connection) => {
+        if (err) {
+            return res.status(500).json({
+                message: "Error getting database connection",
+                error: err
+            });
+        }
+        const sqlQuery = 'select * from car where car_id = ?';
+        connection.query(sqlQuery, carId, (queryErr, results) => {
+            connection.release();
+            if (queryErr) {
+                return res.status(400).json({
+                    message: "Error fetching car",
+                    error: queryErr
+                });
+            }
+            return res.status(200).json({
+                message: 'Car retrieved successfully',
+                carData: results[0]
+            });
+        });
+    });
+}
 
 
 module.exports = {
     allCars: allcars,
     deleteCar: deleteCar,
-    listCars: listcars
+    listCars: listcars,
+    listComments: allreviews,
+    getCar: getcar
 }

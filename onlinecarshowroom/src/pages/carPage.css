@@ -177,13 +177,39 @@
     color: rgb(155, 154, 154);
     margin-bottom: 10px;
 }
-.car-extended-price{
-    font-size: 20px;
-    font-weight: 500;
+.car-extended-specs{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.car-extended-specs .title{
+    font-size: 18px;
+    font-weight:600;
     color: var(--primary-col);
     margin-bottom: 10px;
-    
 }
+.car-extended-spec-grid{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    margin-bottom: 10px;
+}
+.car-extended-spec-item .title{
+    font-size: 12px;
+    font-weight: 300;
+    color: rgb(155, 154, 154);
+}
+    
+.car-extended-spec-item p{
+    font-size: 15px;
+    font-weight: 300;
+    color: rgb(199, 198, 198);
+}
+
 .review-box{
     display: flex;
     flex-direction: column;
