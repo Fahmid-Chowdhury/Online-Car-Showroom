@@ -129,17 +129,15 @@
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 30px;
     justify-content: space-between;
-    align-items: center;
     margin: 10px 0;
 }
 .car-extended-image{
+    padding-top: 10px;
     width: 100%;
     overflow: hidden;
-    background-color: black;
 }
 .car-extended-image img{
     width: 100%;
-    height: 100%;
     object-fit: cover;
 }
 .car-extended-info{
