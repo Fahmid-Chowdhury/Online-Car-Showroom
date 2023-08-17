@@ -3,6 +3,7 @@ import axios from 'axios';
 import './carPage.css';
 import PriceRange from '../components/priceRange.jsx';
 import ExtendedList from '../components/extendedList';
+import jwt_decode from 'jwt-decode';
 
 function CrossIcon() {
   return (
@@ -12,6 +13,67 @@ function CrossIcon() {
 </svg>
 
     </>
+  )
+}
+function CommentBox({userInfo, carid}){
+  const [commented, setCommented] = useState(false);
+  const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(0);
+  const fetchComment = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/user/commented?userId=${userInfo.user_id}&carId=${carid}`);
+      setCommented(response.data.commented);
+    } catch (error) {
+      console.error('Error fetching car data:', error);
+    }
+  };
+  
+  useEffect(() => {
+    fetchComment();
+  }, []);
+  return (
+    <div className="review-user">
+      <div className="review-user-image">
+        
+      </div>
+      <div className="review-comment-container">
+          <div className="review-user-name">
+            <h3>{userInfo.name}</h3>
+          </div>
+          
+          {commented ? (
+            <>
+            <div className="review-user-rating">
+              <p>Rated: {rating}</p>
+            </div>
+            <div className="review-user-comment">
+            <p>{comment}</p>
+            </div></>) : (<>
+            <div className="review-user-comment">
+            <div className="review-rating">
+              <p>Rating: </p>
+              <select className="review-select" onChange={(e)=>{setRating(e.target.value)}}>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value='5'>5</option>
+              </select>
+            </div>
+            <textarea className="review-textarea" placeholder="Write your review here" onChange={(e)=>{setComment(e.target.value)}}></textarea>
+            </div>
+            <div className="review-submit">
+              <button className="review-button" onClick={()=>{} }>Submit</button>
+            </div>
+
+            </>
+          )
+            }
+          
+          <div className="review-border"></div>
+      </div>
+    </div>
   )
 }
 
@@ -36,13 +98,32 @@ function IndividualReview({name, rating, comment}){
     </div>
   );
 }
-function ReviewBox({comments}){
-  console.log("comments: ",comments);
+function ReviewBox({comments, carid}){
+  const [userInfo, setUserInfo] = useState(null);
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
+  // get token
+  // get user name from token
+  const fetchUserInfo =() => {
+  try{
+    const token = localStorage.getItem('token');
+    const decodedToken = jwt_decode(token);
+    setUserInfo(decodedToken);
+    
+  }catch (error){
+    console.log(error);
+  }
+  }
+  
   return (
     <div className="review-box">
       <div className="test">
         <h3>Reviews</h3>
       </div>
+      {userInfo &&
+        <CommentBox userInfo={userInfo} carid = {carid}/>}
+        
         {comments.length === 0 && <p>No reviews yet</p>}
         {comments.map((comment) => (
           <IndividualReview name = {comment.user_name} rating = {comment.rating} comment = {comment.message}/>
@@ -128,7 +209,7 @@ function CarExtended({carId}){
           
         </div>
       </div>
-      <ReviewBox comments = {carComment}/>
+      <ReviewBox comments = {carComment} carid = {carId}/>
     </div>
   )
   }
@@ -177,14 +258,7 @@ export default function CarPage() {
   return (
     <>
     <div className="relative flex carpage-container">
-      <div className="toolbar-container">
-          <PriceRange/>
-          <ExtendedList data = {sortData} title = "Sort" />
-          <ExtendedList data = {sortData} title = "Brand" />
-          <ExtendedList data = {sortData} title = "Type" />
-      </div>
-      <div className=" display-container">
-      {selectedCarId && 
+        {selectedCarId && 
           <div className="selected-car-container">
             <div className="close">
               <button onClick={()=>{setSelectedCarId(null)}}><CrossIcon/></button>
@@ -192,7 +266,15 @@ export default function CarPage() {
             <CarExtended carId={selectedCarId}/>
             
           </div>
-          }
+        }
+      <div className="toolbar-container">
+          <PriceRange/>
+          <ExtendedList data = {sortData} title = "Sort" />
+          <ExtendedList data = {sortData} title = "Brand" />
+          <ExtendedList data = {sortData} title = "Type" />
+      </div>
+      <div className=" display-container">
+      
         <div className=" display-item-container">
         
         {isLoading ? (

@@ -93,10 +93,11 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 100%;
     border-radius: 5px;
     overflow: auto;
     transition: all 0.5s ease;
+    z-index: 1;
+    margin-right: 17%;
 }
 .selected-car-container .close button{
     border: none;
@@ -124,7 +125,8 @@
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 30px;
     justify-content: space-between;
-    margin: 10px 0;
+    width: 80%;
+    margin: auto;
 }
 .car-extended-image{
     padding-top: 10px;
@@ -198,7 +200,8 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
-    width: 100%;
+    width: 80%;
+    margin:auto;
 }
 
 
@@ -242,11 +245,63 @@
     font-weight: 300;
     color: rgb(191, 190, 190);
     margin-bottom: 10px;
+    width: 100%;
 }
 .review-border{
     height:2px;
     background-color: rgba(58, 58, 58, 0.364);
     width: 100%;
     border-radius: 5px;
+}
+.review-rating{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.review-rating p{
+    font-size: 10px;
+    font-weight: 300;
+    color: rgb(155, 154, 154);
+    margin-right: 10px;
+}
+.review-rating select{
+    width: 50px;
+    border: 1px solid var(--primary-col);
+    background-color: transparent;
+    outline: none;
+    color: rgb(156, 151, 151);
+    font-size: 12px;
+    font-weight: 300;
+    padding: 0 10px;
+}
+.review-textarea{
+    width: 100%;
+    height: 70px;
+    border: 1px solid var(--primary-col);
+    background-color: transparent;
+    outline: none;
+    color: rgb(156, 151, 151);
+    font-size: 12px;
+    font-weight: 300;
+    padding: 10px;
+    border-radius: 5px;
+}
+.review-submit{
+    width: 100%;
+   
+}
+.review-button{
+    width: 100%;
+    height: 30px;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: var(--primary-col);
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
 }
     

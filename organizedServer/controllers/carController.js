@@ -214,6 +214,41 @@ function getcar(req, res) {
         });
     });
 }
+function userreview(req, res) {
+    const userId = req.query.userId;
+    const carId = req.query.carId;
+    pool.getConnection((err, connection) => {
+        if (err) {
+            return res.status(500).json({
+                message: "Error getting database connection",
+                error: err
+            });
+        }
+        const sqlQuery = 'select r.review_id, r.review_date, r.message, r.rating from car c, review r where c.car_id = r.car_id and r.user_id = ?;';
+        connection.query(sqlQuery, userId, (queryErr, results) => {
+            connection.release();
+            if (queryErr) {
+                return res.status(400).json({
+                    message: "Error fetching reviews",
+                    error: queryErr
+                });
+            }
+            const response = {
+                reviews: results,
+                commented: true
+            };
+            if (results.length === 0) {
+                response.commented = false;
+            }
+            return res.status(200).json({
+                message: 'Reviews retrieved successfully',
+                comment: results,
+                commented: response.commented
+
+            });
+        });
+    });
+}
 
 
 module.exports = {
@@ -221,5 +256,6 @@ module.exports = {
     deleteCar: deleteCar,
     listCars: listcars,
     listComments: allreviews,
-    getCar: getcar
+    getCar: getcar,
+    userReview: userreview
 }
