@@ -116,31 +116,7 @@ function allcars(req, res) {
 }
 
 // admin controllers
-function allreviews(req, res) {
-    const carId = req.query.car_id;
-    pool.getConnection((err, connection) => {
-        if (err) {
-            return res.status(500).json({
-                message: "Error getting database connection",
-                error: err
-            });
-        }
-        const sqlQuery = 'your query here';
-        connection.query(sqlQuery, carId, (queryErr, results) => {
-            connection.release();
-            if (queryErr) {
-                return res.status(400).json({
-                    message: "Error fetching reviews",
-                    error: queryErr
-                });
-            }
-            return res.status(200).json({
-                message: 'Reviews retrieved successfully',
-                data: results
-            }); 
-        });
-    });
-}
+
 
 
 function deleteCar(req, res) {

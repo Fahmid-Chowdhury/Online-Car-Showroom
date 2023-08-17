@@ -199,17 +199,7 @@ export default function CarPage() {
               <div className="loading">Loading...</div>
             ) : (
               carData.map((car, index) => (
-                // <div key={index} className="display-item" onClick={()=>{setSelectedCarId( car.car_id); console.log(selectedCarId)}}>
-                //   <div className="car-image-container">
-                //   <img src={`http://localhost:5000/images/getimage/${car.images}`} alt="image" /> 
-                //   </div>
-                //   <div className="display-item-title">
-                //     <h3>{car.brand+" "+car.model}</h3>
-                    
-                //   </div>
-                  
-                // </div>\
-                <div className="bg-white border border-gray-200 rounded-lg shadow cursor-pointer max-w-g dark:bg-gray-800 dark:border-gray-700" onClick={()=>{setSelectedCarId( car.car_id)}}>
+                <div className="bg-white border border-gray-200 rounded-lg shadow cursor-pointer max-w-g dark:bg-gray-800 dark:border-gray-700 hover:shadow-md" onClick={()=>{setSelectedCarId( car.car_id)}}>
                     <div className=" h-60">
                       <img className ="car-card-img" src={`http://localhost:5000/images/image/${car.images}`} alt="image" />
                     </div>
