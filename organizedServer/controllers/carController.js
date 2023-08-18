@@ -352,6 +352,55 @@ function addcomment(req, res) {
         });
     });
 }
+function ordercar(req, res) {
+    const carId = req.body.carId;
+    const userId = req.body.userId;
+    const deliveryAddress = req.body.deliveryAddress;
+    const orderDate = new Date();
+    console.log("carId", carId);
+    console.log("userId", userId);
+
+    pool.getConnection((err, connection) => {
+        if (err) {
+            return res.status(500).json({
+                message: "Error getting database connection",
+                error: err
+            });
+        }
+        const getprice = 'select price from car where car_id = ?';
+        connection.query(getprice, carId, (queryErr, results) => {
+
+            if (queryErr) {
+                connection.release();
+                return res.status(400).json({
+                    message: "Error getting price",
+                    error: queryErr
+                });
+            }
+
+            let price = results[0].price;
+            price = price+(price*4/100)+500
+            console.log(price)
+            const insertQuery = 'INSERT INTO customer_order (car_id, user_id, order_date,delivery_address, total_price, order_status) VALUES (?, ?, ?,?, ?,?)';
+            connection.query(insertQuery, [carId, userId, orderDate,deliveryAddress, price, 'pending'], (queryErr, results) => {
+
+                if (queryErr) {
+                    connection.release();
+                    return res.status(400).json({
+                        message: "Error ordering car",
+                        error: queryErr
+                    });
+                }
+                return res.status(200).json({
+                    message: 'Car ordered successfully',
+                });
+            }
+            );
+        });
+       
+    });
+}
+    
 
 module.exports = {
     allCars: allcars,
@@ -360,5 +409,6 @@ module.exports = {
     listComments: allreviews,
     getCar: getcar,
     userReview: userreview,
-    addComment: addcomment
+    addComment: addcomment,
+    orderCar: ordercar,
 }

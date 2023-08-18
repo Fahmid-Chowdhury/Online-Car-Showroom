@@ -11,5 +11,6 @@ router.get('/comments', carController.listComments);
 router.get('/commented', carController.userReview);
 router.post('/addcomment', carController.addComment);
 router.get('/getcar', carController.getCar);
+router.post('/order', carController.orderCar);
 
 module.exports = router;

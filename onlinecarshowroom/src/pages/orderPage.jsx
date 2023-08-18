@@ -6,7 +6,8 @@ import './orderPage.css';
 import { Link } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
-function Order(){
+function Order({fnc}){
+    const [orderSuccess, setOrderSuccess] = useState(false);
     const { carId } = useParams();
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
@@ -14,28 +15,52 @@ function Order(){
     const userId = decoded.user_id;
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
-    const  orderCar = async () => {
-        const response = await axios.post(`http://localhost:5000/api/order/${userId}/${carId}`);
-        console.log(response);
-        navigate('/cars');
-    };
+    const [error, setError] = useState(''); // error handling
+    const  orderCar = async (e) => {
+        setError('')
+        e.preventDefault();
+        console.log(carId);
+        try{
+            
+            const response = await axios.post(`http://localhost:5000/user/order`, {
+                carId: carId,
+                userId: userId,
+                deliveryAddress: address,
+                phone: phone
+                });
+            if (response.status === 200) {
+                setOrderSuccess(true);
+                
+            } else {
+                console.log('Authentication failed');
+            }
+        } catch (error) {
+            setError(error.message);
+        
+            
+        };
+    }
     return(
         <div className="order-page">
             <div className="order-container">
             <div className="order-title">
                 <h1>Order info</h1>
             </div>
-            <form>
+            <form onSubmit={orderCar}>
                 <div className="order-item">
-                    <label htmlFor="Delivery address">Delivary address</label>
+                    <label>Delivary address</label>
                     <input type="text" id="Delivery address" name="Delivery address" placeholder="Delivery address" onChange={e => setAddress(e.target.value)} value={address} required/>
                 </div>
                 <div className="order-item">
-                    <label htmlFor="Phone number">Phone number</label>
+                    <label>Phone number</label>
                     <input type="text" id="Phone number" name="Phone number" placeholder="Phone number"onChange={e => setPhone(e.target.value)} value={phone} required/>
                 </div>
+                <div className="order-error">
+                    <p>{error}</p>
+                </div>
+                    
                 <div className="submit-order">
-                    <button type="submit">Order</button>
+                    <button type="submit" >Order</button>
                 </div>
                 
             </form>
@@ -54,7 +79,6 @@ function CantOrder(){
 
 export default function OrderPage() {
     const [userId, setUserId] = useState('');
-    const [orderSuccess, setOrderSuccess] = useState(false);
     const token = localStorage.getItem('token');
     
 
@@ -62,14 +86,8 @@ export default function OrderPage() {
         if (token) {
             const decoded = jwt_decode(token);
             setUserId(decoded.user_id);
-            console.log(decoded);
         }
     }, [token]);
-
-    
-    
-        
-    
     const { carId } = useParams();
     const navigate = useNavigate();
 

@@ -45,7 +45,13 @@
     font-weight: 600;
     margin-bottom: 20px;
 }
-
+.order-error{
+    color: red;
+    font-size: 12px;
+    font-weight: 300;
+    margin-bottom: 10px;
+    text-align: center;
+}
 .order-item{
     display: flex;
     flex-direction: column;
