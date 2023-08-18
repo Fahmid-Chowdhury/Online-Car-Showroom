@@ -3,6 +3,28 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function OrderItem({order}) {
+    const token = localStorage.getItem('token');
+
+    const config = {
+        headers: {
+        Authorization: `bearer ${token}`, // Add the token to the Authorization header
+        },
+    };
+    const confirmOrder = async () => {
+        try {
+            const response = await axios.post("http://localhost:5000/admin/confirmorder", {order_id: order.order_id}, config);
+            if (response.status === 200){
+                alert("Order confirmed");
+                
+            }else {
+                alert("Something went wrong");
+            }
+
+        } catch (error) {
+            console.log(error.message);
+            alert(error.message);
+        }
+    }
     return (
         <div className="customer-order-item">
             <div className="customer-item-title">
@@ -29,7 +51,7 @@ function OrderItem({order}) {
             </div>
 
             <div className="customer-order-buttons">
-                <button>Confirm</button>
+                <button onClick={confirmOrder} >Confirm</button>
                 <button>Cancel</button>
                 
             </div>

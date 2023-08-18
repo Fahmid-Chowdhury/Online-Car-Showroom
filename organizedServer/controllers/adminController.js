@@ -147,7 +147,7 @@ function getOrders(req, res) {
     pool.getConnection((err, connection) => {
         if(err) {
             res.status(500).json({
-                message: "Error getting database connection",
+                message: "Error getting database connectio",
                 error: err
             });
         };
@@ -171,7 +171,57 @@ function getOrders(req, res) {
         })
     });
 };
+
+function confirmOrder(req, res) {
+    const order_info = {
+        order_id: req.body.order_id,
+
+    };
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const day = now.getDate().toString().padStart(2, '0');
+    const hour = now.getHours().toString().padStart(2, '0');
+    const minute = now.getMinutes().toString().padStart(2, '0');
+    const second = now.getSeconds().toString().padStart(2, '0');
+
+    const paymentReference = `${year}${month}${day}${hour}${minute}${second}`;
+    console.log(paymentReference);
+    pool.getConnection((err, connection) => {
+        if(err) {
+            res.status(500).json({
+                message: "Error getting database connection",
+                error: err
+            });
+        };
+        const sqlQuery = 'UPDATE customer_order SET order_status = "confirmed", payment_status = "pending", payment_reference = ?  WHERE order_id = ?';
+        connection.query(sqlQuery, [paymentReference, order_info.order_id], (queryErr, results) => {
+            connection.release();
+            if(queryErr) {
+                res.status(400).json({
+                    message: "Something went wrong, please try again",
+                    error: queryErr
+                });
+            };
+
+            
+                res.status(200).json({
+                    message: "Order confirmed successfully",
+                    results: results
+                });
+            
+        })  
+
+    });
+};
+function cancelOrder(req, res) {
+    const order_info = {
+        order_id: req.body.order_id,
+    };
+};
 module.exports = {
     addCar: addCar,
-    getOrders: getOrders
+    getOrders: getOrders,
+    confirmOrder: confirmOrder,
+    cancelOrder: cancelOrder
 }
