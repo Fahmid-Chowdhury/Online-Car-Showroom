@@ -8,7 +8,7 @@ function checkAuth(req, res, next) {
         next();
     }catch(error) {
         return res.status(401).json({
-            message: "Invalid or expired token provided",
+            message: "Please login again to continue",
             error: error
         })
     }

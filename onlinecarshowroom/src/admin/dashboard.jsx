@@ -5,13 +5,14 @@ import jwt_decode from 'jwt-decode';
 import './dashboard.css';
 import AddCarForm from './addCarForm';
 import AllCarView from './allCarView';
+import CustomerOrder from './customerOrder';
 
 const initialState = {
   allCar: false,
   addCar: false,
   enquery: false,
-  sellRequest: false,
-  rentRequest: false,
+  order: false,
+  payment: false,
   testDrive: false,
   carModel: false,
 };
@@ -77,20 +78,20 @@ export default function DashboardPage() {
         <ToolbarItem title="All cars" onClick={() => handleStateChange('allCar')} />
         <ToolbarItem title="Add car" onClick={() => handleStateChange('addCar')} />
         <div className="toolbar-title">
-          <p>User request</p>
+          <p>Orders</p>
         </div>
-        <ToolbarItem title="Enquery" onClick={() => handleStateChange('enquery')} />
-        <ToolbarItem title="Sell request" onClick={() => handleStateChange('sellRequest')} />
-        <ToolbarItem title="Rent request" onClick={() => handleStateChange('rentRequest')} />
+        <ToolbarItem title="Orders" onClick={() => handleStateChange('order')} />
+        <ToolbarItem title="Payment" onClick={() => handleStateChange('payment')} />
         <ToolbarItem title="Test drive" onClick={() => handleStateChange('testDrive')} />
+        <ToolbarItem title="Enquery" onClick={() => handleStateChange('enquery')} />
       </div>
       
         {state.allCar && <AllCarView />}
         {state.addCar && <AddCarForm/>}
         
         {state.enquery && <h1>Enquery</h1>}
-        {state.sellRequest && <h1>Sell request</h1>}
-        {state.rentRequest && <h1>Rent request</h1>}
+        {state.order && <CustomerOrder/>}
+        {state.payment && <h1>Payments</h1>}
         {state.testDrive && <h1>Test drive</h1>}
       
       
