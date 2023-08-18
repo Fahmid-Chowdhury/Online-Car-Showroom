@@ -52,6 +52,60 @@ function listcars(req, res) {
     });
     });
 }
+function availablebrands(req, res) {
+    pool.getConnection((err, connection) => {
+        if (err) {
+
+            return res.status(500).json({
+                message: "Error getting database connection",
+                error: err
+            });
+        }
+        const sqlQuery = 'SELECT DISTINCT brand FROM car';
+        connection.query(sqlQuery, (queryErr, results) => {
+            connection.release();
+            if (queryErr) {
+                return res.status(400).json({
+                    message: "Error fetching brands",
+                    error: queryErr
+                });
+            }
+            return res.status(200).json({
+                message: 'Brands retrieved successfully',
+                brands: results.map(brand => brand.brand)
+            });
+
+        });
+    });
+}
+function availableyears(req, res) {
+    pool.getConnection((err, connection) => {
+        if (err) {
+            return res.status(500).json({
+                message: "Error getting database connection",
+                error: err
+            });
+        }
+
+        const sqlQuery = 'SELECT DISTINCT year FROM car';
+        connection.query(sqlQuery, (queryErr, results) => {
+            connection.release();
+            if (queryErr) {
+                return res.status(400).json({
+
+                    message: "Error fetching years",
+                    error: queryErr
+                });
+            }
+            return res.status(200).json({
+                message: 'Years retrieved successfully',
+                years: results.map(year => year.year)
+            });
+        });
+    });
+}
+
+
 
 function allcars(req, res) {
     pool.getConnection((err, connection) => {
@@ -256,7 +310,6 @@ function addcomment(req, res) {
     const rating = req.body.rating;
     const reviewDate = new Date();
     const update = req.query.update;
-    console.log("update", update);
 
     pool.getConnection((err, connection) => {
         if (err) {

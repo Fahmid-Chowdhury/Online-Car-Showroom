@@ -7,6 +7,18 @@ import { Link } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
 function Order(){
+    const { carId } = useParams();
+    const navigate = useNavigate();
+    const token = localStorage.getItem('token');
+    const decoded = jwt_decode(token);
+    const userId = decoded.user_id;
+    const [address, setAddress] = useState('');
+    const [phone, setPhone] = useState('');
+    const  orderCar = async () => {
+        const response = await axios.post(`http://localhost:5000/api/order/${userId}/${carId}`);
+        console.log(response);
+        navigate('/cars');
+    };
     return(
         <div className="order-page">
             <div className="order-container">
@@ -16,11 +28,11 @@ function Order(){
             <form>
                 <div className="order-item">
                     <label htmlFor="Delivery address">Delivary address</label>
-                    <input type="text" id="Delivery address" name="Delivery address" placeholder="Delivery address" required/>
+                    <input type="text" id="Delivery address" name="Delivery address" placeholder="Delivery address" onChange={e => setAddress(e.target.value)} value={address} required/>
                 </div>
                 <div className="order-item">
                     <label htmlFor="Phone number">Phone number</label>
-                    <input type="text" id="Phone number" name="Phone number" placeholder="Phone number" required/>
+                    <input type="text" id="Phone number" name="Phone number" placeholder="Phone number"onChange={e => setPhone(e.target.value)} value={phone} required/>
                 </div>
                 <div className="submit-order">
                     <button type="submit">Order</button>
@@ -54,11 +66,7 @@ export default function OrderPage() {
         }
     }, [token]);
 
-    const  orderCar = async () => {
-        const response = await axios.post(`http://localhost:5000/api/order/${userId}/${carId}`);
-        console.log(response);
-        navigate('/cars');
-    };
+    
     
         
     
