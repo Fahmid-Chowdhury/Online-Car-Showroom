@@ -356,6 +356,7 @@ function ordercar(req, res) {
     const carId = req.body.carId;
     const userId = req.body.userId;
     const deliveryAddress = req.body.deliveryAddress;
+    const phone = req.body.phone;
     const orderDate = new Date();
     console.log("carId", carId);
     console.log("userId", userId);
@@ -381,8 +382,8 @@ function ordercar(req, res) {
             let price = results[0].price;
             price = price+(price*4/100)+500
             console.log(price)
-            const insertQuery = 'INSERT INTO customer_order (car_id, user_id, order_date,delivery_address, total_price, order_status) VALUES (?, ?, ?,?, ?,?)';
-            connection.query(insertQuery, [carId, userId, orderDate,deliveryAddress, price, 'pending'], (queryErr, results) => {
+            const insertQuery = 'INSERT INTO customer_order (car_id, user_id, order_date,delivery_address, total_price, order_status, contact_number) VALUES (?, ?, ?,?, ?,?,?)';
+            connection.query(insertQuery, [carId, userId, orderDate,deliveryAddress, price, 'pending',phone], (queryErr, results) => {
 
                 if (queryErr) {
                     connection.release();

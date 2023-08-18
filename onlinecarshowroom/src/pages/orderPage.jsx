@@ -40,33 +40,51 @@ function Order({fnc}){
             
         };
     }
-    return(
-        <div className="order-page">
-            <div className="order-container">
-            <div className="order-title">
-                <h1>Order info</h1>
+    if (orderSuccess) {
+        return(
+            <div className="order-page">
+                <div className="order-container">
+                <div className="order-success">
+                    <p>Order successfull!</p>
+
+                    <button onClick={() => navigate('/cars')}>Close</button>
+                </div>
+
+                </div>
             </div>
-            <form onSubmit={orderCar}>
-                <div className="order-item">
-                    <label>Delivary address</label>
-                    <input type="text" id="Delivery address" name="Delivery address" placeholder="Delivery address" onChange={e => setAddress(e.target.value)} value={address} required/>
-                </div>
-                <div className="order-item">
-                    <label>Phone number</label>
-                    <input type="text" id="Phone number" name="Phone number" placeholder="Phone number"onChange={e => setPhone(e.target.value)} value={phone} required/>
-                </div>
-                <div className="order-error">
-                    <p>{error}</p>
-                </div>
-                    
-                <div className="submit-order">
-                    <button type="submit" >Order</button>
-                </div>
+        )
+    }
+    else{
+        return(
+            <div className="order-page">
+                <div className="order-container">
                 
-            </form>
+                <div className="order-title">
+                    <h1>Order info</h1>
+                </div>
+                <form onSubmit={orderCar}>
+                    <div className="order-item">
+                        <label>Delivary address</label>
+                        <input type="text" id="Delivery address" name="Delivery address" placeholder="Delivery address" onChange={e => setAddress(e.target.value)} value={address} required/>
+                    </div>
+                    <div className="order-item">
+                        <label>Phone number</label>
+                        <input type="text" id="Phone number" name="Phone number" placeholder="Phone number"onChange={e => setPhone(e.target.value)} value={phone} required/>
+                    </div>
+                    <div className="order-error">
+                        <p>{error}</p>
+                    </div>
+                        
+                    <div className="submit-order">
+                        <button type="submit" >Order</button>
+                    </div>
+                    
+                </form>
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
+            
 }
 
 function CantOrder(){

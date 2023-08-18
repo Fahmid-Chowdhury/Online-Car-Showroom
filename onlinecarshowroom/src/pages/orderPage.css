@@ -94,3 +94,22 @@
     cursor: pointer;
     background-color: var(--primary-col);
 }
+.order-success{
+    color: green;
+    font-size: 18px;
+    font-weight: 300;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 20px 40px;
+}
+.order-success button{
+    padding: 8px 20px;
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: whitesmoke;
+    cursor: pointer;
+    background-color: var(--primary-col);
+    margin-top: 30px;
+}
