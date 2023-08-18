@@ -229,6 +229,11 @@ function CarExtended({carId}){
           
         </div>
       </div>
+      <div className="car-extended-buttons">
+        <button className="car-extended-button">Enquiry</button>
+        <button className="car-extended-button">Order now</button>
+        <button className="car-extended-button">Test drive</button>
+      </div>
       <ReviewBox comments = {carComment} carid = {carId} userInfo={userInfo} userId={userId}/>
     </div>
   )
