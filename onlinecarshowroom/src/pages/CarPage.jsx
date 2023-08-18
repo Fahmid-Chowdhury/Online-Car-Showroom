@@ -4,6 +4,7 @@ import './carPage.css';
 import PriceRange from '../components/priceRange.jsx';
 import ExtendedList from '../components/extendedList';
 import jwt_decode from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 
 function CrossIcon() {
   return (
@@ -141,6 +142,7 @@ function ReviewBox({comments, carid, userInfo,userId}){
 }
   
 function CarExtended({carId}){
+  const navigate = useNavigate();
   const [carComment, setCarComment] = useState([]);
   const [carData, setCarData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -184,6 +186,9 @@ function CarExtended({carId}){
       console.error('Error fetching comments', error);
     }
   }
+  const handleOrderClick = (carId) => {
+    navigate(`/order/${carId}`);
+  };
   return (
     <>
     {isLoading ? (
@@ -231,7 +236,7 @@ function CarExtended({carId}){
       </div>
       <div className="car-extended-buttons">
         <button className="car-extended-button">Enquiry</button>
-        <button className="car-extended-button">Order now</button>
+        <button className="car-extended-button" onClick={()=>{handleOrderClick(carId)}}>Order now</button>
         <button className="car-extended-button">Test drive</button>
       </div>
       <ReviewBox comments = {carComment} carid = {carId} userInfo={userInfo} userId={userId}/>

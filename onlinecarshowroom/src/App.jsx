@@ -6,6 +6,7 @@ import RentPage from './pages/RentPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import DashboardPage from './admin/dashboard';
+import OrderPage from './pages/orderPage';
 import './App.css'
 
 
@@ -19,7 +20,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route exact path="/cars" element={<CarPage />} />
-            <Route exact path='/rent' element={<RentPage />} />
+            <Route exact path="/order/:carId" element={<OrderPage />} />
             <Route exact path='/login' element={<LoginPage />} />
             <Route exact path='/signup' element={<SignupPage />} />
             <Route exact path='/dashboard' element={<DashboardPage />} />
