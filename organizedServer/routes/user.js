@@ -9,6 +9,7 @@ router.get('/allcars', carController.allCars);
 router.get('/car', carController.listCars);
 router.get('/comments', carController.listComments);
 router.get('/commented', carController.userReview);
+router.post('/addcomment', carController.addComment);
 router.get('/getcar', carController.getCar);
 
 module.exports = router;

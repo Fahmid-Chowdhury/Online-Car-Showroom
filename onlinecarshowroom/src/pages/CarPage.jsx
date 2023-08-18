@@ -19,10 +19,27 @@ function CommentBox({userInfo, carid}){
   const [commented, setCommented] = useState(false);
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
+  const [update, setUpdate] = useState(false);
   const fetchComment = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/user/commented?userId=${userInfo.user_id}&carId=${carid}`);
       setCommented(response.data.commented);
+      setComment(response.data.comment[0].message);
+      setRating(response.data.comment[0].rating);
+    } catch (error) {
+      console.error('Error fetching car data:', error);
+      setCommented(false);
+    }
+  };
+  const postComment = async () => {
+    try {
+      const response = await axios.post(`http://localhost:5000/user/addcomment?update=${update}`,{
+        userId: userInfo.user_id,
+        carId: carid,
+        rating: rating,
+        comment: comment
+      });
+      setCommented(true);
     } catch (error) {
       console.error('Error fetching car data:', error);
     }
@@ -44,11 +61,16 @@ function CommentBox({userInfo, carid}){
           {commented ? (
             <>
             <div className="review-user-rating">
+              
               <p>Rated: {rating}</p>
             </div>
             <div className="review-user-comment">
             <p>{comment}</p>
-            </div></>) : (<>
+            </div>
+            <div className="review-edit">
+              <button className="review-button" onClick={()=>{setCommented(false), setUpdate(true)}}>Edit</button>
+            </div>
+            </>) : (<>
             <div className="review-user-comment">
             <div className="review-rating">
               <p>Rating: </p>
@@ -61,10 +83,10 @@ function CommentBox({userInfo, carid}){
                 <option value='5'>5</option>
               </select>
             </div>
-            <textarea className="review-textarea" placeholder="Write your review here" onChange={(e)=>{setComment(e.target.value)}}></textarea>
+            <textarea className="review-textarea" placeholder="Write your review here" onChange={(e)=>{setComment(e.target.value)}} value={comment}></textarea>
             </div>
             <div className="review-submit">
-              <button className="review-button" onClick={()=>{} }>Submit</button>
+              <button className="review-button" onClick={()=>{postComment()} }>Submit</button>
             </div>
 
             </>
@@ -98,38 +120,22 @@ function IndividualReview({name, rating, comment}){
     </div>
   );
 }
-function ReviewBox({comments, carid}){
-  const [userInfo, setUserInfo] = useState(null);
-  useEffect(() => {
-    fetchUserInfo();
-  }, []);
-  // get token
-  // get user name from token
-  const fetchUserInfo =() => {
-  try{
-    const token = localStorage.getItem('token');
-    const decodedToken = jwt_decode(token);
-    setUserInfo(decodedToken);
-    
-  }catch (error){
-    console.log(error);
-  }
-  }
+function ReviewBox({comments, carid, userInfo,userId}){
   
   return (
     <div className="review-box">
-      <div className="test">
+      <div className="title">
         <h3>Reviews</h3>
       </div>
       {userInfo &&
         <CommentBox userInfo={userInfo} carid = {carid}/>}
         
-        {comments.length === 0 && <p>No reviews yet</p>}
+        {comments.length === 0 && <div className="no-reviews-box"><p>No reviews yet</p></div>}
         {comments.map((comment) => (
-          <IndividualReview name = {comment.user_name} rating = {comment.rating} comment = {comment.message}/>
+          comment.user_id !== userId && (
+          <IndividualReview key={comment.id} name={comment.user_name} rating={comment.rating} comment={comment.message} />
+          )
         ))}
-        
-      
     </div>
   )
 }
@@ -138,11 +144,25 @@ function CarExtended({carId}){
   const [carComment, setCarComment] = useState([]);
   const [carData, setCarData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [userInfo, setUserInfo] = useState(null);
+  const [userId, setUserId] = useState('');
   
   useEffect(() => {
     fetchCarComment();
     fetchCar();
+    fetchUserInfo();
   }, [carId]);
+  const fetchUserInfo =() => {
+    try{
+      const token = localStorage.getItem('token');
+      const decodedToken = jwt_decode(token);
+      setUserInfo(decodedToken);
+      setUserId(decodedToken.user_id);
+      
+    }catch (error){
+      console.log(error);
+    }
+  }
   
   const fetchCar = async () => {
     try {
@@ -209,7 +229,7 @@ function CarExtended({carId}){
           
         </div>
       </div>
-      <ReviewBox comments = {carComment} carid = {carId}/>
+      <ReviewBox comments = {carComment} carid = {carId} userInfo={userInfo} userId={userId}/>
     </div>
   )
   }

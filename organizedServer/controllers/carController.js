@@ -1,6 +1,6 @@
 const Validator = require('fastest-validator');
 const mysql = require('mysql');
-const { get } = require('../routes/user');
+
 
 const pool = mysql.createPool({
     connectionLimit: 10,
@@ -172,7 +172,7 @@ function allreviews(req, res) {
                 error: err
             });
         }
-        const sqlQuery = 'select u.user_name, r.review_id, r.review_date, r.message, r.rating from user u, review r where u.user_id = r.user_id and r.car_id = ?;';
+        const sqlQuery = 'select u.user_name,u.user_id, r.review_id, r.review_date, r.message, r.rating from user u, review r where u.user_id = r.user_id and r.car_id = ?;';
         connection.query(sqlQuery, carId, (queryErr, results) => {
             connection.release();
             if (queryErr) {
@@ -224,8 +224,8 @@ function userreview(req, res) {
                 error: err
             });
         }
-        const sqlQuery = 'select r.review_id, r.review_date, r.message, r.rating from car c, review r where c.car_id = r.car_id and r.user_id = ?;';
-        connection.query(sqlQuery, userId, (queryErr, results) => {
+        const sqlQuery = 'select r.review_id, r.review_date, r.message, r.rating from review r where r.user_id = ? and r.car_id = ?;';
+        connection.query(sqlQuery, [userId,carId], (queryErr, results) => {
             connection.release();
             if (queryErr) {
                 return res.status(400).json({
@@ -249,7 +249,56 @@ function userreview(req, res) {
         });
     });
 }
+function addcomment(req, res) {
+    const carId = req.body.carId;
+    const userId = req.body.userId;
+    const message = req.body.comment;
+    const rating = req.body.rating;
+    const reviewDate = new Date();
+    const update = req.query.update;
+    console.log("update", update);
 
+    pool.getConnection((err, connection) => {
+        if (err) {
+            return res.status(500).json({
+                message: "Error getting database connection",
+                error: err
+            });
+        }
+        if (update === 'true') {
+            const updateQuery = 'UPDATE review SET message = ?, rating = ?, review_date = ? WHERE car_id = ? and user_id = ?';
+            connection.query(updateQuery, [message, rating, reviewDate, carId, userId], (queryErr, results) => {
+                if (queryErr) {
+                    connection.release();
+                    return res.status(400).json({
+                        message: "Error updating review",
+                        error: queryErr
+                    });
+                }
+                return res.status(200).json({
+                    message: 'Review updated successfully',
+                });
+            });
+            return;
+        }
+
+        const insertQuery = 'INSERT INTO review (car_id, user_id, message, rating, review_date) VALUES (?, ?, ?, ?, ?)';
+        connection.query(insertQuery, [carId, userId, message, rating, reviewDate], (queryErr, results) => {
+
+            if (queryErr) {
+                connection.release();
+                return res.status(400).json({
+                    message: "Error adding review",
+                    error: queryErr
+                });
+            
+            }
+            return res.status(200).json({
+                message: 'Review added successfully',
+            });
+        });
+    });
+}
 
 module.exports = {
     allCars: allcars,
@@ -257,5 +306,6 @@ module.exports = {
     listCars: listcars,
     listComments: allreviews,
     getCar: getcar,
-    userReview: userreview
+    userReview: userreview,
+    addComment: addcomment
 }

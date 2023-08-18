@@ -194,6 +194,18 @@
     font-weight: 300;
     color: rgb(199, 198, 198);
 }
+.no-reviews-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+}
+.no-reviews-box p{
+    font-size: 12px;
+    font-weight: 300;
+    color: rgb(155, 154, 154);
+}
 
 .review-box{
     display: flex;
@@ -203,7 +215,12 @@
     width: 80%;
     margin:auto;
 }
-
+.review-box .title{
+    font-size: 18px;
+    font-weight:600;
+    color: var(--primary-col);
+    margin-bottom: 10px;
+}
 
 .review-user{
     display: flex;
@@ -290,6 +307,12 @@
 .review-submit{
     width: 100%;
    
+}
+.review-edit{
+    width: 70px;
+    height: 30px;
+    margin-bottom: 10px;
+    
 }
 .review-button{
     width: 100%;
