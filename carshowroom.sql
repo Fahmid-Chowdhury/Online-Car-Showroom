@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 17, 2023 at 01:03 PM
+-- Generation Time: Aug 18, 2023 at 04:05 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -37,23 +37,23 @@ CREATE TABLE `car` (
   `transmission` varchar(255) NOT NULL,
   `fuel` varchar(255) NOT NULL,
   `description` varchar(6000) NOT NULL,
-  `images` varchar(255) NOT NULL
+  `images` varchar(255) NOT NULL,
+  `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `car`
 --
 
-INSERT INTO `car` (`car_id`, `brand`, `model`, `year`, `price`, `engine`, `transmission`, `fuel`, `description`, `images`) VALUES
-(1, 'BMW', 'M5', '2023', 111895, 'V8', 'Manual', 'Petrol', 'Incredible engineering defines the 2023 BMW M5 Sedan. Standard M xDrive – BMW\'s most performance-oriented all-wheel drive system, delivers adjustable 4WD, 4WD Sport, and 2WD modes for ultimate control on the road. This authority is only elevated with the available M Compound brakes, or available Carbon Ceramic brakes – giving drivers the ability to stop on a dime.', 'bmwm52023.jpg'),
-(2, 'Toyota', 'MKV GR Supra', '2022', 45000, 'V6', 'Auto', 'Petrol', 'GR Supra’s available 3.0-liter turbocharged inline-six produces 382 horsepower * with an impressive 368 lb.-ft. of torque. Add more speed into the equation through an 8-speed Automatic Transmission or take full control on the road with the lighter and optimally balanced 6-speed intelligent Manual Transmission (iMT) for even more thrilling drives.', 'toyotagrsupra2022.jpg'),
-(3, 'Toyota', 'GR Corolla', '2023', 35000, '3-Cylinder Turbocharged', 'Manual', 'Petrol', 'Inspired by the World Rally Championship, GR Corolla’s powertrain was developed to withstand almost any driving condition. Assembled by skilled engineers at the same Motomachi plant as the homologated GR Yaris, you know it’s built to redefine your limits.', 'toyotagrcorolla2023.jpg'),
-(9, 'Lamborghini ', 'Huracan Evo', '2023', 550000, 'v8', 'Automatic', 'Petrol', 'its a 2022 huracan', 'lamborghinihuracanevo2023.jpg'),
-(10, 'Porche', '911 Carrera T', '2018', 450000, 'v8', 'Automatic', 'Petrol', 'Its a 2018 porche 911 carrera', 'porche911carrerat2018.jpg'),
-(12, 'Toyota', 'Corolla', '2023', 22500, '1.8L 4-cylinder', 'Automatic', 'Gasoline', 'Compact sedan with advanced safety features.', 'toyotacorolla2023.jpg'),
-(13, 'Ford', 'Mustang', '2023', 35750, '2.3L EcoBoost', 'Manual', 'Gasoline', 'Iconic sports car with aggressive styling.', 'fordmustang2023.jpg'),
-(22, 'Honda', 'Civic', '2020', 27800, '2.0 L ', 'Automatic', 'Gasoline', 'The 2020 Honda Civic is one of our highest-rated compact cars. It gets good gas mileage, has a nice amount of passenger and cargo space, and comes in three body styles.', '1692252947654.jpg'),
-(23, 'Subaru', 'WRX STI', '2021', 37800, '310-hp turbocharged 2.5-liter 4-cylinder SUBARU BOXER® engine', '6-speed close-ratio manual ', 'Gasoline', 'The 2021 Subaru WRX STI encapsulates the spirit of high-performance driving with its exhilarating blend of power, precision, and iconic design. As the flagship model in Subaru\'s legendary WRX lineup, the WRX STI maintains its reputation as a rally-inspired sports sedan that\'s equally at home on both the track and the open road.', '1692269911310.jpg');
+INSERT INTO `car` (`car_id`, `brand`, `model`, `year`, `price`, `engine`, `transmission`, `fuel`, `description`, `images`, `quantity`) VALUES
+(1, 'BMW', 'M5', '2023', 111895, 'V8', 'Manual', 'Petrol', 'Incredible engineering defines the 2023 BMW M5 Sedan. Standard M xDrive – BMW\'s most performance-oriented all-wheel drive system, delivers adjustable 4WD, 4WD Sport, and 2WD modes for ultimate control on the road. This authority is only elevated with the available M Compound brakes, or available Carbon Ceramic brakes – giving drivers the ability to stop on a dime.', 'bmwm52023.jpg', 0),
+(2, 'Toyota', 'MKV GR Supra', '2022', 45000, 'V6', 'Auto', 'Petrol', 'GR Supra’s available 3.0-liter turbocharged inline-six produces 382 horsepower * with an impressive 368 lb.-ft. of torque. Add more speed into the equation through an 8-speed Automatic Transmission or take full control on the road with the lighter and optimally balanced 6-speed intelligent Manual Transmission (iMT) for even more thrilling drives.', 'toyotagrsupra2022.jpg', 0),
+(9, 'Lamborghini ', 'Huracan Evo', '2023', 550000, 'v8', 'Automatic', 'Petrol', 'its a 2022 huracan', 'lamborghinihuracanevo2023.jpg', 0),
+(10, 'Porche', '911 Carrera T', '2018', 450000, 'v8', 'Automatic', 'Petrol', 'Its a 2018 porche 911 carrera', 'porche911carrerat2018.jpg', 0),
+(12, 'Toyota', 'Corolla', '2023', 22500, '1.8L 4-cylinder', 'Automatic', 'Gasoline', 'Compact sedan with advanced safety features.', 'toyotacorolla2023.jpg', 0),
+(13, 'Ford', 'Mustang', '2023', 35750, '2.3L EcoBoost', 'Manual', 'Gasoline', 'Iconic sports car with aggressive styling.', 'fordmustang2023.jpg', 0),
+(22, 'Honda', 'Civic', '2020', 27800, '2.0 L ', 'Automatic', 'Gasoline', 'The 2020 Honda Civic is one of our highest-rated compact cars. It gets good gas mileage, has a nice amount of passenger and cargo space, and comes in three body styles.', '1692252947654.jpg', 0),
+(23, 'Subaru', 'WRX STI', '2021', 37800, '310-hp turbocharged 2.5-liter 4-cylinder SUBARU BOXER® engine', '6-speed close-ratio manual ', 'Gasoline', 'The 2021 Subaru WRX STI encapsulates the spirit of high-performance driving with its exhilarating blend of power, precision, and iconic design. As the flagship model in Subaru\'s legendary WRX lineup, the WRX STI maintains its reputation as a rally-inspired sports sedan that\'s equally at home on both the track and the open road.', '1692269911310.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -67,8 +67,10 @@ CREATE TABLE `customer_order` (
   `car_id` int(11) NOT NULL,
   `order_date` date NOT NULL,
   `total_price` int(11) NOT NULL,
+  `payment_reference` varchar(20) NOT NULL,
   `payment_status` varchar(255) NOT NULL,
   `delivery_address` varchar(255) NOT NULL,
+  `contact_number` varchar(20) NOT NULL,
   `order_status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -76,9 +78,10 @@ CREATE TABLE `customer_order` (
 -- Dumping data for table `customer_order`
 --
 
-INSERT INTO `customer_order` (`order_id`, `user_id`, `car_id`, `order_date`, `total_price`, `payment_status`, `delivery_address`, `order_status`) VALUES
-(1, 12, 1, '2023-08-01', 50000, 'Pending', 'Ayesha Cottage, Siddeshwari, Dhaka', 'Pending'),
-(2, 13, 2, '2022-08-05', 60000, 'Paid', 'Mohakhali, Dhaka', 'Completed');
+INSERT INTO `customer_order` (`order_id`, `user_id`, `car_id`, `order_date`, `total_price`, `payment_reference`, `payment_status`, `delivery_address`, `contact_number`, `order_status`) VALUES
+(1, 12, 1, '2023-08-01', 50000, '', 'pending', 'Ayesha Cottage, Siddeshwari, Dhaka', '', 'confirmed'),
+(2, 13, 2, '2022-08-05', 60000, '202208052003', 'Paid', 'Mohakhali, Dhaka', '01236578912', 'completed'),
+(5, 2, 2, '2023-08-18', 47300, '', '', 'demra, dhaka', '01818465069', 'pending');
 
 -- --------------------------------------------------------
 
@@ -100,8 +103,11 @@ CREATE TABLE `review` (
 --
 
 INSERT INTO `review` (`review_id`, `car_id`, `user_id`, `review_date`, `message`, `rating`) VALUES
-(1, 2, 13, '2022-09-30', 'Mama sheraaaaaaaa <3 :3 uWu', 4.7),
-(2, 2, 1, '2023-08-01', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel adipisci pariatur debitis tempora facere vitae nisi eius rerum quod! Natus, minus? Porro explicabo ut, placeat asperiores suscipit odio vero exercitationem.\r\nTempora quia obcaecati dolores adipisci nisi, deleniti explicabo similique placeat in eligendi perferendis eum esse facere suscipit! Non, laudantium est tenetur, officiis alias qui fugiat eligendi, blanditiis molestiae modi eius!', 4);
+(1, 2, 13, '2022-09-30', 'Mama sheraaaaaaaa <3 :3 uWu', 5),
+(2, 2, 1, '2023-08-01', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel adipisci pariatur debitis tempora facere vitae nisi eius rerum quod! Natus, minus? Porro explicabo ut, placeat asperiores suscipit odio vero exercitationem.\r\nTempora quia obcaecati dolores adipisci nisi, deleniti explicabo similique placeat in eligendi perferendis eum esse facere suscipit! Non, laudantium est tenetur, officiis alias qui fugiat eligendi, blanditiis molestiae modi eius!', 4),
+(3, 2, 2, '2023-08-18', 'Its a fantastic sports car. There\'s no “one” perfect thing that makes it that way, rather, it\'s the amalgam of features that you just don\'t see very often: good design, turbocharged inline-six, rear-drive, two-doors, and all paired with a manual transmission. It makes its mark as a driver\'s car.', 5),
+(4, 1, 2, '2023-08-18', 'Awesome car. asdfja oiajdf iadof ', 4),
+(8, 12, 2, '2023-08-18', 'sweet ride', 4);
 
 -- --------------------------------------------------------
 
@@ -205,13 +211,13 @@ ALTER TABLE `car`
 -- AUTO_INCREMENT for table `customer_order`
 --
 ALTER TABLE `customer_order`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `test_drive`
