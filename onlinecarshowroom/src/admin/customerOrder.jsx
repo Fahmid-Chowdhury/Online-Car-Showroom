@@ -2,7 +2,7 @@ import "./customerOrder.css"
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-function OrderItem({order}) {
+function OrderItem({order, onupdate}) {
     const token = localStorage.getItem('token');
 
     const config = {
@@ -15,6 +15,7 @@ function OrderItem({order}) {
             const response = await axios.post("http://localhost:5000/admin/confirmorder", {order_id: order.order_id}, config);
             if (response.status === 200){
                 alert("Order confirmed");
+                onupdate();
                 
             }else {
                 alert("Something went wrong");
@@ -25,6 +26,21 @@ function OrderItem({order}) {
             alert(error.message);
         }
     }
+    const cancelOrder = async () => {
+        try {
+            const response = await axios.post("http://localhost:5000/admin/cancelorder", {order_id: order.order_id}, config);
+            if (response.status === 200){
+                alert("Order cancelled");
+                onupdate();
+            }else {
+                alert("Something went wrong");
+            }
+        } catch (error) {
+            console.log(error.message);
+            alert(error.message);
+        }
+    }
+        
     return (
         <div className="customer-order-item">
             <div className="customer-item-title">
@@ -52,14 +68,14 @@ function OrderItem({order}) {
 
             <div className="customer-order-buttons">
                 <button onClick={confirmOrder} >Confirm</button>
-                <button>Cancel</button>
+                <button onClick={cancelOrder}>Cancel</button>
                 
             </div>
         </div>
     )
 }
 
-function OrderList({orders}){
+function OrderList({orders, onupdate}){
     if(orders.length === 0){
         return (
             <div className="customer-order-none">
@@ -71,7 +87,7 @@ function OrderList({orders}){
         return(
             <>
             {orders.map((order) => (
-                <OrderItem order={order} key={order.order_id}/>
+                <OrderItem order={order} key={order.order_id} onupdate = {onupdate}/>
                 ))}
             </>
     )}
@@ -80,8 +96,6 @@ export default function CustomerOrder() {
     const [customerOrder, setCustomerOrder] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [search, setSearch] = useState("");
-    const [filteredCustomerOrder, setFilteredCustomerOrder] = useState([]);
     const token = localStorage.getItem('token');
   
     const config = {
@@ -118,7 +132,7 @@ export default function CustomerOrder() {
                 <div className="error">{error}</div>
             ) : (
                 <div className="customer-order-table">
-                        <OrderList orders={customerOrder}/>
+                        <OrderList orders={customerOrder} onupdate = {fetchCustomerOrder}/>
                 </div>
             )}
             

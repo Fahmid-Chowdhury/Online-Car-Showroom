@@ -215,10 +215,39 @@ function confirmOrder(req, res) {
     });
 };
 function cancelOrder(req, res) {
+    
     const order_info = {
         order_id: req.body.order_id,
     };
+    console.log(order_info);
+    pool.getConnection((err, connection) => {
+        if(err) {
+            res.status(500).json({
+                message: "Error getting database connection",
+                error: err
+            });
+        };
+        const sqlQuery = 'UPDATE customer_order SET order_status = "cancelled" WHERE order_id = ?';
+        connection.query(sqlQuery, order_info.order_id, (queryErr, results) => {
+            connection.release();
+            if(queryErr) {
+                res.status(400).json({
+                    message: "Something went wrong, please try again",
+                    error: queryErr
+                });
+            };
+
+            
+                res.status(200).json({
+                    message: "Order cancelled successfully",
+                    results: results
+                });
+            
+        })  
+
+    });
 };
+
 module.exports = {
     addCar: addCar,
     getOrders: getOrders,
