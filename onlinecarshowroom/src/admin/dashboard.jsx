@@ -6,6 +6,7 @@ import './dashboard.css';
 import AddCarForm from './addCarForm';
 import AllCarView from './allCarView';
 import CustomerOrder from './customerOrder';
+import CustomerPayment from './customerPayment';
 
 const initialState = {
   allCar: false,
@@ -91,7 +92,7 @@ export default function DashboardPage() {
         
         {state.enquery && <h1>Enquery</h1>}
         {state.order && <CustomerOrder/>}
-        {state.payment && <h1>Payments</h1>}
+        {state.payment && <CustomerPayment/>}
         {state.testDrive && <h1>Test drive</h1>}
       
       

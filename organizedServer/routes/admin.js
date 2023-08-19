@@ -10,5 +10,7 @@ router.delete('/deletecar', checkAuthMiddleware.checkAuth, carController.deleteC
 router.get('/getorders', checkAuthMiddleware.checkAuth, adminController.getOrders),
 router.post('/confirmorder', checkAuthMiddleware.checkAuth, adminController.confirmOrder),
 router.post('/cancelorder', checkAuthMiddleware.checkAuth, adminController.cancelOrder),
+router.get('/getpayments', checkAuthMiddleware.checkAuth, adminController.getPayments),
+router.post('/confirmpayment', checkAuthMiddleware.checkAuth, adminController.confirmPayment),
 
 module.exports = router;
