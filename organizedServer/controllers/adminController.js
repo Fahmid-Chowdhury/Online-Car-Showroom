@@ -283,6 +283,40 @@ function confirmPayment(req, res) {
 
     });
 };
+function confirmDelivery(req, res) {
+    const order_info = {
+        order_id: req.body.order_id,
+
+    };
+    
+
+    pool.getConnection((err, connection) => {
+        if(err) {
+            res.status(500).json({
+                message: "Error getting database connection",
+                error: err
+            });
+        };
+        const sqlQuery = 'UPDATE customer_order SET order_status = "completed" WHERE order_id = ?';
+        connection.query(sqlQuery, [order_info.order_id], (queryErr, results) => {
+            connection.release();
+            if(queryErr) {
+                res.status(400).json({
+                    message: "Something went wrong, please try again",
+                    error: queryErr
+                });
+            };
+
+            
+                res.status(200).json({
+                    message: "Ready to deliver",
+                    results: results
+                });
+            
+        })  
+
+    });
+};
 
 function getPayments(req, res) {
     pool.getConnection((err, connection) => {
@@ -312,12 +346,41 @@ function getPayments(req, res) {
         })
     });
 };
+function getOrdersProcessing(req, res) {
+    pool.getConnection((err, connection) => {
+        if(err) {
+            res.status(500).json({
+                message: "Error getting database connectio",
+                error: err
+            });
+        };
 
+        const sqlQuery = 'SELECT c.car_id, co.order_id, co.user_id, co.order_date, co.total_price, co.contact_number, c.brand, c.model, c.year, c.price,co.payment_reference FROM customer_order co INNER JOIN car c ON co.car_id = c.car_id and co.order_status = "processing" ';
+        connection.query(sqlQuery, (queryErr, results) => {
+            connection.release();
+            if(queryErr) {
+                res.status(400).json({
+                    message: "Something went wrong, please try again",
+                    error: queryErr
+                });
+            };
+
+            if(results) {
+                res.status(200).json({
+                    message: "Orders retrieved successfully",
+                    results: results
+                });
+            };
+        })
+    });
+};
 module.exports = {
     addCar: addCar,
     getOrders: getOrders,
     confirmOrder: confirmOrder,
     cancelOrder: cancelOrder,
     getPayments: getPayments,
-    confirmPayment: confirmPayment
+    confirmPayment: confirmPayment,
+    getOrdersProcessing: getOrdersProcessing,
+    confirmDelivery: confirmDelivery
 }

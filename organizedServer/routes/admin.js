@@ -12,5 +12,7 @@ router.post('/confirmorder', checkAuthMiddleware.checkAuth, adminController.conf
 router.post('/cancelorder', checkAuthMiddleware.checkAuth, adminController.cancelOrder),
 router.get('/getpayments', checkAuthMiddleware.checkAuth, adminController.getPayments),
 router.post('/confirmpayment', checkAuthMiddleware.checkAuth, adminController.confirmPayment),
+router.get('/getprocessingorders', checkAuthMiddleware.checkAuth, adminController.getOrdersProcessing),
+router.post('/confirmdelivery', checkAuthMiddleware.checkAuth, adminController.confirmDelivery),
 
 module.exports = router;
