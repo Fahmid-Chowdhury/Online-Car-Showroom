@@ -13,36 +13,42 @@ function PaymentItem({order, onupdate}) {
         },
     };
     const confirmPayment = async () => {
-        console.log(order.order_id);
-        try {
-            const response = await axios.post("http://localhost:5000/admin/confirmpayment", {order_id: order.order_id}, config);
-            if (response.status === 200){
-                alert("Payment confirmed");
-                onupdate();
-                
-            }else {
-                alert("Something went wrong");
+        const shouldConfirm = window.confirm("Are you sure you want to confirm payment?");
+        if (shouldConfirm) {
+            console.log(order.order_id);
+            try {
+                const response = await axios.post("http://localhost:5000/admin/confirmpayment", {order_id: order.order_id}, config);
+                if (response.status === 200){
+                    alert("Payment confirmed");
+                    onupdate();
+                    
+                }else {
+                    alert("Something went wrong");
+                }
+            
+            } catch (error) {
+                console.log(error.message);
+                alert(error.message);
             }
-
-        } catch (error) {
-            console.log(error.message);
-            alert(error.message);
         }
     }
     const cancelOrder = async () => {
-        try {
-            const response = await axios.post("http://localhost:5000/admin/cancelorder", {order_id: order.order_id}, config);
-            if (response.status === 200){
-                alert("Order cancelled");
-                onupdate();
-            }else {
-                alert("Something went wrong");
+        const shouldConfirm = window.confirm("Are you sure you want to cancel order?");
+            if (shouldConfirm) {
+                try {
+                    const response = await axios.post("http://localhost:5000/admin/cancelorder", {order_id: order.order_id}, config);
+                    if (response.status === 200){
+                        alert("Order cancelled");
+                        onupdate();
+                    }else {
+                        alert("Something went wrong");
+                    }
+                } catch (error) {
+                    console.log(error.message);
+                    alert(error.message);
+                }
             }
-        } catch (error) {
-            console.log(error.message);
-            alert(error.message);
         }
-    }
         
     return (
         <div className="customer-order-item">
