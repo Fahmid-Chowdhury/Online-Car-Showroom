@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 18, 2023 at 04:05 PM
+-- Generation Time: Aug 19, 2023 at 06:14 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -79,9 +79,15 @@ CREATE TABLE `customer_order` (
 --
 
 INSERT INTO `customer_order` (`order_id`, `user_id`, `car_id`, `order_date`, `total_price`, `payment_reference`, `payment_status`, `delivery_address`, `contact_number`, `order_status`) VALUES
-(1, 12, 1, '2023-08-01', 50000, '', 'pending', 'Ayesha Cottage, Siddeshwari, Dhaka', '', 'confirmed'),
-(2, 13, 2, '2022-08-05', 60000, '202208052003', 'Paid', 'Mohakhali, Dhaka', '01236578912', 'completed'),
-(5, 2, 2, '2023-08-18', 47300, '', '', 'demra, dhaka', '01818465069', 'pending');
+(1, 12, 1, '2023-08-01', 50000, '202308012056', 'paid', 'Ayesha Cottage, Siddeshwari, Dhaka', '01398745237', 'processing'),
+(2, 13, 2, '2022-08-05', 60000, '202208052003', 'paid', 'Mohakhali, Dhaka', '01236578912', 'completed'),
+(5, 2, 2, '2023-08-18', 47300, '20230819003337', 'paid', 'demra, dhaka', '01818465069', 'completed'),
+(6, 2, 9, '2023-08-18', 572500, '20230819003610', 'paid', 'Demra', '01818465069', 'processing'),
+(7, 2, 1, '2023-08-18', 116871, '20230819003510', 'pending', 'demra, dhaka', '01818465069', 'confirmed'),
+(8, 2, 12, '2023-08-18', 23900, '20230819210828', 'pending', 'demra, dhaka', '01818465069', 'confirmed'),
+(9, 2, 23, '2023-08-18', 39812, '20230819003920', 'pending', 'demra, dhaka', '01818465069', 'confirmed'),
+(10, 14, 13, '2023-08-18', 37680, '', '', 'Mohakhali, Dhaka', '018163378954', 'pending'),
+(11, 2, 10, '2023-08-19', 468500, '', '', 'Mohakhali, Dhaka', '01236985214', 'pending');
 
 -- --------------------------------------------------------
 
@@ -211,7 +217,7 @@ ALTER TABLE `car`
 -- AUTO_INCREMENT for table `customer_order`
 --
 ALTER TABLE `customer_order`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `review`
