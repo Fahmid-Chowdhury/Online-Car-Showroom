@@ -8,6 +8,7 @@ import AllCarView from './allCarView';
 import CustomerOrder from './customerOrder';
 import CustomerPayment from './customerPayment';
 import OrderProcessing from './orderProcessing';
+import CompletedOrders from './completedOrders';
 
 const initialState = {
   allCar: false,
@@ -16,6 +17,7 @@ const initialState = {
   order: false,
   payment: false,
   orderProcessing: false,
+  completedOrders: false,
   testDrive: false,
   carModel: false,
 };
@@ -86,16 +88,17 @@ export default function DashboardPage() {
         <ToolbarItem title="Orders" onClick={() => handleStateChange('order')} />
         <ToolbarItem title="Payment" onClick={() => handleStateChange('payment')} />
         <ToolbarItem title="Processing" onClick={() => handleStateChange('orderProcessing')} />
+        <ToolbarItem title="Completed" onClick={() => handleStateChange('completedOrders')} />
         <ToolbarItem title="Test drive" onClick={() => handleStateChange('testDrive')} />
         <ToolbarItem title="Enquery" onClick={() => handleStateChange('enquery')} />
       </div>
       
         {state.allCar && <AllCarView />}
         {state.addCar && <AddCarForm/>}
-        
         {state.order && <CustomerOrder/>}
         {state.payment && <CustomerPayment/>}
         {state.orderProcessing && <OrderProcessing/>}
+        {state.completedOrders && <CompletedOrders/>}
         {state.enquery && <h1>Enquery</h1>}
         {state.testDrive && <h1>Test drive</h1>}
       

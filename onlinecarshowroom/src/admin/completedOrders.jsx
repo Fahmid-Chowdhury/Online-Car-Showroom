@@ -1,37 +1,8 @@
-import './customerOrder.css';
+import './customerOrder.css'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-
-function ProcessingItem({order, onupdate}) {
-    const token = localStorage.getItem('token');
-
-    const config = {
-        headers: {
-        Authorization: `bearer ${token}`, // Add the token to the Authorization header
-        },
-    };
-    const confirmDelivary = async () => {
-        const shouldConfirm = window.confirm("Are you sure order is ready to be delivered?");
-        if (shouldConfirm) {
-            console.log(order.order_id);
-            try {
-                const response = await axios.post("http://localhost:5000/admin/confirmdelivery", {order_id: order.order_id}, config);
-                if (response.status === 200){
-                    alert("Ready to be delivered");
-                    onupdate();
-                    
-                }else {
-                    alert("Something went wrong");
-                }
-            
-            } catch (error) {
-                console.log(error.message);
-                alert(error.message);
-            }
-        }
-    }
-    
+function CompletedItem({order}) {
         
     return (
         <div className="customer-order-item">
@@ -41,8 +12,8 @@ function ProcessingItem({order, onupdate}) {
             </div>
             <div className="customer-order-grid">
                 <div className="customer-order-grid-item">
-                    <h4>Payment Reference</h4>
-                    <p>{order.payment_reference}</p>
+                    <h4>Order Date</h4>
+                    <p>{new Date(order.order_date).toLocaleDateString()}</p>
                 </div>
                 <div className="customer-order-grid-item">
                     <h4>User ID</h4>
@@ -59,14 +30,11 @@ function ProcessingItem({order, onupdate}) {
                 
             </div>
 
-            <div className="customer-order-buttons">
-                <button onClick={confirmDelivary} >Confirm Delivary</button>
-            </div>
         </div>
     )
 }
 
-function ProcessingList({orders, onupdate}){
+function CompletedList({orders}){
     if(orders.length === 0){
         return (
             <div className="customer-order-none">
@@ -78,12 +46,12 @@ function ProcessingList({orders, onupdate}){
         return(
             <>
             {orders.map((order) => (
-                <ProcessingItem order={order} key={order.order_id} onupdate = {onupdate}/>
+                <CompletedItem order={order} key={order.order_id}/>
                 ))}
             </>
     )}
 }
-export default function orderProcessing() {
+export default function CompletedOrders() {
     const [customerOrder, setCustomerOrder] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -97,7 +65,7 @@ export default function orderProcessing() {
 
     const fetchCustomerOrder = async () => {
         try {
-            const response = await axios.get("http://localhost:5000/admin/getprocessingorders", config);
+            const response = await axios.get("http://localhost:5000/admin/getcompletedorders", config);
             setCustomerOrder(response.data.results);
             setLoading(false);
         } catch (error) {
@@ -123,7 +91,7 @@ export default function orderProcessing() {
                 <div className="error">{error}</div>
             ) : (
                 <div className="customer-order-table">
-                        <ProcessingList orders={customerOrder} onupdate = {fetchCustomerOrder}/>
+                        <CompletedList orders={customerOrder}/>
                 </div>
             )}
             

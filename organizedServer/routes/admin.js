@@ -14,5 +14,6 @@ router.get('/getpayments', checkAuthMiddleware.checkAuth, adminController.getPay
 router.post('/confirmpayment', checkAuthMiddleware.checkAuth, adminController.confirmPayment),
 router.get('/getprocessingorders', checkAuthMiddleware.checkAuth, adminController.getOrdersProcessing),
 router.post('/confirmdelivery', checkAuthMiddleware.checkAuth, adminController.confirmDelivery),
+router.get('/getcompletedorders', checkAuthMiddleware.checkAuth, adminController.getOrdersCompleted),
 
 module.exports = router;

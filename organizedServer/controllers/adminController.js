@@ -374,6 +374,34 @@ function getOrdersProcessing(req, res) {
         })
     });
 };
+function getOrdersCompleted(req, res) {
+    pool.getConnection((err, connection) => {
+        if(err) {
+            res.status(500).json({
+                message: "Error getting database connectio",
+                error: err
+            });
+        };
+
+        const sqlQuery = 'SELECT c.car_id, co.order_id, co.user_id, co.order_date, co.total_price, co.contact_number, c.brand, c.model, c.year, c.price,co.payment_reference FROM customer_order co INNER JOIN car c ON co.car_id = c.car_id and co.order_status = "completed" ORDER BY co.order_id DESC';
+        connection.query(sqlQuery, (queryErr, results) => {
+            connection.release();
+            if(queryErr) {
+                res.status(400).json({
+                    message: "Something went wrong, please try again",
+                    error: queryErr
+                });
+            };
+
+            if(results) {
+                res.status(200).json({
+                    message: "Orders retrieved successfully",
+                    results: results
+                });
+            };
+        })
+    });
+};
 module.exports = {
     addCar: addCar,
     getOrders: getOrders,
@@ -382,5 +410,6 @@ module.exports = {
     getPayments: getPayments,
     confirmPayment: confirmPayment,
     getOrdersProcessing: getOrdersProcessing,
-    confirmDelivery: confirmDelivery
+    confirmDelivery: confirmDelivery,
+    getOrdersCompleted: getOrdersCompleted
 }
