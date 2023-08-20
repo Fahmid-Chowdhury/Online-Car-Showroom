@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import DashboardPage from './admin/dashboard';
 import OrderPage from './pages/orderPage';
+import ProfilePage from './profile/profile';
 import './App.css'
 
 
@@ -24,6 +25,7 @@ function App() {
             <Route exact path='/login' element={<LoginPage />} />
             <Route exact path='/signup' element={<SignupPage />} />
             <Route exact path='/dashboard' element={<DashboardPage />} />
+            <Route exact path='/profile' element={<ProfilePage />} />
           </Routes>
         </Router>
           
