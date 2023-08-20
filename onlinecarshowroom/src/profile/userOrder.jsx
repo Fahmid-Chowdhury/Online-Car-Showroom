@@ -14,7 +14,7 @@ const orderData ={
     payment_status: "pending",
     delivery_address: "123, abc street, xyz city",
     contact_number: "1234567890",
-    order_status: "processing",
+    order_status: "confirmed",
 }
 function OrderItem({data}){
     return(
