@@ -38,13 +38,29 @@ export default function UserProfile({ userId}) {
                     <div className="user-profile-row">
                     <div className="user-profile-image">
                     </div>
-                    <div className="user-profile-name-container">
-                        <div className="user-profile-name">
-                            <p>{userData.user_name}</p>
-                        </div>
-                        <div className="user-profile-email">
-                            <p>{userData.email}</p>
-                        </div>
+                    <div className="user-profile-name">
+                        <p>{userData.user_name}</p>
+                    </div>
+                    <div className="user-profile-item-grid">
+                        
+                    
+                    <div className="user-profile-item">
+                        <p className='title'>Email</p>
+                        <p>{userData.email}</p>
+                    </div>
+                    <div className="user-profile-item">
+                        <p className='title'>Phone</p>
+                        <p>{userData.phone}</p>
+                    </div>
+                    <div className="user-profile-item">
+                        <p className='title'>Address</p>
+                        <p>{userData.address}</p>
+                    </div>
+                    <div className="user-profile-item">
+                        <p className='title'>User Id</p>
+                        <p>{userData.user_id}</p>
+                    </div>
+                    
                     </div>
                     </div>
                 </div>)}

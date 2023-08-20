@@ -4,6 +4,7 @@ import jwt_decode from 'jwt-decode';
 import '../admin/dashboard.css';
 
 import UserProfile from './uesrProfile';
+import UserOrder from './userOrder';
 
 const initialState = {
   profile: false,
@@ -67,8 +68,8 @@ export default function ProfilePage() {
       
         {state.profile && <UserProfile userId ={userData.user_id}/>}
         {state.editInfo && <h1>Edit Info</h1>}
+        {state.order && <UserOrder userId ={userData.user_id}/>}
         {state.enquery && <h1>Enquery</h1>}
-        {state.order && <h1>Orders</h1>}
       
       
     </div>
