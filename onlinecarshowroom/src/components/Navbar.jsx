@@ -60,8 +60,8 @@ export default function Navbar(){
               <NavLink route="/" text="Home" />
               <NavLink route="/cars" text="Buy car" />
               {/* <NavLink route="/rent" text="Rent car" /> */}
-              <NavLink route="/services" text="Services" />
-              <NavLink route="/about" text="About Us" />
+              {/* <NavLink route="/services" text="Services" /> */}
+              {/* <NavLink route="/about" text="About Us" /> */}
           </div>
           <div className="right-float">
             {userName ? (
