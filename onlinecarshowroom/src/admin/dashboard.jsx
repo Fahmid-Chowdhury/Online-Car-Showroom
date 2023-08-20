@@ -89,6 +89,9 @@ export default function DashboardPage() {
         <ToolbarItem title="Payment" onClick={() => handleStateChange('payment')} />
         <ToolbarItem title="Processing" onClick={() => handleStateChange('orderProcessing')} />
         <ToolbarItem title="Completed" onClick={() => handleStateChange('completedOrders')} />
+        <div className="toolbar-title">
+          <p>Services</p>
+        </div>
         <ToolbarItem title="Test drive" onClick={() => handleStateChange('testDrive')} />
         <ToolbarItem title="Enquery" onClick={() => handleStateChange('enquery')} />
       </div>

@@ -4,7 +4,7 @@ import './carPage.css';
 import PriceRange from '../components/priceRange.jsx';
 import ExtendedList from '../components/extendedList';
 import jwt_decode from 'jwt-decode';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function CrossIcon() {
   return (
@@ -148,6 +148,10 @@ function CarExtended({carId}){
   const [isLoading, setIsLoading] = useState(true);
   const [userInfo, setUserInfo] = useState(null);
   const [userId, setUserId] = useState('');
+  const [showEnquiry, setShowEnquiry] = useState(false);
+  const [enqueryTitle, setEnqueryTitle] = useState('');
+  const [enqueryMessage, setEnqueryMessage] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
   
   useEffect(() => {
     fetchCarComment();
@@ -160,6 +164,7 @@ function CarExtended({carId}){
       const decodedToken = jwt_decode(token);
       setUserInfo(decodedToken);
       setUserId(decodedToken.user_id);
+      setLoggedIn(true);
       
     }catch (error){
       console.log(error);
@@ -235,10 +240,43 @@ function CarExtended({carId}){
         </div>
       </div>
       <div className="car-extended-buttons">
-        <button className="car-extended-button">Enquiry</button>
+        <button className="car-extended-button" onClick={()=>{setShowEnquiry(true)}}>Enquiry</button>
         <button className="car-extended-button" onClick={()=>{handleOrderClick(carId)}}>Order now</button>
         <button className="car-extended-button">Test drive</button>
       </div>
+
+      { showEnquiry ? (
+         loggedIn ?(
+      <div className="car-extended-enquery">
+        <div className="title">
+          <h3>Enquiry</h3>
+        </div>
+        <form className="enquery-form">
+          <div className="enquery-form-item">
+            <label>Title</label>
+            <input type="text" placeholder="Title" value={enqueryTitle} onChange={(e)=>{setEnqueryTitle(e.target.value)}}/>
+            </div>
+          <div className="enquery-form-item">
+            <label>Message</label>
+            <textarea type="text" value={enqueryMessage} placeholder="Message" onChange={(e)=>{setEnqueryMessage(e.target.value)}}/>
+          </div>
+          <div className="enquery-form-button">
+            <button className="enquery-button">Submit</button>
+            <button className="enquery-button" onClick={()=>{setShowEnquiry(false)}}>Cancel</button>
+          </div>
+        </form>
+            
+      </div>):(
+      <div className="car-extended-enquery">
+        <div className="enquery-not-available">
+          <p>You must be signed in to send enquery about this product. <Link to="/login">Sign in</Link> now.</p>
+          
+        </div>
+      </div>
+      )) : (null)
+        
+      }
+      
       <ReviewBox comments = {carComment} carid = {carId} userInfo={userInfo} userId={userId}/>
     </div>
   )
