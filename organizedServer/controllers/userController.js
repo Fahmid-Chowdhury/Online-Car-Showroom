@@ -198,8 +198,46 @@ function allcars(req, res){
 });
 };
 
+function userprofile(req, res){
+
+    const credentials = {
+        user_id: req.params.userid
+    };
+    pool.getConnection((err, connection) => {
+        if(err) {
+            res.status(500).json({
+                message: "Error getting database connection",
+                error: err
+            });
+        }
+    const sqlQuery = 'SELECT * FROM user WHERE user_id = ?';
+
+    connection.query(sqlQuery, credentials.user_id, (queryErr, results) => {
+        connection.release();
+        if(queryErr) {
+            res.status(400).json({
+                message: "Something went wrong. Please try again",
+                error: queryErr
+            });
+        };
+        if(results.length == 0){
+            res.status(409).json({
+                message: 'No user found',
+                results: results
+            })
+        }else {
+            res.status(200).json({
+                message: 'User found', 
+                results: results
+            })
+        };
+    });
+});
+
+};
 module.exports = {
     signUp: signUp,
     login: login,
-    allCars: allcars
+    allCars: allcars,
+    userProfile: userprofile
 }

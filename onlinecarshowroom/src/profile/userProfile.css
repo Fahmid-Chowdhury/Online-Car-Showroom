@@ -1,0 +1,37 @@
+.user-profile-container {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-radius: 5px;
+  width: 100%;
+  background-color: var(--bg-container);
+  margin-left:15px;
+}
+
+.user-profile-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.user-profile-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-col);
+}
+.user-profile-name-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+}
+.user-profile-name {
+  font-size: 1.5rem;
+  font-weight: 500;
+
+}
+.user-profile-name p {
+  margin: 0;
+  padding: 0;
+  color: var(--primary-col);
+}

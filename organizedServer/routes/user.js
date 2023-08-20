@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.post('/signup', userController.signUp);
 router.post('/login', userController.login);
+router.get('/profile/:userid', userController.userProfile);
 router.get('/allcars', carController.allCars);
 router.get('/car', carController.listCars);
 router.get('/comments', carController.listComments);

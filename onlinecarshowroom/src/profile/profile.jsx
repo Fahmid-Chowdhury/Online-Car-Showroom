@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import '../admin/dashboard.css';
 
+import UserProfile from './uesrProfile';
+
 const initialState = {
   profile: false,
   editInfo: false,
@@ -24,8 +26,6 @@ export default function ProfilePage() {
   const [state, setState] = useState(initialState);
   const [userData, setUserData] = useState(null);
   
-  
-  
   const handleStateChange = (key) => {
     const newState = { ...initialState, [key]: true };
     setState(newState);
@@ -35,10 +35,10 @@ export default function ProfilePage() {
   useEffect(() => {
     handleStateChange('profile');
 
-    // Fetch user's name from localStorage (assuming you store the token as 'token')
     const token = localStorage.getItem('token');
     if (token) {
-      // Decode the token to get user data
+        const decodedToken = jwt_decode(token);
+        setUserData(decodedToken);
 
     } else {
       navigate('/login');
@@ -65,7 +65,7 @@ export default function ProfilePage() {
         <ToolbarItem title="Enquery" onClick={() => handleStateChange('enquery')} />
         </div>
       
-        {state.profile && <h1>Profile</h1>}
+        {state.profile && <UserProfile userId ={userData.user_id}/>}
         {state.editInfo && <h1>Edit Info</h1>}
         {state.enquery && <h1>Enquery</h1>}
         {state.order && <h1>Orders</h1>}
