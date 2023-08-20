@@ -44,7 +44,9 @@ body{
 ::-webkit-scrollbar-track {
   background: var(--bg-container); 
 }
-
+.gray800{
+  background-color: #2d3748;
+}
 
 
 
