@@ -30,6 +30,7 @@
   border-radius: 5px;
   padding: 0 15px;
   overflow: auto;
+  padding-bottom: 15px;
 }
 
 .user-order-item-container {
