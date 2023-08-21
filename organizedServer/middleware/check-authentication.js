@@ -15,5 +15,5 @@ function checkAuth(req, res, next) {
 }
 
 module.exports = {
-    checkAuth: checkAuth
+    checkAuth: checkAuth 
 }

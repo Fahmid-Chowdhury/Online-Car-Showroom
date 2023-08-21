@@ -247,8 +247,8 @@ function userNameUpdate(req, res){
     const validationResponse = v.validate(credentials, schema);
 
     if(validationResponse != true) {
-        return res.status(400).json({
-            message: 'Validation failed',
+        return res.status(401).json({
+            message: 'User Name cannot be empty and must be less than 100 characters',
             error: validationResponse
         });
     };
@@ -449,6 +449,34 @@ function passwordUpdate(req, res){
         });
     });     
 };
+function orderRetrieve(req, res){
+    const credentials = {
+        user_id: req.body.userId
+    }; 
+
+    pool.getConnection((err, connection) => {
+        if(err) {
+            res.status(500).json({
+                message: "Error getting database connection",
+                error: err
+            });
+        }
+        const sqlQuery = "SELECT co.order_id, c.brand, c.model, c.year, co.order_date, co.total_price, co.payment_reference, co.payment_status, co.delivery_address, co.contact_number, co.order_status FROM customer_order co JOIN car c ON co.car_id = c.car_id and co.user_id = ? ORDER BY co.order_id DESC;"
+        connection.query(sqlQuery, credentials.user_id, (queryErr, results) => {
+            connection.release();
+            if(queryErr) {
+                res.status(400).json({
+                    message: "Something went wrong",
+                    error: queryErr
+                });
+            };
+            return res.status(200).json({
+                message: "Orders retrieved successfully",
+                orders: results
+            });
+        });
+    });
+}
 
 module.exports = {
     signUp: signUp,
@@ -459,5 +487,6 @@ module.exports = {
     userEmailUpdate: userEmailUpdate,
     userPhoneUpdate: userPhoneUpdate,
     userAddressUpdate: userAddressUpdate,
-    passwordUpdate: passwordUpdate
+    passwordUpdate: passwordUpdate,
+    orderRetrieve: orderRetrieve
 }

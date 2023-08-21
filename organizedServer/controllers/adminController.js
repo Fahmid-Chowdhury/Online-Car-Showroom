@@ -392,9 +392,7 @@ function getOrdersCompleted(req, res) {
     });
 };
 
-function orderRetrieve(req, res){
-    "SELECT co.order_id, co.car_id, c.brand, c.model, c.year, co.order_date, co.total_price, co.payment_reference, co.payment_status, co.delivery_address, co.contact_number, co.order_status FROM customer_order co JOIN car c ON co.car_id = c.car_id;"
-}
+
 
 module.exports = {
     addCar: addCar,

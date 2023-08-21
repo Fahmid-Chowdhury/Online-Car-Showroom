@@ -19,5 +19,6 @@ router.patch('/emailUpdate', checkAuthMiddleware.checkAuth, userController.userE
 router.patch('/phoneUpdate', checkAuthMiddleware.checkAuth, userController.userPhoneUpdate);
 router.patch('/addressUpdate', checkAuthMiddleware.checkAuth, userController.userAddressUpdate);
 router.patch('/passwordUpdate', checkAuthMiddleware.checkAuth, userController.passwordUpdate);
+router.post('/orderretrieve', checkAuthMiddleware.checkAuth, userController.orderRetrieve);
 
 module.exports = router;
