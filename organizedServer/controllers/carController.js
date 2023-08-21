@@ -52,6 +52,7 @@ function listcars(req, res) {
     });
     });
 }
+
 function availablebrands(req, res) {
     pool.getConnection((err, connection) => {
         if (err) {
@@ -78,6 +79,7 @@ function availablebrands(req, res) {
         });
     });
 }
+
 function availableyears(req, res) {
     pool.getConnection((err, connection) => {
         if (err) {
@@ -104,8 +106,6 @@ function availableyears(req, res) {
         });
     });
 }
-
-
 
 function allcars(req, res) {
     pool.getConnection((err, connection) => {
@@ -170,8 +170,6 @@ function allcars(req, res) {
 }
 
 // admin controllers
-
-
 
 function deleteCar(req, res) {
     const carId = req.body.car_id;

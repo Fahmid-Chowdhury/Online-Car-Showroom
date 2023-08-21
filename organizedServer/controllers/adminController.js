@@ -143,6 +143,7 @@ function addCar(req, res) {
         })
     });
 };
+
 function getOrders(req, res) {
     pool.getConnection((err, connection) => {
         if(err) {
@@ -214,6 +215,7 @@ function confirmOrder(req, res) {
 
     });
 };
+
 function cancelOrder(req, res) {
     
     const order_info = {
@@ -248,14 +250,10 @@ function cancelOrder(req, res) {
     });
 };
 
-
 function confirmPayment(req, res) {
     const order_info = {
         order_id: req.body.order_id,
-
     };
-    
-
     pool.getConnection((err, connection) => {
         if(err) {
             res.status(500).json({
@@ -272,24 +270,17 @@ function confirmPayment(req, res) {
                     error: queryErr
                 });
             };
-
-            
-                res.status(200).json({
-                    message: "Payment status 'paid'",
-                    results: results
-                });
-            
+            res.status(200).json({
+                message: "Payment status 'paid'",
+                results: results
+            });
         })  
-
     });
 };
 function confirmDelivery(req, res) {
     const order_info = {
         order_id: req.body.order_id,
-
     };
-    
-
     pool.getConnection((err, connection) => {
         if(err) {
             res.status(500).json({
@@ -306,15 +297,11 @@ function confirmDelivery(req, res) {
                     error: queryErr
                 });
             };
-
-            
-                res.status(200).json({
-                    message: "Ready to deliver",
-                    results: results
-                });
-            
+            res.status(200).json({
+                message: "Ready to deliver",
+                results: results
+            });
         })  
-
     });
 };
 
@@ -346,6 +333,7 @@ function getPayments(req, res) {
         })
     });
 };
+
 function getOrdersProcessing(req, res) {
     pool.getConnection((err, connection) => {
         if(err) {
@@ -374,6 +362,7 @@ function getOrdersProcessing(req, res) {
         })
     });
 };
+
 function getOrdersCompleted(req, res) {
     pool.getConnection((err, connection) => {
         if(err) {
@@ -402,6 +391,11 @@ function getOrdersCompleted(req, res) {
         })
     });
 };
+
+function orderRetrieve(req, res){
+    "SELECT co.order_id, co.car_id, c.brand, c.model, c.year, co.order_date, co.total_price, co.payment_reference, co.payment_status, co.delivery_address, co.contact_number, co.order_status FROM customer_order co JOIN car c ON co.car_id = c.car_id;"
+}
+
 module.exports = {
     addCar: addCar,
     getOrders: getOrders,
@@ -413,3 +407,6 @@ module.exports = {
     confirmDelivery: confirmDelivery,
     getOrdersCompleted: getOrdersCompleted
 }
+
+
+"SELECT co.order_id, co.car_id, c.brand, c.model, c.year, co.order_date, co.total_price, co.payment_reference, co.payment_status, co.delivery_address, co.contact_number, co.order_status FROM customer_order co JOIN car c ON co.car_id = c.car_id;"

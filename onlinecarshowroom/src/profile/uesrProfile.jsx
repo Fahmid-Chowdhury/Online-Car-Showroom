@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
-export default function UserProfile({ userId}) {
+export default function UserProfile({userId}) {
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
     const token = localStorage.getItem('token');
@@ -15,7 +15,7 @@ export default function UserProfile({ userId}) {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(response.data.results);
+            // console.log(response.data.results);
             setUserData(response.data.results[0]);
             setLoading(false);
         } catch (error) {
