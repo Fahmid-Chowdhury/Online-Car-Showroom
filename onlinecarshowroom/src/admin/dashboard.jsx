@@ -93,8 +93,8 @@ export default function DashboardPage() {
         <div className="toolbar-title">
           <p>Services</p>
         </div>
-        <ToolbarItem title="Test drive" onClick={() => handleStateChange('testDrive')} />
         <ToolbarItem title="Enquery" onClick={() => handleStateChange('enquery')} />
+        <ToolbarItem title="Test drive" onClick={() => handleStateChange('testDrive')} />
       </div>
       
         {state.allCar && <AllCarView />}
@@ -103,7 +103,7 @@ export default function DashboardPage() {
         {state.payment && <CustomerPayment/>}
         {state.orderProcessing && <OrderProcessing/>}
         {state.completedOrders && <CompletedOrders/>}
-        {state.enquery && <Enquiry/>}
+        {state.enquery && <Enquiry userId = {userData.user_id}/>}
         {state.testDrive && <h1>Test drive</h1>}
       
       

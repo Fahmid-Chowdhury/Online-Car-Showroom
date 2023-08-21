@@ -87,6 +87,7 @@ function response(req, res){
     });
 };
 function getAllEnquiries(req, res){
+    console.log(req.body);
     const status = req.body.status;
     pool.getConnection((err, connection) => {
         if(err) {
@@ -95,7 +96,7 @@ function getAllEnquiries(req, res){
                 error: err
             });
         };
-        const sqlQuery = 'SELECT * FROM user_enquiry WHERE status = ?';
+        const sqlQuery = "SELECT e.enquiry_id, e.user_id, e.title, e.message, c.brand, c.model, c.year FROM user_enquiry e JOIN car c ON e.car_id = c.car_id WHERE e.status = ?";
         connection.query(sqlQuery, [status], (queryErr, results) => {
             if(queryErr) {
                 res.status(400).json({
