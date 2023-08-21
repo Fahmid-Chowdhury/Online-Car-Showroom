@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 19, 2023 at 06:14 PM
+-- Generation Time: Aug 21, 2023 at 03:27 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -113,7 +113,8 @@ INSERT INTO `review` (`review_id`, `car_id`, `user_id`, `review_date`, `message`
 (2, 2, 1, '2023-08-01', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel adipisci pariatur debitis tempora facere vitae nisi eius rerum quod! Natus, minus? Porro explicabo ut, placeat asperiores suscipit odio vero exercitationem.\r\nTempora quia obcaecati dolores adipisci nisi, deleniti explicabo similique placeat in eligendi perferendis eum esse facere suscipit! Non, laudantium est tenetur, officiis alias qui fugiat eligendi, blanditiis molestiae modi eius!', 4),
 (3, 2, 2, '2023-08-18', 'Its a fantastic sports car. There\'s no “one” perfect thing that makes it that way, rather, it\'s the amalgam of features that you just don\'t see very often: good design, turbocharged inline-six, rear-drive, two-doors, and all paired with a manual transmission. It makes its mark as a driver\'s car.', 5),
 (4, 1, 2, '2023-08-18', 'Awesome car. asdfja oiajdf iadof ', 4),
-(8, 12, 2, '2023-08-18', 'sweet ride', 4);
+(8, 12, 2, '2023-08-18', 'sweet ride', 4),
+(9, 1, 1, '2023-08-21', '', 4);
 
 -- --------------------------------------------------------
 
@@ -157,11 +158,26 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `user_name`, `email`, `password`, `phone`, `address`, `role`) VALUES
-(1, 'FAHMID HASAN CHOWDHURY', 'fahmid@gmail.com', '$2a$10$yCyf4l9PGlNlTR8.rAWEvuGKQRhmA3Zh640pA1eRM2zQGwGdVigoi', '01817279669', 'Boro Moghbazar, Dr. goli, Dhaka', 'admin'),
+(1, 'FAHMID HASAN CHOWDHURY', 'fahmid@gmail.com', '$2a$10$9FJbjoFcZ1YXOL7uy7dPUOcVThXeRMYZQuTlBW6r63.8I50cE/IWa', '01817279669', 'Boro Moghbazar, Dr. goli, Dhaka', 'admin'),
 (2, 'ZAKARIA IBNE RAFIQ', 'zakaria@gmail.com', '$2a$10$hyG38mgNRKG1FCSqGCARY.YmW.OjwKDCSkWWFXnsmus1fw0eYoIFq', '01818465069', 'Demra, Dhaka', 'admin'),
 (12, 'Radito Dhali', 'radito@gmail.com', '$2a$10$RO510tmWjU/1IePO3Xinn.izv7eqMDUcGXPUjhgd5AV7gGsdBGCNO', '01310022463', 'Shantinagar, Dhaka', 'user'),
 (13, 'Sabbir Hossain Mirza', 'sabbir@gmail.com', '$2a$10$kQEzVMn5KEz8f21cVGYG9uTjPJn6BcZWMYyeIhiur/JhZBTp2S6aq', '01951037670', 'Mohakhali, Dhaka', 'user'),
-(14, 'Admin', 'user@email.com', '$2a$10$6L4fl.R11qmowYgy7FJCc.9PK9JiPabcQhuQTjMjZKgsOaBPTKzLO', '02356478936', 'somewhere precious', 'user');
+(14, 'New User', 'user@email.com', '$2a$10$6L4fl.R11qmowYgy7FJCc.9PK9JiPabcQhuQTjMjZKgsOaBPTKzLO', '', 'somewhere precious', 'user');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_enquiry`
+--
+
+CREATE TABLE `user_enquiry` (
+  `enquiry_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `car_id` int(11) NOT NULL,
+  `enquiry` varchar(6000) NOT NULL,
+  `response` varchar(6000) NOT NULL,
+  `status` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -204,6 +220,14 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`);
 
 --
+-- Indexes for table `user_enquiry`
+--
+ALTER TABLE `user_enquiry`
+  ADD PRIMARY KEY (`enquiry_id`),
+  ADD KEY `car_id` (`car_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -223,7 +247,7 @@ ALTER TABLE `customer_order`
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `test_drive`
@@ -236,6 +260,12 @@ ALTER TABLE `test_drive`
 --
 ALTER TABLE `user`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `user_enquiry`
+--
+ALTER TABLE `user_enquiry`
+  MODIFY `enquiry_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -261,6 +291,13 @@ ALTER TABLE `review`
 ALTER TABLE `test_drive`
   ADD CONSTRAINT `test_drive_ibfk_1` FOREIGN KEY (`car_id`) REFERENCES `car` (`car_id`),
   ADD CONSTRAINT `test_drive_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+
+--
+-- Constraints for table `user_enquiry`
+--
+ALTER TABLE `user_enquiry`
+  ADD CONSTRAINT `user_enquiry_ibfk_1` FOREIGN KEY (`car_id`) REFERENCES `car` (`car_id`),
+  ADD CONSTRAINT `user_enquiry_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
