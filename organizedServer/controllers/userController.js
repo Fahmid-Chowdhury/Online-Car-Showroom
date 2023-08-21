@@ -291,7 +291,7 @@ function userEmailUpdate(req, res){
     if(validationResponse != true) {
         console.log(validationResponse)
         return res.status(400).json({
-            message: 'Validation failed',
+            message: 'Email cannot be empty and must be atleat 6 characters',
             error: validationResponse
         });
     };
@@ -353,7 +353,7 @@ function userPhoneUpdate(req, res){
 
     if(validationResponse != true) {
         return res.status(400).json({
-            message: 'Validation failed',
+            message: 'Phone number cannot be empty and must be atleat 10 characters',
             error: validationResponse
         });
     };
@@ -439,7 +439,7 @@ function passwordUpdate(req, res){
 
     if(validationResponse != true) {
         return res.status(400).json({
-            message: 'Validation failed',
+            message: 'Password must be at least 6 characters long',
             error: validationResponse
         });
     };
