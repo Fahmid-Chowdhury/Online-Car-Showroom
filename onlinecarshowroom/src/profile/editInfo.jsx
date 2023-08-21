@@ -40,12 +40,112 @@ export default function EditInfo({userId}) {
         } catch (err) {
             if (err.response && err.response.data) {
                 setError(err.response.data.message);
+                setSuccess('');
               } else {
+                console.log('here')
                 setError(err.message);
                 setSuccess('');
               }
         }
     };
+    const handleEmailUpdate = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.patch(links.updateEmail, { user_id: userId, newEmail: userEmail.trim() }, config);
+            console.log(response);
+            if (response.status === 200) {
+                setSuccess('Email updated successfully');
+                setError('');
+            }
+            else {
+                setError(response.message);
+                setSuccess('');
+            }
+        } catch (err) {
+            if (err.response && err.response.data) {
+                setError(err.response.data.message);
+                setSuccess('');
+                } else {
+                setError(err.message);
+                setSuccess('');
+                }
+        }   
+    };
+
+    const handlePhoneUpdate = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.patch(links.updatePhone, { user_id: userId, newPhone: userPhone.trim() }, config);
+            console.log(response);
+            if (response.status === 200) {
+                setSuccess('Phone updated successfully');
+                setError('');
+            }
+            else {
+                setError(response.message);
+                setSuccess('');
+
+            }
+        } catch (err) {
+            if (err.response && err.response.data) {
+                setError(err.response.data.message);
+                setSuccess('');
+                } else {
+                setError(err.message);
+                setSuccess('');
+                }
+        }
+    };
+    const handleAddressUpdate = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.patch(links.updateAddress, { user_id: userId, newAddress: userAddress.trim() }, config);
+            console.log(response);
+            if (response.status === 200) {
+                setSuccess('Address updated successfully');
+                setError('');
+            }
+            else {
+                setError(response.message);
+                setSuccess('');
+            }
+        } catch (err) {
+            if (err.response && err.response.data) {
+                setError(err.response.data.message);
+                setSuccess('');
+                } else {
+                setError(err.message);
+                setSuccess('');
+                }
+        }
+    };
+    const handlePasswordUpdate = async (e) => {
+        e.preventDefault();
+        try {
+
+            const response = await axios.patch(links.updatePassword, { user_id: userId, newPassword: userPassword.trim() }, config);
+            console.log(response);
+            if (response.status === 200) {
+                setSuccess('Password updated successfully');
+                setError('');
+
+            }
+            else {
+                setError(response.message);
+                setSuccess('');
+            }
+        } catch (err) {
+            if (err.response && err.response.data) {
+                setError(err.response.data.message);
+                setSuccess('');
+                } else {
+                setError(err.message);
+                setSuccess('');
+                }
+        }
+    };
+    
+    
                 
 
     
@@ -69,7 +169,7 @@ export default function EditInfo({userId}) {
                             />
                             <button type="submit">Update</button>
                         </form>
-                        <form>
+                        <form onSubmit={handleEmailUpdate} >
                             <label htmlFor="email">Email</label>
                             <input
 
@@ -82,7 +182,7 @@ export default function EditInfo({userId}) {
                             />
                             <button type="submit">Update</button>
                         </form>
-                        <form>
+                        <form onSubmit={handlePhoneUpdate}>
                             <label htmlFor="phone">Phone</label>
                             <input
 
@@ -95,7 +195,7 @@ export default function EditInfo({userId}) {
                             />
                             <button type="submit">Update</button>
                         </form>
-                        <form>
+                        <form onSubmit={handleAddressUpdate}>
                             <label htmlFor="address">Address</label>
                             <input
                                 type='text'
@@ -107,7 +207,7 @@ export default function EditInfo({userId}) {
                             />
                             <button type="submit">Update</button>
                         </form>
-                        <form>
+                        <form onSubmit={handlePasswordUpdate}>
                             <label htmlFor="password">Password</label>
                             <input
                                 type='password'

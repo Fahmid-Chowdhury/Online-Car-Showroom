@@ -283,12 +283,13 @@ function userEmailUpdate(req, res){
         newEmail: req.body.newEmail
     };
     const schema = {
-        email   : {type: 'string', optional: false, max: "100", min: "6"},
+        newEmail   : {type: 'string', optional: false, max: "100", min: "6"},
     };
     const v = new Validator();
     const validationResponse = v.validate(credentials, schema);
 
     if(validationResponse != true) {
+        console.log(validationResponse)
         return res.status(400).json({
             message: 'Validation failed',
             error: validationResponse
@@ -302,19 +303,39 @@ function userEmailUpdate(req, res){
                 error: err
             });
         }
-        const sqlQuery = 'UPDATE user SET email = ?  WHERE user_id = ?';
-        connection.query(sqlQuery, [credentials.newEmail, credentials.user_id], (queryErr, results) => {
-            connection.release();
+        
+        const sqlQuery = 'SELECT * FROM user WHERE email = ?';
+        connection.query(sqlQuery, credentials.newEmail, (queryErr, results) => {
             if(queryErr) {
                 res.status(400).json({
-                    message: "Something went wrong. Please try again",
+                    message: "Something went wrong, please try again",
                     error: queryErr
                 });
             };
-            return res.status(200).json({
-                message: 'Profile update successfull',
-                result: results
-            });
+            console.log(results)
+            if(results.length != 0){
+                res.status(409).json({
+                    message: 'This email already exists',
+                    results: results
+                })
+            }
+            else{
+                const sqlQuery = 'UPDATE user SET email = ?  WHERE user_id = ?';
+                connection.query(sqlQuery, [credentials.newEmail, credentials.user_id], (queryErr, results) => {
+                connection.release();
+                if(queryErr) {
+                    res.status(400).json({
+                        message: "Something went wrong. Please try again",
+                        error: queryErr
+                    });
+                };
+                return res.status(200).json({
+                    message: 'Profile update successfull',
+                    result: results
+                });
+                });
+            };
+
         });
     });
 };
@@ -325,7 +346,7 @@ function userPhoneUpdate(req, res){
         newPhone: req.body.newPhone
     };
     const schema = {
-        phone   : {type: 'string', optional: false}
+        newPhone   : {type: 'string', optional: false, min: "10"}
     };
     const v = new Validator();
     const validationResponse = v.validate(credentials, schema);
@@ -367,7 +388,7 @@ function userAddressUpdate(req, res){
         newAddress: req.body.newAddress
     };
     const schema = {
-        newAddress   : {type: 'string', optional: false}
+        newAddress   : {type: 'string', optional: false, min:"2"}
     };
     const v = new Validator();
     const validationResponse = v.validate(credentials, schema);
