@@ -16,6 +16,6 @@ app.use('/uploads', express.static('uploads'))
 app.use('/user', userRoute)
 app.use('/admin', adminRoute)
 app.use('/images', imageRoute)
-app.use('enquiries', enquiryRoute)
+app.use('/enquiry', enquiryRoute)
 
 module.exports = app

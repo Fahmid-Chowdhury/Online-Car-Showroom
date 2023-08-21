@@ -247,8 +247,8 @@ function userNameUpdate(req, res){
     const validationResponse = v.validate(credentials, schema);
 
     if(validationResponse != true) {
-        return res.status(400).json({
-            message: 'Validation failed',
+        return res.status(401).json({
+            message: 'User Name cannot be empty and must be less than 100 characters',
             error: validationResponse
         });
     };
@@ -283,14 +283,15 @@ function userEmailUpdate(req, res){
         newEmail: req.body.newEmail
     };
     const schema = {
-        email   : {type: 'string', optional: false, max: "100", min: "6"},
+        newEmail   : {type: 'string', optional: false, max: "100", min: "6"},
     };
     const v = new Validator();
     const validationResponse = v.validate(credentials, schema);
 
     if(validationResponse != true) {
+        console.log(validationResponse)
         return res.status(400).json({
-            message: 'Validation failed',
+            message: 'Email cannot be empty and must be atleat 6 characters',
             error: validationResponse
         });
     };
@@ -302,19 +303,39 @@ function userEmailUpdate(req, res){
                 error: err
             });
         }
-        const sqlQuery = 'UPDATE user SET email = ?  WHERE user_id = ?';
-        connection.query(sqlQuery, [credentials.newEmail, credentials.user_id], (queryErr, results) => {
-            connection.release();
+        
+        const sqlQuery = 'SELECT * FROM user WHERE email = ?';
+        connection.query(sqlQuery, credentials.newEmail, (queryErr, results) => {
             if(queryErr) {
                 res.status(400).json({
-                    message: "Something went wrong. Please try again",
+                    message: "Something went wrong, please try again",
                     error: queryErr
                 });
             };
-            return res.status(200).json({
-                message: 'Profile update successfull',
-                result: results
-            });
+            console.log(results)
+            if(results.length != 0){
+                res.status(409).json({
+                    message: 'This email already exists',
+                    results: results
+                })
+            }
+            else{
+                const sqlQuery = 'UPDATE user SET email = ?  WHERE user_id = ?';
+                connection.query(sqlQuery, [credentials.newEmail, credentials.user_id], (queryErr, results) => {
+                connection.release();
+                if(queryErr) {
+                    res.status(400).json({
+                        message: "Something went wrong. Please try again",
+                        error: queryErr
+                    });
+                };
+                return res.status(200).json({
+                    message: 'Profile update successfull',
+                    result: results
+                });
+                });
+            };
+
         });
     });
 };
@@ -325,14 +346,14 @@ function userPhoneUpdate(req, res){
         newPhone: req.body.newPhone
     };
     const schema = {
-        phone   : {type: 'string', optional: false}
+        newPhone   : {type: 'string', optional: false, min: "10"}
     };
     const v = new Validator();
     const validationResponse = v.validate(credentials, schema);
 
     if(validationResponse != true) {
         return res.status(400).json({
-            message: 'Validation failed',
+            message: 'Phone number cannot be empty and must be atleat 10 characters',
             error: validationResponse
         });
     };
@@ -367,7 +388,7 @@ function userAddressUpdate(req, res){
         newAddress: req.body.newAddress
     };
     const schema = {
-        newAddress   : {type: 'string', optional: false}
+        newAddress   : {type: 'string', optional: false, min:"2"}
     };
     const v = new Validator();
     const validationResponse = v.validate(credentials, schema);
@@ -418,7 +439,7 @@ function passwordUpdate(req, res){
 
     if(validationResponse != true) {
         return res.status(400).json({
-            message: 'Validation failed',
+            message: 'Password must be at least 6 characters long',
             error: validationResponse
         });
     };
@@ -449,6 +470,34 @@ function passwordUpdate(req, res){
         });
     });     
 };
+function orderRetrieve(req, res){
+    const credentials = {
+        user_id: req.body.userId
+    }; 
+
+    pool.getConnection((err, connection) => {
+        if(err) {
+            res.status(500).json({
+                message: "Error getting database connection",
+                error: err
+            });
+        }
+        const sqlQuery = "SELECT co.order_id, c.brand, c.model, c.year, co.order_date, co.total_price, co.payment_reference, co.payment_status, co.delivery_address, co.contact_number, co.order_status FROM customer_order co JOIN car c ON co.car_id = c.car_id and co.user_id = ? ORDER BY co.order_id DESC;"
+        connection.query(sqlQuery, credentials.user_id, (queryErr, results) => {
+            connection.release();
+            if(queryErr) {
+                res.status(400).json({
+                    message: "Something went wrong",
+                    error: queryErr
+                });
+            };
+            return res.status(200).json({
+                message: "Orders retrieved successfully",
+                orders: results
+            });
+        });
+    });
+}
 
 module.exports = {
     signUp: signUp,
@@ -459,5 +508,6 @@ module.exports = {
     userEmailUpdate: userEmailUpdate,
     userPhoneUpdate: userPhoneUpdate,
     userAddressUpdate: userAddressUpdate,
-    passwordUpdate: passwordUpdate
+    passwordUpdate: passwordUpdate,
+    orderRetrieve: orderRetrieve
 }

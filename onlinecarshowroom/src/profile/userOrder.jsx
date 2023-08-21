@@ -1,6 +1,7 @@
 import './userOrder.css'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import ReactLoading from 'react-loading';
 
 const orderData ={
     order_id: 1,
@@ -59,17 +60,77 @@ function OrderItem({data}){
 }
 
 export default function UserOrder({userId}) {
+    const [orderData, setOrderData] = useState([]);
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(true);
+    
+    const token = localStorage.getItem('token');
+    const config = {
+        headers: {
+            Authorization: `bearer ${token}`, // Add the token to the Authorization header
+        },
+    }; 
+    const fetchOrders = async () => { 
+        try {
+            const response = await axios.post(`http://localhost:5000/user/orderretrieve`,
+                {
+                userId: userId
+               },
+                config);
+            
+            setOrderData(response.data.orders);
+            setLoading(false);
+        } catch (err) {
+            setError(err.message);
+            setLoading(false);
+        }
+    }
+         
+    
+    
+    useEffect(() => {
+        fetchOrders();
+    }, []);
+     
     return (
         <div className="user-order-container">
             <div className="user-order-title">
                 <h1>Orders</h1>
             </div>
             <div className="user-order-content">
-                <OrderItem data={orderData}/>
-                <OrderItem data={orderData}/>
-                <OrderItem data={orderData}/>
-                <OrderItem data={orderData}/>
-                <OrderItem data={orderData}/>
+                {loading ? (
+                    <div className="loading-container">
+                        <div className="loading">
+                            <ReactLoading type={'bars'} color height={'50px'} width={'50px'} />
+                        </div>
+                    </div>
+                ) : (
+                    <>
+                    {error ? (
+                        <div className="error-container">
+                            <h1>{error}</h1>
+                        </div>
+                    ) : (
+                        <>
+                        {orderData.length === 0 ? (
+                            <div className="no-order-container">
+                                <h1>No orders yet</h1>
+                            </div>
+                        ) : (
+                            <>
+                            {orderData.map((data) => (
+                                <OrderItem data={data}/>
+                            ))}
+                            </>
+                        )}
+                        </>
+                        
+                    )
+                    
+                    }
+                    
+                    </>
+                )}
 
             </div>
         </div>
