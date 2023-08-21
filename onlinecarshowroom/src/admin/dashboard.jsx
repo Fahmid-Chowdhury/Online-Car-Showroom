@@ -9,6 +9,7 @@ import CustomerOrder from './customerOrder';
 import CustomerPayment from './customerPayment';
 import OrderProcessing from './orderProcessing';
 import CompletedOrders from './completedOrders';
+import Enquiry from './enquiry';
 
 const initialState = {
   allCar: false,
@@ -102,7 +103,7 @@ export default function DashboardPage() {
         {state.payment && <CustomerPayment/>}
         {state.orderProcessing && <OrderProcessing/>}
         {state.completedOrders && <CompletedOrders/>}
-        {state.enquery && <h1>Enquery</h1>}
+        {state.enquery && <Enquiry/>}
         {state.testDrive && <h1>Test drive</h1>}
       
       

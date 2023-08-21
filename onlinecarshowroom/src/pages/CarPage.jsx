@@ -152,12 +152,36 @@ function CarExtended({carId}){
   const [enqueryTitle, setEnqueryTitle] = useState('');
   const [enqueryMessage, setEnqueryMessage] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
+  const token = localStorage.getItem('token');
+  const config = {
+    headers: { Authorization: `Bearer ${token}` }
+  };
   
   useEffect(() => {
     fetchCarComment();
     fetchCar();
     fetchUserInfo();
   }, [carId]);
+
+  const submitEnquery = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`http://localhost:5000/enquiry/submitenquiry`,{
+        user_id: userId,
+        car_id: carId,
+        title: enqueryTitle,
+        message: enqueryMessage
+      }, config);
+      
+      alert('Enquiry submitted successfully');
+
+      setShowEnquiry(false);
+
+      
+    } catch (error) {
+      console.error('Error submitting Enquiry', error);
+    }
+  };
   const fetchUserInfo =() => {
     try{
       const token = localStorage.getItem('token');
@@ -251,7 +275,7 @@ function CarExtended({carId}){
         <div className="title">
           <h3>Enquiry</h3>
         </div>
-        <form className="enquery-form">
+        <form className="enquery-form" onSubmit={submitEnquery}>
           <div className="enquery-form-item">
             <label>Title</label>
             <input type="text" placeholder="Title" value={enqueryTitle} onChange={(e)=>{setEnqueryTitle(e.target.value)}}/>
