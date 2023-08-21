@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 21, 2023 at 03:27 AM
+-- Generation Time: Aug 21, 2023 at 03:32 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -87,7 +87,8 @@ INSERT INTO `customer_order` (`order_id`, `user_id`, `car_id`, `order_date`, `to
 (8, 2, 12, '2023-08-18', 23900, '20230819210828', 'pending', 'demra, dhaka', '01818465069', 'confirmed'),
 (9, 2, 23, '2023-08-18', 39812, '20230819003920', 'pending', 'demra, dhaka', '01818465069', 'confirmed'),
 (10, 14, 13, '2023-08-18', 37680, '', '', 'Mohakhali, Dhaka', '018163378954', 'pending'),
-(11, 2, 10, '2023-08-19', 468500, '', '', 'Mohakhali, Dhaka', '01236985214', 'pending');
+(11, 2, 10, '2023-08-19', 468500, '', '', 'Mohakhali, Dhaka', '01236985214', 'pending'),
+(12, 2, 22, '2023-08-19', 29412, '20230819223458', 'pending', 'Mohakhali, Dhaka', '01236547896', 'cancelled');
 
 -- --------------------------------------------------------
 
@@ -114,7 +115,7 @@ INSERT INTO `review` (`review_id`, `car_id`, `user_id`, `review_date`, `message`
 (3, 2, 2, '2023-08-18', 'Its a fantastic sports car. There\'s no “one” perfect thing that makes it that way, rather, it\'s the amalgam of features that you just don\'t see very often: good design, turbocharged inline-six, rear-drive, two-doors, and all paired with a manual transmission. It makes its mark as a driver\'s car.', 5),
 (4, 1, 2, '2023-08-18', 'Awesome car. asdfja oiajdf iadof ', 4),
 (8, 12, 2, '2023-08-18', 'sweet ride', 4),
-(9, 1, 1, '2023-08-21', '', 4);
+(9, 13, 2, '2023-08-21', 'not  soo  coool  car', 3);
 
 -- --------------------------------------------------------
 
@@ -158,11 +159,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `user_name`, `email`, `password`, `phone`, `address`, `role`) VALUES
-(1, 'FAHMID HASAN CHOWDHURY', 'fahmid@gmail.com', '$2a$10$9FJbjoFcZ1YXOL7uy7dPUOcVThXeRMYZQuTlBW6r63.8I50cE/IWa', '01817279669', 'Boro Moghbazar, Dr. goli, Dhaka', 'admin'),
-(2, 'ZAKARIA IBNE RAFIQ', 'zakaria@gmail.com', '$2a$10$hyG38mgNRKG1FCSqGCARY.YmW.OjwKDCSkWWFXnsmus1fw0eYoIFq', '01818465069', 'Demra, Dhaka', 'admin'),
+(1, 'FAHMID HASAN CHOWDHURY', 'fahmid@gmail.com', '$2a$10$yCyf4l9PGlNlTR8.rAWEvuGKQRhmA3Zh640pA1eRM2zQGwGdVigoi', '01817279669', 'Boro Moghbazar, Dr. goli, Dhaka', 'admin'),
+(2, 'Zakaria Ibne Rafiq', 'zakaria@gmail.com', '$2a$10$DBpuj4FCPYBttn4Am.NpsuYh5WcTOOF55aIadgOo6Rgy9yk6LCqri', '01818465069', 'Demra, Dhaka', 'admin'),
 (12, 'Radito Dhali', 'radito@gmail.com', '$2a$10$RO510tmWjU/1IePO3Xinn.izv7eqMDUcGXPUjhgd5AV7gGsdBGCNO', '01310022463', 'Shantinagar, Dhaka', 'user'),
 (13, 'Sabbir Hossain Mirza', 'sabbir@gmail.com', '$2a$10$kQEzVMn5KEz8f21cVGYG9uTjPJn6BcZWMYyeIhiur/JhZBTp2S6aq', '01951037670', 'Mohakhali, Dhaka', 'user'),
-(14, 'New User', 'user@email.com', '$2a$10$6L4fl.R11qmowYgy7FJCc.9PK9JiPabcQhuQTjMjZKgsOaBPTKzLO', '', 'somewhere precious', 'user');
+(14, 'Phoenix Hubert', 'user@email.com', '$2a$10$6L4fl.R11qmowYgy7FJCc.9PK9JiPabcQhuQTjMjZKgsOaBPTKzLO', '02356478936', 'somewhere precious', 'user');
 
 -- --------------------------------------------------------
 
@@ -174,10 +175,18 @@ CREATE TABLE `user_enquiry` (
   `enquiry_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `car_id` int(11) NOT NULL,
-  `enquiry` varchar(6000) NOT NULL,
+  `title` varchar(2000) NOT NULL,
+  `message` varchar(6000) NOT NULL,
   `response` varchar(6000) NOT NULL,
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_enquiry`
+--
+
+INSERT INTO `user_enquiry` (`enquiry_id`, `user_id`, `car_id`, `title`, `message`, `response`, `status`) VALUES
+(1, 2, 9, 'Questions regarding purchase', 'When will this be available', 'in your dreams', 'completed');
 
 --
 -- Indexes for dumped tables
@@ -241,7 +250,7 @@ ALTER TABLE `car`
 -- AUTO_INCREMENT for table `customer_order`
 --
 ALTER TABLE `customer_order`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `review`
@@ -265,7 +274,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_enquiry`
 --
 ALTER TABLE `user_enquiry`
-  MODIFY `enquiry_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `enquiry_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
