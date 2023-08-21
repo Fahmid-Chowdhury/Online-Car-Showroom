@@ -3,14 +3,31 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactLoading from 'react-loading';
 
-function EnquiryContainer({data}){
+function EnquiryContainer({data, fnc}){
+    const token = localStorage.getItem('token');
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    }
+    const submitResponse = async (e) => {
+        e.preventDefault();
+        try{
+            const response = await axios.post('http://localhost:5000/enquiry/response',{enquiry_id:data.enquiry_id,message:e.target[0].value},config);
+            if(response.status === 200){
+                alert('Response Sent');
+                fnc();
+            }
+        }catch(err){
+            alert(err.message);
+        }
+        
+    }
     return(
         <div className="enquiry-container">
             <div className="enquiry-title">
                 <h1>{data.title}</h1>
                 <h2>{data.brand} {data.model} {data.year}</h2>
             </div>
-            <form className="enquiry-form">
+            <form className="enquiry-form" onSubmit={submitResponse}>
                 <div className="enquiry-message">
                     <p>Enquiry: {data.message}</p>
                 </div>
@@ -23,17 +40,7 @@ function EnquiryContainer({data}){
         </div>
     )
 }
-const dummyData = {
-    enquiry_id: 1,
-    user_id: 1,
-    title: "hello",
-    message: "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-    brand: "Toyota",
-    model: "Camry",
-    year: 2019,
-    
-    
-}
+
 export default function Enquiry({userId}) {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -66,10 +73,10 @@ export default function Enquiry({userId}) {
                 <h1>Enquiry</h1>
             </div>
             <div className="enquiry-page-content">
-                {loading && <ReactLoading type="spin" color="#000000" />}
+                {loading && <ReactLoading type="spin" color />}
                 {error && <p>{error.message}</p>}
                 {data && data.length === 0 && <p>No enquiry</p>}
-                {data && data.map((item) => <EnquiryContainer data={item} key={item.enquiry_id}/>)}
+                {data && data.map((item) => <EnquiryContainer data={item} key={item.enquiry_id} fnc = {fetchEnquiry}/>)}
                 
             </div>
         </div>

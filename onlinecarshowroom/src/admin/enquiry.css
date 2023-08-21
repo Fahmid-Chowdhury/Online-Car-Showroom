@@ -30,6 +30,7 @@
     align-items: center;
     overflow: auto;
     margin-top: 10px;
+    fill: var(--primary-col);
 }
 .enquiry-container{
     width: 100%;
