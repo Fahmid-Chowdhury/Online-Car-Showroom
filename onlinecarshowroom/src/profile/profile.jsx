@@ -6,6 +6,7 @@ import '../admin/dashboard.css';
 import UserProfile from './uesrProfile';
 import UserOrder from './userOrder';
 import EditInfo from './editInfo';
+import Enquiry from './userEnquery';
 
 const initialState = {
   profile: false,
@@ -70,7 +71,7 @@ export default function ProfilePage() {
         {state.profile && <UserProfile userId ={userData.user_id}/>}
         {state.editInfo && <EditInfo userId ={userData.user_id}/> }
         {state.order && <UserOrder userId ={userData.user_id}/>}
-        {state.enquery && <h1>Enquery</h1>}
+        {state.enquery && <Enquiry userId ={userData.user_id}/>}
       
       
     </div>

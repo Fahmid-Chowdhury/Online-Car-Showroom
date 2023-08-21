@@ -96,3 +96,22 @@
     font-weight: 600;
     cursor: pointer;
 }
+.response{
+    padding:15px 0;
+}
+.response .responded{
+    color: gray;
+    font-size: 14px;
+    font-weight: 400;
+}
+.response .responded span{
+    color: var(--primary-col);
+    font-size: 14px;
+    font-weight: 500;
+}
+.response .notresponded{
+    text-align: center;
+    color: gray;
+    font-size: 14px;
+    font-weight: 400;
+}

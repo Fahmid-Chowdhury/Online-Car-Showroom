@@ -7,5 +7,7 @@ router.post('/submitenquiry', checkAuthMiddleware.checkAuth, enquiryController.e
 router.post('/updateEnquiry', checkAuthMiddleware.checkAuth, enquiryController.updateEnquiry)
 router.post('/getEnquiry', checkAuthMiddleware.checkAuth, enquiryController.getAllEnquiries)
 router.post('/response', checkAuthMiddleware.checkAuth, enquiryController.response)
+router.post('/userEnquiry', checkAuthMiddleware.checkAuth, enquiryController.userEnquiry)
+
 
 module.exports = router;

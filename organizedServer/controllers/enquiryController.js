@@ -117,7 +117,38 @@ function getAllEnquiries(req, res){
             };
         });
     });
-};  
+}; 
+
+function userEnquiry(req, res){
+    const user_id = req.body.user_id;
+    pool.getConnection((err, connection) => {
+        if (err) {
+            res.status(500).json({
+                message: "Error getting database connection",
+                error: err
+            });
+        }
+        const sqlQuery = "SELECT e.enquiry_id, e.title, e.message,e.response, c.brand, c.model, c.year FROM user_enquiry e JOIN car c ON e.car_id = c.car_id WHERE e.user_id = ? ORDER BY e.enquiry_id DESC";
+        connection.query(sqlQuery, [user_id], (queryErr, results) => {
+            connection.release();
+            if (queryErr) {
+                res.status(400).json({
+                    message: "Something went wrong, please try again",
+                    error: queryErr
+                });
+            }
+            if (results) {
+                res.status(200).json({
+                    message: "Message posted successfully",
+                    enquiry: results
+                });
+
+            }
+        });
+    });
+
+};
+
 
 // not  needed probably
 function updateEnquiry(req, res){
@@ -153,9 +184,12 @@ function updateEnquiry(req, res){
     });
 };
 
+
+
 module.exports = {
     enquiry: enquiry,
     response: response,
     getAllEnquiries: getAllEnquiries,
-    updateEnquiry: updateEnquiry
+    updateEnquiry: updateEnquiry,
+    userEnquiry: userEnquiry
 } 
