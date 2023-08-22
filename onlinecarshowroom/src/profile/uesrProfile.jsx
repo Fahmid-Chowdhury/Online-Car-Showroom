@@ -36,8 +36,8 @@ export default function UserProfile({userId}) {
             ) : (
                 <div className="user-profile">
                     <div className="user-profile-row">
-                    <div className="user-profile-image">
-                    </div>
+                    {/* <div className="user-profile-image">
+                    </div> */}
                     <div className="user-profile-name">
                         <p>{userData.user_name}</p>
                     </div>
