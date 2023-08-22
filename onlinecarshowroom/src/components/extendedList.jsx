@@ -17,9 +17,8 @@ function ChevronUp({className}) {
 }
 
 
-export default function ExtendedList({ data, title }) {
+export default function ExtendedList({ data, title,setSelectedItems, selectedItems }) {
   const [expanded, setExpanded] = useState(true);
-  const [selectedItems, setSelectedItems] = useState([]);
 
   const toggleExpanded = () => {
     setExpanded(!expanded);

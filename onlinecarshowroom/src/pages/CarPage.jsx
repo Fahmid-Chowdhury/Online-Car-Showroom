@@ -387,7 +387,19 @@ export default function CarPage() {
   const [selectedCarId, setSelectedCarId] = useState(null);
   const [distinctBrand, setDistinctBrand] = useState([]);
   const [distinctYear, setDistinctYear] = useState([]);
+  const [selectedBrand, setSelectedBrand] = useState([]);
+  const [selectedYear, setSelectedYear] = useState([]);
 
+  const handleFilter = () => {
+    console.log(selectedBrand);
+    console.log(selectedYear);
+  };
+
+  const handleClearFilter = () => {
+    setSelectedBrand([]);
+    setSelectedYear([]);
+  };
+  
   const handleForward = () => {
     if (page < Math.ceil(carTotal/pageSize)){
       setPage(prevPage => prevPage + 1);
@@ -453,11 +465,11 @@ export default function CarPage() {
             ) : (
               <>
                 <PriceRange/>
-                <ExtendedList data = {distinctBrand} title = "Brand" />
-                <ExtendedList data = {distinctYear} title = "Year" />
+                <ExtendedList data = {distinctBrand} title = "Brand" setSelectedItems={setSelectedBrand} selectedItems={selectedBrand}/>
+                <ExtendedList data = {distinctYear} title = "Year" setSelectedItems={setSelectedYear} selectedItems = {selectedYear}/>
                 <div className="filter-button">
-                  <button className="filter-button">Filter</button>
-                  <button className = "filter-button">Clear</button>
+                  <button className="filter-button" onClick={handleFilter}>Filter</button>
+                  <button className = "filter-button" onClick={handleClearFilter}>Clear</button>
                 </div>
                 
               </>
