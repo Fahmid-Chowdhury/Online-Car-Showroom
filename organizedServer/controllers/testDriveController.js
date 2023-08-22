@@ -106,7 +106,7 @@ function testDriveUserList(req, res){
             });
         };
 
-        const sqlQuery = 'SELECT * FROM test_drive WHERE user_id = ?';
+        const sqlQuery = 'SELECT t.*, c.brand, c.model,c.year FROM test_drive t JOIN car c ON t.car_id = c.car_id WHERE t.user_id = ? ORDER BY t.date ASC';
         connection.query(sqlQuery, [user_id], (queryErr, results) => {
             connection.release();
             if(queryErr) {

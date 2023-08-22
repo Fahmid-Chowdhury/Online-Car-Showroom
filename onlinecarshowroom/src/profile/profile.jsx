@@ -7,6 +7,7 @@ import UserProfile from './uesrProfile';
 import UserOrder from './userOrder';
 import EditInfo from './editInfo';
 import Enquiry from './userEnquery';
+import UserAppointment from './myAppointment';
 
 const initialState = {
   profile: false,
@@ -72,6 +73,7 @@ export default function ProfilePage() {
         {state.editInfo && <EditInfo userId ={userData.user_id}/> }
         {state.order && <UserOrder userId ={userData.user_id}/>}
         {state.enquery && <Enquiry userId ={userData.user_id}/>}
+        {state.testDrive && <UserAppointment userId ={userData.user_id}/>}
       
       
     </div>
