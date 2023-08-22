@@ -389,16 +389,9 @@ export default function CarPage() {
   const [distinctYear, setDistinctYear] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState([]);
   const [selectedYear, setSelectedYear] = useState([]);
-
-  const handleFilter = () => {
-    console.log(selectedBrand);
-    console.log(selectedYear);
-  };
-
-  const handleClearFilter = () => {
-    setSelectedBrand([]);
-    setSelectedYear([]);
-  };
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(1000000);
+  const [max, setMax] = useState(1000000);
   
   const handleForward = () => {
     if (page < Math.ceil(carTotal/pageSize)){
@@ -412,11 +405,26 @@ export default function CarPage() {
   };
   
   useEffect(() => {
+    fetchmaxPrice();
     fetchCarData();
     fetchDistinctBrand();
     fetchDistinctYear();
   }, [page]);
 
+  const fetchmaxPrice = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/car/maxprice`);
+      if (response.status===200){
+        setMaxPrice(response.data.maxprice);
+        setMax(response.data.maxprice);
+        console.log(response.data.maxprice);
+        
+      }
+    } catch (error) {
+      console.error('Error fetching car data:', error);
+      setMaxPrice(1000000);
+    }
+  };
   const fetchDistinctBrand = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/car/brands`);
@@ -436,7 +444,17 @@ export default function CarPage() {
   };
   const fetchCarData = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/user/car?page=${page}&pageSize=${pageSize}`);
+      const response = await axios.post(`http://localhost:5000/user/car`,
+      {
+        minPrice: minPrice,
+        maxPrice: maxPrice,
+        page: page,
+        pageSize: pageSize,
+        brands: selectedBrand,
+        years: selectedYear
+      }
+        
+      );
       setCarData(response.data.data);
       setCarTotal(response.data.count); // Assuming the data is directly in response.data.data
       setIsLoading(false);
@@ -464,12 +482,11 @@ export default function CarPage() {
               <div className="loading">Loading...</div>
             ) : (
               <>
-                <PriceRange/>
+                <PriceRange minPrice={minPrice} maxPrice={maxPrice} setMaxPrice={setMaxPrice} setMinPrice={setMinPrice} max={max}/>
                 <ExtendedList data = {distinctBrand} title = "Brand" setSelectedItems={setSelectedBrand} selectedItems={selectedBrand}/>
                 <ExtendedList data = {distinctYear} title = "Year" setSelectedItems={setSelectedYear} selectedItems = {selectedYear}/>
                 <div className="filter-button">
-                  <button className="filter-button" onClick={handleFilter}>Filter</button>
-                  <button className = "filter-button" onClick={handleClearFilter}>Clear</button>
+                  <button className="filter-button" onClick={fetchCarData}>Filter</button>
                 </div>
                 
               </>

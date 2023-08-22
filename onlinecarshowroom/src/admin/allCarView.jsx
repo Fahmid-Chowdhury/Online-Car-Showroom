@@ -153,10 +153,10 @@ export default function AllCarView() {
             <div className="title">
                 <h1>All Cars</h1>
             </div>
-            <div className="title-links">
+            {/* <div className="title-links">
             <SortItem data = {brandData} title="Brand"/>
             <SortItem data = {yearData} title="Year"/>
-            </div>
+            </div> */}
         </div>
         <div className="dashboard-display">
             {

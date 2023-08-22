@@ -1,16 +1,15 @@
 import "./priceRange.css";
 import { useState, useEffect } from "react";
 
-export default function PriceRange(){
-    const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(1000000);
+export default function PriceRange({minPrice, maxPrice, setMinPrice, setMaxPrice,max}){
+    
     const priceGap = 1000;
   
     useEffect(() => {
       if (maxPrice - minPrice >= priceGap) {
         // Calculate the position for the progress bar
-        const minPercentage = (minPrice / 1000000) * 100;
-        const maxPercentage = 100-(maxPrice / 1000000) * 100;
+        const minPercentage = (minPrice / max) * 100;
+        const maxPercentage = 100-(maxPrice / max) * 100;
   
         // Update the progress bar using CSS
         const progress = document.querySelector('.price-slider .progress');
@@ -62,8 +61,8 @@ export default function PriceRange(){
               <div className="progress"></div>
             </div>
             <div className="range-input">
-              <input type="range" min="0" max="1000000" value={minPrice} step="1000" onChange={handleMinRangeChange} />
-              <input type="range" min="0" max="1000000" value={maxPrice} step="1000" onChange={handleMaxRangeChange} />
+              <input type="range" min="0" max={max} value={minPrice} step="1000" onChange={handleMinRangeChange} />
+              <input type="range" min="0" max={max} value={maxPrice} step="1000" onChange={handleMaxRangeChange} />
             </div>
           </div>
         </div>

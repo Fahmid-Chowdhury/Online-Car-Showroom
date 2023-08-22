@@ -1,5 +1,6 @@
 const Validator = require('fastest-validator');
 const mysql = require('mysql');
+const { where } = require('sequelize');
 
 
 const pool = mysql.createPool({
@@ -11,9 +12,15 @@ const pool = mysql.createPool({
   });
 
 function listcars(req, res) {
-    const page = parseInt(req.query.page || 1);
-    const pageSize = parseInt(req.query.pageSize || 10);
+    const page = parseInt(req.body.page || 1);
+    const pageSize = parseInt(req.body.pageSize || 10);
     const offset = (page - 1) * pageSize;
+
+    const brands = req.body.brands || []; // List of brands from the request body
+    const years = req.body.years || [];   // List of years from the request body
+    const minPrice = req.body.minPrice || 0;
+    const maxPrice = req.body.maxPrice || 1000000;
+
     pool.getConnection((err, connection) => {
         if (err) {
             return res.status(500).json({
@@ -21,9 +28,29 @@ function listcars(req, res) {
                 error: err
             });
         }
-        const countQuery = 'SELECT COUNT(*) AS total FROM car';
-        
-        const sqlQuery = 'SELECT * FROM car LIMIT ? OFFSET ?';
+
+        let whereConditions = ''; // Initialize the WHERE conditions
+
+        // Add brand conditions if brands are provided
+        if (brands.length > 0) {
+            whereConditions += `AND brand IN ('${brands.join("','")}')`;
+        }
+
+        // Add year conditions if years are provided
+        if (years.length > 0) {
+            whereConditions += `AND year IN (${years.join(',')})`;
+        }
+
+        // Remove the leading 'AND' if no conditions were added
+        whereConditions += `AND price BETWEEN ${minPrice} AND ${maxPrice}`;
+        if (whereConditions.length > 0) {
+            whereConditions = 'WHERE ' + whereConditions.substr(4);
+        }
+        console.log(whereConditions);
+
+        const countQuery = `SELECT COUNT(*) AS total FROM car ${whereConditions}`;
+        const sqlQuery = `SELECT * FROM car ${whereConditions} LIMIT ? OFFSET ?`;
+
         connection.query(countQuery, (countQueryErr, countResults) => {
             if (countQueryErr) {
                 connection.release();
@@ -48,8 +75,8 @@ function listcars(req, res) {
                     count: total,
                     data: results
                 });
+            });
         });
-    });
     });
 }
 
@@ -401,6 +428,34 @@ function ordercar(req, res) {
        
     });
 }
+
+function maxprice(req, res) {
+    pool.getConnection((err, connection) => {
+        if (err) {
+            return res.status(500).json({
+                message: "Error getting database connection",
+                error: err
+            });
+        }
+        const sqlQuery = 'select max(price) as maxprice from car';
+        connection.query(sqlQuery, (queryErr, results) => {
+            connection.release();
+            if (queryErr) {
+                return res.status(400).json({
+                    message: "Error fetching max price",
+                    error: queryErr
+                });
+            }
+            return res.status(200).json({
+                message: 'Max price retrieved successfully',
+                maxprice: results[0].maxprice
+            });
+        });
+    });
+}
+
+
+
     
 
 module.exports = {
@@ -413,5 +468,6 @@ module.exports = {
     addComment: addcomment,
     orderCar: ordercar,
     availableBrands: availablebrands,
-    availableYears: availableyears
+    availableYears: availableyears,
+    maxPrice: maxprice
 }
