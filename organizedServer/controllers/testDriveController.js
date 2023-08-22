@@ -25,23 +25,38 @@ function testDrive(req, res){
                 error: err
             });
         }
-
-        const sqlQuery = 'INSERT INTO test_drive (user_id, car_id, date, status) VALUES (?, ?, ?, ?)';
-        connection.query(sqlQuery, [testDriveInfo.user_id, testDriveInfo.car_id, testDriveInfo.date, testDriveInfo.status], (queryErr, results) => {
-            connection.release();
+        const sqlQuery0 = 'SELECT * FROM test_drive WHERE user_id = ? AND car_id = ? AND date = ?';
+        connection.query(sqlQuery0, [testDriveInfo.user_id, testDriveInfo.car_id, testDriveInfo.date], (queryErr, results) => {
             if(queryErr) {
                 res.status(400).json({
                     message: "Something went wrong",
                     error: queryErr
                 });
             };
-            if(results) {
-                res.status(200).json({
-                    message: "Test Drive request posted successfully",
-                    results: results
+            if (results.length > 0) {
+                res.status(400).json({
+                    message: "You have already requested for test drive for this car on this date",
+                    error: results
+                });
+            }else {
+                const sqlQuery = 'INSERT INTO test_drive (user_id, car_id, date, status) VALUES (?, ?, ?, ?)';
+                connection.query(sqlQuery, [testDriveInfo.user_id, testDriveInfo.car_id, testDriveInfo.date, testDriveInfo.status], (queryErr, results) => {
+                    connection.release();
+                    if(queryErr) {
+                        res.status(400).json({
+                            message: "Something went wrong",
+                            error: queryErr
+                        });
+                    };
+                    if(results) {
+                        res.status(200).json({
+                            message: "Test Drive request posted successfully",
+                            results: results
+                        });
+                    };
                 });
             };
-        });
+        })
     });
 };
 

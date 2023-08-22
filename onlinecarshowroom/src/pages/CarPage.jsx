@@ -28,8 +28,11 @@ function TestDrive({onClose, userId, carId}){
       }
       onClose(false);
     } catch (error) {
-      alert('Test drive booking faileddd');
-      console.error('Error fetching car data:', error);
+      if (error.response && error.response.data) {
+        alert(error.response.data.message);
+        } else {
+        alert(error.message);
+        }
     }
   };
   
