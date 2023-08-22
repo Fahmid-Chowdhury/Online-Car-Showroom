@@ -6,6 +6,30 @@ import ExtendedList from '../components/extendedList';
 import jwt_decode from 'jwt-decode';
 import { Link, useNavigate } from 'react-router-dom';
 
+
+function TestDrive({onClose, userId, carId}){
+  console.log(userId, carId)
+  return (
+    <div className="test-drive-container">
+      <div className="test-drive-title">
+        <h3>Book Test Drive</h3>
+      </div>
+      <div className="test-drive-form">
+        <form>
+          <div className="test-drive-form-item">
+            <label>Select a date</label>
+            <input type="date" />
+            <div className="form-buttons">
+              <button className="form-button">Submit</button>
+            </div>
+          </div>
+        </form>
+              <button className="form-button" onClick={()=>{onClose(false)}}>Cancel</button>
+        </div>
+    </div>
+  )
+}
+
 function CrossIcon() {
   return (
     <>
@@ -153,6 +177,7 @@ function CarExtended({carId}){
   const [enqueryMessage, setEnqueryMessage] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
   const token = localStorage.getItem('token');
+  const [showTestDrive, setShowTestDrive] = useState(false);
   const config = {
     headers: { Authorization: `Bearer ${token}` }
   };
@@ -220,9 +245,25 @@ function CarExtended({carId}){
   };
   return (
     <>
+    <div className="car-extended-wrap">
+    {showTestDrive ?(
+      loggedIn ?(
+      <TestDrive onClose = {setShowTestDrive} userId = {userId} carId = {carId}/>):(
+      <div className="test-drive-container">
+        <div className="enquery-not-available">
+          <p>You must be signed in to book a test drive. <Link to="/login">Sign in</Link> now.</p>
+        </div>
+        <button className="form-button" onClick={()=>{setShowTestDrive(false)}}>close</button>
+      </div>
+    )) : (null)}
+      
+    
+
     {isLoading ? (
       <div className="loading">Loading...</div>
     ) : (
+        
+      
     <div className="car-extended-container">
       <div className="car-extended-row">
         <div className="car-extended-image">
@@ -266,8 +307,9 @@ function CarExtended({carId}){
       <div className="car-extended-buttons">
         <button className="car-extended-button" onClick={()=>{setShowEnquiry(true)}}>Enquiry</button>
         <button className="car-extended-button" onClick={()=>{handleOrderClick(carId)}}>Order now</button>
-        <button className="car-extended-button">Test drive</button>
+        <button className="car-extended-button" onClick = {()=>{setShowTestDrive(true)}}>Test drive</button>
       </div>
+      
 
       { showEnquiry ? (
          loggedIn ?(
@@ -298,13 +340,13 @@ function CarExtended({carId}){
         </div>
       </div>
       )) : (null)
-        
       }
       
       <ReviewBox comments = {carComment} carid = {carId} userInfo={userInfo} userId={userId}/>
     </div>
   )
   }
+  </div>
   </>
   );
 }
