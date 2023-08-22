@@ -1,25 +1,22 @@
 const Validator = require('fastest-validator');
 const mysql = require('mysql');
+const pool = mysql.createPool({
+    connectionLimit: 10,
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'carshowroom',
+  });
 
 function testDrive(req, res){
+    console.log(req.body);
     const testDriveInfo = {
-        user_id: req.body.user_id,
-        car_id : req.body.car_id,
+        user_id: req.body.userId,
+        car_id : req.body.carId,
         date   : req.body.date,
         status : "pending" 
     };
-    const schema = {
-        date: {type: 'date', optional: false}
-    };
-    const v = new Validator();
-    const validationResponse = v.validate(credentials, schema);
 
-    if(validationResponse != true) {
-        return res.status(400).json({
-            message: 'Validation failed',
-            error: validationResponse
-        });
-    };
 
     pool.getConnection((err, connection) => {
         if(err) {

@@ -8,17 +8,42 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 function TestDrive({onClose, userId, carId}){
-  console.log(userId, carId)
+  const config = {
+    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+  };
+  const handletestDrive = async (e) => {
+    console.log(e.target.date.value);
+    e.preventDefault();
+    try {
+      const response = await axios.post(`http://localhost:5000/testdrive/insert`,{
+        userId: userId,
+        carId: carId,
+        date: e.target.date.value
+      }, config);
+      if (response.status === 200){
+        alert('Test drive booked successfully');
+      }
+      else{
+        alert('Test drive booking failed');
+      }
+      onClose(false);
+    } catch (error) {
+      alert('Test drive booking faileddd');
+      console.error('Error fetching car data:', error);
+    }
+  };
+  
+      
   return (
     <div className="test-drive-container">
       <div className="test-drive-title">
         <h3>Book Test Drive</h3>
       </div>
       <div className="test-drive-form">
-        <form>
+        <form onSubmit={handletestDrive}>
           <div className="test-drive-form-item">
             <label>Select a date</label>
-            <input type="date" />
+            <input type="date" name='date'/>
             <div className="form-buttons">
               <button className="form-button">Submit</button>
             </div>
@@ -124,9 +149,9 @@ function CommentBox({userInfo, carid}){
   )
 }
 
-function IndividualReview({name, rating, comment}){
+function IndividualReview({name, rating, comment, key}){
   return (
-    <div className="review-user">
+    <div key={key} className="review-user">
       <div className="review-user-image">
         
       </div>
@@ -148,7 +173,7 @@ function IndividualReview({name, rating, comment}){
 function ReviewBox({comments, carid, userInfo,userId}){
   
   return (
-    <div className="review-box">
+    <div key ="reviewbox" className="review-box">
       <div className="title">
         <h3>Reviews</h3>
       </div>
@@ -415,7 +440,7 @@ export default function CarPage() {
               <div className="loading">Loading...</div>
             ) : (
               carData.map((car, index) => (
-                <div className="bg-white border border-gray-700 rounded-lg shadow cursor-pointer max-w-g gray800 hover:shadow-md" onClick={()=>{setSelectedCarId( car.car_id)}}>
+                <div key={car.car_id} className="bg-white border border-gray-700 rounded-lg shadow cursor-pointer max-w-g gray800 hover:shadow-md" onClick={()=>{setSelectedCarId( car.car_id)}}>
                     <div className=" h-60">
                       <img className ="car-card-img" src={`http://localhost:5000/images/image/${car.images}`} alt="image" />
                     </div>
