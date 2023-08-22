@@ -1,0 +1,96 @@
+.testDrive-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 15px;
+}
+.testDrive-title {
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 100%;
+    background-color: var(--bg-container);
+    border-radius: 5px;
+
+}
+.testDrive-title h1 {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    color: var(--primary-col);
+}
+.testDrive-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 5px;
+    align-items: center;
+    fill: var(--primary-col);
+    overflow: auto;
+}
+.testDrive-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    align-items: center;
+    background-color: var(--bg-container);
+    padding: 0 20px;
+}
+.testDrive-card-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: var(--border-col) 1px solid;
+}
+.testDrive-card-header h1 {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--primary-col);
+}
+.testDrive-card-header h2 {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--primary-col);
+}
+.testDrive-card-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 20px;
+}
+.testDrive-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.testDrive-grid-item {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.testDrive-grid-item h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(117, 117, 117);
+}
+.testDrive-grid-item p {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--primary-col);
+}
+.testDrive-button button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary-col);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}

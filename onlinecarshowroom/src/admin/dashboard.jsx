@@ -10,6 +10,8 @@ import CustomerPayment from './customerPayment';
 import OrderProcessing from './orderProcessing';
 import CompletedOrders from './completedOrders';
 import Enquiry from './enquiry';
+import TestDrive from './testDrive';
+import TodaysAppointment from './appointment';
 
 const initialState = {
   allCar: false,
@@ -21,6 +23,7 @@ const initialState = {
   completedOrders: false,
   testDrive: false,
   carModel: false,
+  todaysAppointment: false,
 };
 function AddIcon(){
   return(
@@ -31,7 +34,6 @@ function AddIcon(){
 </>
   )
 }
-const carModel = ["All","Toyota", "BMW","Merceedes"];
 function ToolbarItem(props) {
   return (
     <div className="toolbar-item" onClick={props.onClick}>
@@ -94,7 +96,8 @@ export default function DashboardPage() {
           <p>Services</p>
         </div>
         <ToolbarItem title="Enquery" onClick={() => handleStateChange('enquery')} />
-        <ToolbarItem title="Test drive" onClick={() => handleStateChange('testDrive')} />
+        <ToolbarItem title="Test drive Requests" onClick={() => handleStateChange('testDrive')} />
+        <ToolbarItem title="Todays Appointments" onClick={() => handleStateChange('todaysAppointment')} />
       </div>
       
         {state.allCar && <AllCarView />}
@@ -104,7 +107,8 @@ export default function DashboardPage() {
         {state.orderProcessing && <OrderProcessing/>}
         {state.completedOrders && <CompletedOrders/>}
         {state.enquery && <Enquiry userId = {userData.user_id}/>}
-        {state.testDrive && <h1>Test drive</h1>}
+        {state.testDrive && <TestDrive/>}
+        {state.todaysAppointment && <TodaysAppointment/>}
       
       
     </div>

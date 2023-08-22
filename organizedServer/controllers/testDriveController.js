@@ -46,7 +46,8 @@ function testDrive(req, res){
 };
 
 function testDriveList(req, res){
-    const status = req.body.status;
+    const fnc = req.body.status;
+    const status = 'pending';
     pool.getConnection((err, connection) => {
         if(err) {
             res.status(500).json({
@@ -54,8 +55,9 @@ function testDriveList(req, res){
                 error: err
             });
         }
+        if (fnc == 'pending') {
 
-        const sqlQuery = 'SELECT * FROM test_drive WHERE status = ?';
+        const sqlQuery = 'SELECT t.*, c.brand, c.model,c.year FROM test_drive t JOIN car c ON t.car_id = c.car_id WHERE t.status = ?';
         connection.query(sqlQuery, [status], (queryErr, results) => {
             connection.release();
             if(queryErr) {
@@ -71,6 +73,26 @@ function testDriveList(req, res){
                 });
             };
         });
+    } else if (fnc == 'scheduled') {
+
+        const sqlQuery = 'SELECT t.*, c.brand, c.model,c.year FROM test_drive t JOIN car c ON t.car_id = c.car_id WHERE t.status = ? and t.date = CURDATE()';
+        connection.query(sqlQuery, [fnc], (queryErr, results) => {
+            connection.release();
+            if(queryErr) {
+                res.status(400).json({
+                    message: "Something went wrong",
+                    error: queryErr
+                });
+            };
+            if(results) {
+                res.status(200).json({
+                    message: "Test Drive list fetched successfully",
+                    results: results
+                });
+            };
+        });
+
+    }
     });
 }
 
@@ -106,7 +128,7 @@ function testDriveUserList(req, res){
 function confirmTestDrive(req, res){
     const testDriveInfo = {
         testdrive_id: req.body.testdrive_id,
-        status : 'approved'
+        status : 'scheduled'
     };
     pool.getConnection((err, connection) => {
         if(err) {
