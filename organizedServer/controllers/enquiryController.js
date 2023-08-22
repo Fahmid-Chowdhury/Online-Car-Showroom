@@ -90,6 +90,7 @@ function response(req, res){
         });
     });
 };
+
 function getAllEnquiries(req, res){
     const status = req.body.status;
     pool.getConnection((err, connection) => {
@@ -142,11 +143,9 @@ function userEnquiry(req, res){
                     message: "Message posted successfully",
                     enquiry: results
                 });
-
-            }
+            };
         });
     });
-
 };
 
 
@@ -156,7 +155,6 @@ function updateEnquiry(req, res){
         enquiry_id: req.body.enquiry_id,
         message   : req.body.message
     } 
-
     pool.getConnection((err, connection) => {
         if(err) {
             res.status(500).json({
@@ -183,8 +181,6 @@ function updateEnquiry(req, res){
         });
     });
 };
-
-
 
 module.exports = {
     enquiry: enquiry,

@@ -266,6 +266,7 @@ function getcar(req, res) {
         });
     });
 }
+
 function userreview(req, res) {
     const userId = req.query.userId;
     const carId = req.query.carId;
@@ -300,7 +301,8 @@ function userreview(req, res) {
             });
         });
     });
-}
+};
+
 function addcomment(req, res) {
     const carId = req.body.carId;
     const userId = req.body.userId;

@@ -1,4 +1,3 @@
-
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Validator = require('fastest-validator')
@@ -229,7 +228,7 @@ function userProfile(req, res){
                 res.status(200).json({
                     message: 'User found', 
                     results: results
-                })
+                });
             };
         });
     });
@@ -470,6 +469,7 @@ function passwordUpdate(req, res){
         });
     });     
 };
+
 function orderRetrieve(req, res){
     const credentials = {
         user_id: req.body.userId

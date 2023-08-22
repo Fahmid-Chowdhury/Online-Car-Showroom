@@ -204,15 +204,11 @@ function confirmOrder(req, res) {
                     error: queryErr
                 });
             };
-
-            
-                res.status(200).json({
-                    message: "Order confirmed successfully",
-                    results: results
-                });
-            
+            res.status(200).json({
+                message: "Order confirmed successfully",
+                results: results
+            });
         })  
-
     });
 };
 
@@ -238,15 +234,11 @@ function cancelOrder(req, res) {
                     error: queryErr
                 });
             };
-
-            
-                res.status(200).json({
-                    message: "Order cancelled successfully",
-                    results: results
-                });
-            
+            res.status(200).json({
+                message: "Order cancelled successfully",
+                results: results
+            });
         })  
-
     });
 };
 
@@ -277,6 +269,7 @@ function confirmPayment(req, res) {
         })  
     });
 };
+
 function confirmDelivery(req, res) {
     const order_info = {
         order_id: req.body.order_id,
@@ -391,8 +384,6 @@ function getOrdersCompleted(req, res) {
         })
     });
 };
-
-
 
 module.exports = {
     addCar: addCar,
