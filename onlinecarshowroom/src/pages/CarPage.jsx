@@ -385,6 +385,8 @@ export default function CarPage() {
   const [page, setPage] = useState(1);
   const [carTotal,setCarTotal] = useState(0);
   const [selectedCarId, setSelectedCarId] = useState(null);
+  const [distinctBrand, setDistinctBrand] = useState([]);
+  const [distinctYear, setDistinctYear] = useState([]);
 
   const handleForward = () => {
     if (page < Math.ceil(carTotal/pageSize)){
@@ -399,8 +401,27 @@ export default function CarPage() {
   
   useEffect(() => {
     fetchCarData();
+    fetchDistinctBrand();
+    fetchDistinctYear();
   }, [page]);
 
+  const fetchDistinctBrand = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/car/brands`);
+      setDistinctBrand(response.data.brands);
+    } catch (error) {
+
+      console.error('Error fetching car data:', error);
+    }
+  };
+  const fetchDistinctYear = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/car/years`);
+      setDistinctYear(response.data.years);
+    } catch (error) {
+      console.error('Error fetching car data:', error);
+    }
+  };
   const fetchCarData = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/user/car?page=${page}&pageSize=${pageSize}`);
@@ -427,10 +448,21 @@ export default function CarPage() {
           </div>
         }
       <div className="toolbar-container">
-          <PriceRange/>
-          <ExtendedList data = {sortData} title = "Sort" />
-          <ExtendedList data = {sortData} title = "Brand" />
-          <ExtendedList data = {sortData} title = "Type" />
+        {isLoading ? (
+              <div className="loading">Loading...</div>
+            ) : (
+              <>
+                <PriceRange/>
+                <ExtendedList data = {distinctBrand} title = "Brand" />
+                <ExtendedList data = {distinctYear} title = "Year" />
+                <div className="filter-button">
+                  <button className="filter-button">Filter</button>
+                  <button className = "filter-button">Clear</button>
+                </div>
+                
+              </>
+            )
+        }
       </div>
       <div className=" display-container">
       

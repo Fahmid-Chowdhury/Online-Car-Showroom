@@ -10,6 +10,7 @@ const adminRoute = require('./routes/admin')
 const imageRoute = require('./routes/images')
 const enquiryRoute = require('./routes/enquiry')
 const testdriveRoute = require('./routes/testdrive')
+const carRoute = require('./routes/car')
 
 app.use(bodyParser.json());
 app.use('/uploads', express.static('uploads'))
@@ -19,5 +20,6 @@ app.use('/admin', adminRoute)
 app.use('/images', imageRoute)
 app.use('/enquiry', enquiryRoute)
 app.use('/testdrive', testdriveRoute)
+app.use('/car', carRoute)
 
 module.exports = app

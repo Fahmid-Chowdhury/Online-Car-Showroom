@@ -412,4 +412,6 @@ module.exports = {
     userReview: userreview,
     addComment: addcomment,
     orderCar: ordercar,
+    availableBrands: availablebrands,
+    availableYears: availableyears
 }
