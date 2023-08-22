@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 21, 2023 at 03:32 PM
+-- Generation Time: Aug 22, 2023 at 04:35 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -37,23 +37,22 @@ CREATE TABLE `car` (
   `transmission` varchar(255) NOT NULL,
   `fuel` varchar(255) NOT NULL,
   `description` varchar(6000) NOT NULL,
-  `images` varchar(255) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `images` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `car`
 --
 
-INSERT INTO `car` (`car_id`, `brand`, `model`, `year`, `price`, `engine`, `transmission`, `fuel`, `description`, `images`, `quantity`) VALUES
-(1, 'BMW', 'M5', '2023', 111895, 'V8', 'Manual', 'Petrol', 'Incredible engineering defines the 2023 BMW M5 Sedan. Standard M xDrive – BMW\'s most performance-oriented all-wheel drive system, delivers adjustable 4WD, 4WD Sport, and 2WD modes for ultimate control on the road. This authority is only elevated with the available M Compound brakes, or available Carbon Ceramic brakes – giving drivers the ability to stop on a dime.', 'bmwm52023.jpg', 0),
-(2, 'Toyota', 'MKV GR Supra', '2022', 45000, 'V6', 'Auto', 'Petrol', 'GR Supra’s available 3.0-liter turbocharged inline-six produces 382 horsepower * with an impressive 368 lb.-ft. of torque. Add more speed into the equation through an 8-speed Automatic Transmission or take full control on the road with the lighter and optimally balanced 6-speed intelligent Manual Transmission (iMT) for even more thrilling drives.', 'toyotagrsupra2022.jpg', 0),
-(9, 'Lamborghini ', 'Huracan Evo', '2023', 550000, 'v8', 'Automatic', 'Petrol', 'its a 2022 huracan', 'lamborghinihuracanevo2023.jpg', 0),
-(10, 'Porche', '911 Carrera T', '2018', 450000, 'v8', 'Automatic', 'Petrol', 'Its a 2018 porche 911 carrera', 'porche911carrerat2018.jpg', 0),
-(12, 'Toyota', 'Corolla', '2023', 22500, '1.8L 4-cylinder', 'Automatic', 'Gasoline', 'Compact sedan with advanced safety features.', 'toyotacorolla2023.jpg', 0),
-(13, 'Ford', 'Mustang', '2023', 35750, '2.3L EcoBoost', 'Manual', 'Gasoline', 'Iconic sports car with aggressive styling.', 'fordmustang2023.jpg', 0),
-(22, 'Honda', 'Civic', '2020', 27800, '2.0 L ', 'Automatic', 'Gasoline', 'The 2020 Honda Civic is one of our highest-rated compact cars. It gets good gas mileage, has a nice amount of passenger and cargo space, and comes in three body styles.', '1692252947654.jpg', 0),
-(23, 'Subaru', 'WRX STI', '2021', 37800, '310-hp turbocharged 2.5-liter 4-cylinder SUBARU BOXER® engine', '6-speed close-ratio manual ', 'Gasoline', 'The 2021 Subaru WRX STI encapsulates the spirit of high-performance driving with its exhilarating blend of power, precision, and iconic design. As the flagship model in Subaru\'s legendary WRX lineup, the WRX STI maintains its reputation as a rally-inspired sports sedan that\'s equally at home on both the track and the open road.', '1692269911310.jpg', 0);
+INSERT INTO `car` (`car_id`, `brand`, `model`, `year`, `price`, `engine`, `transmission`, `fuel`, `description`, `images`) VALUES
+(1, 'BMW', 'M5', '2023', 111895, 'V8', 'Manual', 'Petrol', 'Incredible engineering defines the 2023 BMW M5 Sedan. Standard M xDrive – BMW\'s most performance-oriented all-wheel drive system, delivers adjustable 4WD, 4WD Sport, and 2WD modes for ultimate control on the road. This authority is only elevated with the available M Compound brakes, or available Carbon Ceramic brakes – giving drivers the ability to stop on a dime.', 'bmwm52023.jpg'),
+(2, 'Toyota', 'MKV GR Supra', '2022', 45000, 'V6', 'Auto', 'Petrol', 'GR Supra’s available 3.0-liter turbocharged inline-six produces 382 horsepower * with an impressive 368 lb.-ft. of torque. Add more speed into the equation through an 8-speed Automatic Transmission or take full control on the road with the lighter and optimally balanced 6-speed intelligent Manual Transmission (iMT) for even more thrilling drives.', 'toyotagrsupra2022.jpg'),
+(9, 'Lamborghini ', 'Huracan Evo', '2023', 550000, 'v8', 'Automatic', 'Petrol', 'its a 2022 huracan', 'lamborghinihuracanevo2023.jpg'),
+(10, 'Porche', '911 Carrera T', '2018', 450000, 'v8', 'Automatic', 'Petrol', 'Its a 2018 porche 911 carrera', 'porche911carrerat2018.jpg'),
+(12, 'Toyota', 'Corolla', '2023', 22500, '1.8L 4-cylinder', 'Automatic', 'Gasoline', 'Compact sedan with advanced safety features.', 'toyotacorolla2023.jpg'),
+(13, 'Ford', 'Mustang', '2023', 35750, '2.3L EcoBoost', 'Manual', 'Gasoline', 'Iconic sports car with aggressive styling.', 'fordmustang2023.jpg'),
+(22, 'Honda', 'Civic', '2020', 27800, '2.0 L ', 'Automatic', 'Gasoline', 'The 2020 Honda Civic is one of our highest-rated compact cars. It gets good gas mileage, has a nice amount of passenger and cargo space, and comes in three body styles.', '1692252947654.jpg'),
+(23, 'Subaru', 'WRX STI', '2021', 37800, '310-hp turbocharged 2.5-liter 4-cylinder SUBARU BOXER® engine', '6-speed close-ratio manual ', 'Gasoline', 'The 2021 Subaru WRX STI encapsulates the spirit of high-performance driving with its exhilarating blend of power, precision, and iconic design. As the flagship model in Subaru\'s legendary WRX lineup, the WRX STI maintains its reputation as a rally-inspired sports sedan that\'s equally at home on both the track and the open road.', '1692269911310.jpg');
 
 -- --------------------------------------------------------
 
@@ -136,7 +135,13 @@ CREATE TABLE `test_drive` (
 --
 
 INSERT INTO `test_drive` (`testdrive_id`, `user_id`, `car_id`, `date`, `status`) VALUES
-(1, 12, 2, '2023-08-11', 'Scheduled');
+(1, 12, 2, '2023-08-11', 'scheduled'),
+(2, 2, 2, '2023-08-03', 'scheduled'),
+(3, 2, 9, '2023-08-22', 'scheduled'),
+(4, 2, 12, '2023-08-24', 'pending'),
+(5, 2, 13, '2023-08-30', 'pending'),
+(6, 2, 10, '2023-08-28', 'pending'),
+(7, 2, 23, '2023-08-25', 'scheduled');
 
 -- --------------------------------------------------------
 
@@ -262,7 +267,7 @@ ALTER TABLE `review`
 -- AUTO_INCREMENT for table `test_drive`
 --
 ALTER TABLE `test_drive`
-  MODIFY `testdrive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `testdrive_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user`
