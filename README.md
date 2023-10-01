@@ -16,4 +16,4 @@ The Online Car Showroom Project is a single-page application built with React, a
 - View detailed information about each car, including images, specifications, and pricing
 - Search and filter cars based on make, model, price range, etc.
 - Contact the dealership for inquiries or purchases
-- Responsive design for a seamless experience on various devices
+
